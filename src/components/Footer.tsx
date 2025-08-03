@@ -90,20 +90,20 @@ const Footer = () => {
             <h3 className="font-bold text-lg mb-6 gradient-text">Get in Touch</h3>
             <div className="space-y-3">
               <a 
-                href="mailto:neubofie@gmail.com" 
+                href="mailto:arnavnyel@gmail.com" 
                 className="flex items-center gap-3 text-muted-foreground hover:text-foreground transition-colors"
               >
                 <Mail className="w-4 h-4" />
-                neubofie@gmail.com
+                Email Us
               </a>
               <a 
-                href="https://wa.me/919287457489" 
+                href="https://wa.me/919279377276" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="flex items-center gap-3 text-muted-foreground hover:text-foreground transition-colors"
               >
                 <MessageCircle className="w-4 h-4" />
-                +91 9287457489
+                Chat on WhatsApp
               </a>
             </div>
             <div className="mt-6">

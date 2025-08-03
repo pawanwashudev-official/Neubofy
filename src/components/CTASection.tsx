@@ -35,13 +35,13 @@ const CTASection = () => {
               </Link>
               
               <a 
-                href="https://wa.me/919287457489" 
+                href="https://wa.me/919279377276" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="text-lg font-medium text-secondary hover:text-secondary-glow transition-colors flex items-center gap-2"
               >
                 <MessageCircle className="w-5 h-5" />
-                WhatsApp: +91 9287457489
+                Chat on WhatsApp
               </a>
             </div>
 

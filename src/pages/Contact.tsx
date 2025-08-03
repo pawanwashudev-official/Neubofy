@@ -8,6 +8,8 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { useToast } from "@/hooks/use-toast";
 
+const webAppUrl = import.meta.env.VITE_CONTACT_WEBAPP_URL;
+
 const Contact = () => {
   const [formData, setFormData] = useState({
     name: "",
@@ -22,7 +24,7 @@ const Contact = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!formData.consent) {
       toast({
         title: "Consent Required",
@@ -32,20 +34,46 @@ const Contact = () => {
       return;
     }
 
-    setIsSubmitting(true);
-    
-    // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    
-    setIsSubmitting(false);
-    setIsSubmitted(true);
-    
-    toast({
-      title: "Message Sent Successfully!",
-      description: "We'll get back to you within 24 hours.",
-    });
+    if (!webAppUrl) {
+      toast({
+        title: "Contact system not configured",
+        description: "Please try again later.",
+        variant: "destructive"
+      });
+      return;
+    }
 
-    // Reset form after 3 seconds
+    setIsSubmitting(true);
+
+    try {
+      const response = await fetch(webAppUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        setIsSubmitted(true);
+        toast({
+          title: "Message Sent Successfully!",
+          description: "We'll get back to you within 24 hours.",
+        });
+      } else {
+        toast({
+          title: "Error",
+          description: "Failed to send message. Please try again later.",
+          variant: "destructive"
+        });
+      }
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to send message. Please try again later.",
+        variant: "destructive"
+      });
+    }
+
+    setIsSubmitting(false);
     setTimeout(() => {
       setIsSubmitted(false);
       setFormData({ name: "", email: "", whatsapp: "", message: "", consent: false });
@@ -183,7 +211,7 @@ const Contact = () => {
               
               <div className="space-y-6">
                 <a 
-                  href="mailto:neubofie@gmail.com"
+                  href="mailto:arnavnyel@gmail.com"
                   className="flex items-center gap-4 p-4 rounded-xl hover:bg-primary/10 transition-colors group"
                 >
                   <div className="w-12 h-12 bg-gradient-button rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
@@ -191,12 +219,12 @@ const Contact = () => {
                   </div>
                   <div>
                     <div className="font-semibold">Email Us</div>
-                    <div className="text-muted-foreground">neubofie@gmail.com</div>
+                    <div className="text-muted-foreground">Email Us</div>
                   </div>
                 </a>
 
                 <a 
-                  href="https://wa.me/919287457489"
+                  href="https://wa.me/919279377276"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-4 p-4 rounded-xl hover:bg-secondary/10 transition-colors group"
@@ -206,7 +234,7 @@ const Contact = () => {
                   </div>
                   <div>
                     <div className="font-semibold">WhatsApp</div>
-                    <div className="text-muted-foreground">+91 9287457489</div>
+                    <div className="text-muted-foreground">Chat on WhatsApp</div>
                   </div>
                 </a>
               </div>

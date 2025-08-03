@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Mail, MessageCircle, Phone, Send, CheckCircle } from "lucide-react";
+import { Mail, MessageCircle, Send, CheckCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -7,8 +7,6 @@ import { Checkbox } from "@/components/ui/checkbox";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { useToast } from "@/hooks/use-toast";
-
-const webAppUrl = import.meta.env.VITE_CONTACT_WEBAPP_URL;
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -22,6 +20,9 @@ const Contact = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const { toast } = useToast();
 
+  // Your GAS Web App URL
+  const gasWebAppUrl = "https://script.google.com/macros/s/AKfycbxY3I9v5kT1uzINBt9jvrgUnByyHq-DMoxvAftUf2k83M_OlYtD6WFj3aUKtYsmvu-b/exec";
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -34,29 +35,27 @@ const Contact = () => {
       return;
     }
 
-    if (!webAppUrl) {
-      toast({
-        title: "Contact system not configured",
-        description: "Please try again later.",
-        variant: "destructive"
-      });
-      return;
-    }
-
     setIsSubmitting(true);
 
     try {
-      const response = await fetch(webAppUrl, {
+      // Send data to GAS
+      const formDataToSend = new FormData();
+      formDataToSend.append('name', formData.name);
+      formDataToSend.append('email', formData.email);
+      formDataToSend.append('whatsapp', formData.whatsapp);
+      formDataToSend.append('message', formData.message);
+      formDataToSend.append('timestamp', new Date().toISOString());
+
+      const response = await fetch(gasWebAppUrl, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
+        body: formDataToSend,
       });
 
       if (response.ok) {
         setIsSubmitted(true);
         toast({
           title: "Message Sent Successfully!",
-          description: "We'll get back to you within 24 hours.",
+          description: "Your request has been logged. We'll get back to you within 24 hours.",
         });
       } else {
         toast({
@@ -66,6 +65,7 @@ const Contact = () => {
         });
       }
     } catch (error) {
+      console.error('GAS Error:', error);
       toast({
         title: "Error",
         description: "Failed to send message. Please try again later.",
@@ -198,7 +198,7 @@ const Contact = () => {
                 </div>
                 <h3 className="text-2xl font-bold gradient-text mb-4">Message Sent Successfully!</h3>
                 <p className="text-muted-foreground">
-                  Thank you for reaching out. We'll get back to you within 24 hours.
+                  Your request has been logged in our system. We'll get back to you within 24 hours.
                 </p>
               </div>
             )}
@@ -211,7 +211,7 @@ const Contact = () => {
               
               <div className="space-y-6">
                 <a 
-                  href="mailto:arnavnyel@gmail.com"
+                  href="mailto:pawanwashudev.business@gmail.com"
                   className="flex items-center gap-4 p-4 rounded-xl hover:bg-primary/10 transition-colors group"
                 >
                   <div className="w-12 h-12 bg-gradient-button rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
@@ -219,7 +219,7 @@ const Contact = () => {
                   </div>
                   <div>
                     <div className="font-semibold">Email Us</div>
-                    <div className="text-muted-foreground">Email Us</div>
+                    <div className="text-muted-foreground">pawanwashudev.business@gmail.com</div>
                   </div>
                 </a>
 
@@ -240,25 +240,25 @@ const Contact = () => {
               </div>
             </div>
 
-            {/* Response Time */}
+            {/* Data Management Info */}
             <div className="glass-card p-6 rounded-2xl">
-              <h4 className="font-bold mb-4">What to Expect</h4>
+              <h4 className="font-bold mb-4">How We Handle Your Data</h4>
               <ul className="space-y-3 text-sm text-muted-foreground">
                 <li className="flex items-center gap-3">
                   <CheckCircle className="w-4 h-4 text-primary" />
-                  Response within 24 hours
+                  Stored securely in Google Sheets
                 </li>
                 <li className="flex items-center gap-3">
                   <CheckCircle className="w-4 h-4 text-primary" />
-                  Free consultation call
+                  Accessible to our team only
                 </li>
                 <li className="flex items-center gap-3">
                   <CheckCircle className="w-4 h-4 text-primary" />
-                  Custom solution proposal
+                  Used only for project communication
                 </li>
                 <li className="flex items-center gap-3">
                   <CheckCircle className="w-4 h-4 text-primary" />
-                  100% privacy guaranteed
+                  Never shared with third parties
                 </li>
               </ul>
             </div>

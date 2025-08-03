@@ -100,11 +100,17 @@ const Creations = () => {
 
   const [selectedCategory, setSelectedCategory] = useState("All");
   
-  const categories = ["All", "Student Tools", "Business Solutions", "Content Tools", "Productivity", "Privacy Tools"];
+  // Get unique categories from the data to ensure they match
+  const uniqueCategories = ["All", ...new Set(creations.map(creation => creation.category))];
   
   const filteredCreations = selectedCategory === "All" 
     ? creations 
     : creations.filter(creation => creation.category === selectedCategory);
+
+  // Debug: Log the filtering
+  console.log("Selected Category:", selectedCategory);
+  console.log("Available Categories:", uniqueCategories);
+  console.log("Filtered Creations:", filteredCreations.length);
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -133,7 +139,7 @@ const Creations = () => {
 
         {/* Category Filter */}
         <div className="flex flex-wrap justify-center gap-4 mb-12">
-          {categories.map((category) => (
+          {uniqueCategories.map((category) => (
             <Button
               key={category}
               onClick={() => setSelectedCategory(category)}
@@ -146,6 +152,13 @@ const Creations = () => {
               {category}
             </Button>
           ))}
+        </div>
+
+        {/* Results Count */}
+        <div className="text-center mb-8">
+          <p className="text-muted-foreground">
+            Showing {filteredCreations.length} of {creations.length} creations
+          </p>
         </div>
 
         {/* Creations Grid */}

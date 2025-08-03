@@ -208,6 +208,7 @@
 .animated-gradient {
   background: #0a1437;
   position: relative;
+  overflow: hidden;
 }
 
 .animated-gradient::before {
@@ -223,6 +224,7 @@
     radial-gradient(circle at 25% 25%, rgba(120, 119, 198, 0.15) 2px, transparent 2px);
   background-size: 100px 100px, 100px 100px, 50px 50px;
   animation: circuitMove 40s linear infinite;
+  pointer-events: none;
 }
 
 .animated-gradient::after {
@@ -343,5 +345,41 @@
   }
   100% {
     transform: translate(100px, 100px);
+  }
+}
+
+/* Mobile-specific fixes */
+@media (max-width: 768px) {
+  .animated-gradient::before {
+    /* Disable animation on mobile to prevent scrolling issues */
+    animation: none;
+    /* Use a simpler, static pattern for mobile */
+    background-image: 
+      linear-gradient(90deg, transparent 95%, rgba(120, 119, 198, 0.05) 95%, rgba(120, 119, 198, 0.05) 100%),
+      linear-gradient(0deg, transparent 95%, rgba(120, 119, 198, 0.05) 95%, rgba(120, 119, 198, 0.05) 100%);
+    background-size: 80px 80px;
+  }
+  
+  /* Ensure body doesn't scroll horizontally */
+  body {
+    overflow-x: hidden;
+    width: 100%;
+  }
+  
+  /* Prevent any horizontal scrolling */
+  .min-h-screen {
+    overflow-x: hidden;
+  }
+}
+
+/* Alternative: Completely disable animated background on mobile */
+@media (max-width: 768px) {
+  .animated-gradient {
+    background: linear-gradient(135deg, #0a1437 0%, #1a1a2e 100%);
+  }
+  
+  .animated-gradient::before,
+  .animated-gradient::after {
+    display: none;
   }
 }

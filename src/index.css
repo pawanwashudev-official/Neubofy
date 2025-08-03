@@ -148,9 +148,25 @@
   /* Glass Card Component */
   .glass-card {
     @apply backdrop-blur-xl border;
-    background: var(--glass-bg);
-    border-color: var(--glass-border);
-    box-shadow: var(--glass-shadow);
+    background: rgba(15, 20, 35, 0.95); /* Much more opaque background */
+    border-color: rgba(120, 119, 198, 0.3); /* Brighter border */
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4); /* Stronger shadow for better contrast */
+  }
+
+  /* Alternative: Even more solid background option */
+  .glass-card-solid {
+    @apply backdrop-blur-xl border;
+    background: rgba(20, 25, 45, 0.98); /* Almost solid background */
+    border-color: rgba(120, 119, 198, 0.4);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+  }
+
+  /* For navbar specifically - make it more visible */
+  .navbar-glass {
+    @apply backdrop-blur-xl border;
+    background: rgba(15, 20, 35, 0.98);
+    border-color: rgba(120, 119, 198, 0.2);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
   }
 
   /* Premium Button Variants */
@@ -191,6 +207,35 @@
   /* Animated Gradient Background */
 .animated-gradient {
   background: #0a1437;
+  position: relative;
+}
+
+.animated-gradient::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    linear-gradient(90deg, transparent 95%, rgba(120, 119, 198, 0.1) 95%, rgba(120, 119, 198, 0.1) 100%),
+    linear-gradient(0deg, transparent 95%, rgba(120, 119, 198, 0.1) 95%, rgba(120, 119, 198, 0.1) 100%),
+    radial-gradient(circle at 25% 25%, rgba(120, 119, 198, 0.15) 2px, transparent 2px);
+  background-size: 100px 100px, 100px 100px, 50px 50px;
+  animation: circuitMove 40s linear infinite;
+}
+
+.animated-gradient::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.08) 0%, transparent 50%);
+  pointer-events: none;
 }
   /* Glow Effect */
   .glow-effect {
@@ -289,5 +334,14 @@
   }
   100% {
     box-shadow: 0 0 40px hsla(var(--primary), 0.8), 0 0 60px hsla(var(--secondary), 0.4);
+  }
+}
+
+@keyframes circuitMove {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(100px, 100px);
   }
 }

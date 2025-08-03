@@ -29,18 +29,25 @@ const Navbar = () => {
     <nav 
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled 
-          ? "glass-card border-b backdrop-blur-xl" 
+          ? "navbar-glass border-b" 
           : "bg-transparent"
       }`}
     >
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-20">
-          {/* Logo */}
+          {/* Logo and Brand Name */}
           <Link 
             to="/" 
-            className="text-2xl font-display font-bold gradient-text hover:scale-105 transition-transform duration-300"
+            className="flex items-center space-x-3 hover:scale-105 transition-transform duration-300"
           >
-            Neubofy
+            <img 
+              src="/neubofylogo.png" 
+              alt="Neubofy Logo" 
+              className="h-10 w-auto"
+            />
+            <span className="text-2xl font-display font-bold gradient-text">
+              Neubofy
+            </span>
           </Link>
 
           {/* Desktop Navigation */}

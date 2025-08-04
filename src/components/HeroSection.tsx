@@ -3,12 +3,27 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import ParallaxBackground from "./ParallaxBackground";
 import heroDashboard from "@/assets/hero-dashboard-mockup.jpg";
+import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 
 const HeroSection = () => {
+  const { elementRef, isVisible } = useScrollAnimation();
+
   return (
     <ParallaxBackground>
       <section className="min-h-screen flex items-center justify-center relative overflow-hidden pt-20">
-        <div className="container mx-auto px-4 text-center relative z-10">
+        {/* Animated Background Elements */}
+        <div className="absolute inset-0">
+          <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-primary/10 rounded-full blur-3xl animate-pulse-slow"></div>
+          <div className="absolute bottom-1/4 right-1/4 w-48 h-48 bg-secondary/10 rounded-full blur-3xl animate-pulse-slow" style={{ animationDelay: '1s' }}></div>
+          <div className="absolute top-1/2 left-1/2 w-32 h-32 bg-tertiary/10 rounded-full blur-2xl animate-pulse-slow" style={{ animationDelay: '2s' }}></div>
+        </div>
+
+        <div 
+          ref={elementRef}
+          className={`text-center transition-all duration-1000 ${
+            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+          }`}
+        >
           {/* Badge */}
           <div className="inline-flex items-center gap-2 glass-card px-6 py-3 rounded-full mb-8 animate-fade-in pulse-glow">
             <Shield className="w-5 h-5 text-primary" />

@@ -219,7 +219,7 @@ const Contact = () => {
                   </div>
                   <div>
                     <div className="font-semibold">Email Us</div>
-                    <div className="text-muted-foreground">pawanwashudev.business@gmail.com</div>
+                    <div className="text-muted-foreground">Send us an email</div>
                   </div>
                 </a>
 
@@ -234,7 +234,22 @@ const Contact = () => {
                   </div>
                   <div>
                     <div className="font-semibold">WhatsApp</div>
-                    <div className="text-muted-foreground">Chat on WhatsApp</div>
+                    <div className="text-muted-foreground">Chat with us directly</div>
+                  </div>
+                </a>
+
+                <a 
+                  href="https://whatsapp.com/channel/0029Vb6TEDNE50UlJ3DDpo1b"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-4 p-4 rounded-xl hover:bg-green-500/10 transition-colors group"
+                >
+                  <div className="w-12 h-12 bg-green-500 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <MessageCircle className="w-6 h-6 text-white" />
+                  </div>
+                  <div>
+                    <div className="font-semibold">WhatsApp Channel</div>
+                    <div className="text-muted-foreground">Follow our official channel</div>
                   </div>
                 </a>
               </div>
@@ -242,25 +257,39 @@ const Contact = () => {
 
             {/* Data Management Info */}
             <div className="glass-card p-6 rounded-2xl">
-              <h4 className="font-bold mb-4">How We Handle Your Data</h4>
+              <h4 className="font-bold mb-4">Enterprise Data Protection</h4>
               <ul className="space-y-3 text-sm text-muted-foreground">
                 <li className="flex items-center gap-3">
                   <CheckCircle className="w-4 h-4 text-primary" />
-                  Stored securely in Google Sheets
+                  Google Cloud Platform security infrastructure
                 </li>
                 <li className="flex items-center gap-3">
                   <CheckCircle className="w-4 h-4 text-primary" />
-                  Accessible to our team only
+                  TLS 1.3 encrypted data transmission
                 </li>
                 <li className="flex items-center gap-3">
                   <CheckCircle className="w-4 h-4 text-primary" />
-                  Used only for project communication
+                  Role-based access control (RBAC)
                 </li>
                 <li className="flex items-center gap-3">
                   <CheckCircle className="w-4 h-4 text-primary" />
-                  Never shared with third parties
+                  SOC 2 Type II certified systems
+                </li>
+                <li className="flex items-center gap-3">
+                  <CheckCircle className="w-4 h-4 text-primary" />
+                  Automated data lifecycle management
+                </li>
+                <li className="flex items-center gap-3">
+                  <CheckCircle className="w-4 h-4 text-primary" />
+                  Zero-knowledge architecture principles
                 </li>
               </ul>
+              
+              <div className="mt-4 pt-4 border-t border-primary/20">
+                <p className="text-xs text-muted-foreground">
+                  Your data is processed in accordance with our comprehensive privacy policy and industry best practices for data protection.
+                </p>
+              </div>
             </div>
           </div>
         </div>

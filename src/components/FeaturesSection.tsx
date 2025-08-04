@@ -75,7 +75,7 @@ const FeaturesSection = () => {
             return (
               <div
                 key={index}
-                className="glass-card p-6 rounded-2xl hover:shadow-elevated transition-all duration-500 group glow-effect animate-fade-in overflow-hidden"
+                className="glass-card p-6 rounded-2xl hover-lift transition-all duration-500 group glow-effect animate-fade-in overflow-hidden"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
                 {/* Feature Image */}

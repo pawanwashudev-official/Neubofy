@@ -12,44 +12,30 @@ import Blog from "./pages/Blog";
 import NotFound from "./pages/NotFound";
 import ScrollProgress from "./components/ScrollProgress";
 import GoToTop from "./components/GoToTop";
-import Timelog from "./pages/Timelog";
 
 const queryClient = new QueryClient();
 
-// Component to handle scroll to top on route change
 const ScrollToTopOnRouteChange = () => {
   const location = useLocation();
-
   useEffect(() => {
-    // Smooth scroll to top when route changes
-    window.scrollTo({
-      top: 0,
-      left: 0,
-      behavior: 'smooth'
-    });
+    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
   }, [location.pathname]);
-
   return null;
 };
 
 function App() {
   useEffect(() => {
-    // Add smooth scroll behavior
     document.documentElement.style.scrollBehavior = 'smooth';
-    
-    // Preload critical images
     const preloadImages = () => {
       const images = [
         '/src/assets/founder-avatar.jpg',
         '/src/assets/hero-dashboard-mockup.jpg'
       ];
-      
       images.forEach(src => {
         const img = new Image();
         img.src = src;
       });
     };
-
     preloadImages();
   }, []);
 
@@ -65,7 +51,6 @@ function App() {
             <Route path="/contact" element={<Contact />} />
             <Route path="/about" element={<About />} />
             <Route path="/blog" element={<Blog />} />
-            <Route path="/timelog" element={<Timelog />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
           <GoToTop />

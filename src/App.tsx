@@ -10,7 +10,7 @@ import Contact from "./pages/Contact";
 import About from "./pages/About";
 import Blog from "./pages/Blog";
 import NotFound from "./pages/NotFound";
-import Timelog from "./pages/Timelog";
+// ...existing code...
 import ScrollProgress from "./components/ScrollProgress";
 import GoToTop from "./components/GoToTop";
 
@@ -54,7 +54,7 @@ function App() {
             <Route path="/about" element={<About />} />
 
             <Route path="/blog" element={<Blog />} />
-            <Route path="/timelog" element={<Timelog />} />
+// ...existing code...
 
             <Route path="*" element={<NotFound />} />
           </Routes>

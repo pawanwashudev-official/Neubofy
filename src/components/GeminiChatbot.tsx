@@ -4,17 +4,17 @@ import { useLocation } from "react-router-dom";
 
 const GROQ_API_KEY = "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";
 const GROQ_API_URL = "https://api.groq.com/openai/v1/chat/completions";
-const SYSTEM_PROMPT = `You are Neubofy AI, an assistant for Neubofy. Reply with concise, direct, and user-specific answers. Do not repeat that you are Neubofy AI in every response. Only mention Neubofy if contextually needed. Never mention any other brand. Always keep answers short, clear, and to the point. If a user asks about a Neubofy page or feature, always provide a direct link to the relevant page using an <a> tag with class 'neubofy-link'. Pages: Home(/), About(/about), Creations(/creations), Blog(/blog), Contact(/contact).`;
+const SYSTEM_PROMPT = `You are Neubofy AI, an assistant for Neubofy. Reply concisely and directly to user queries, but if a question requires a detailed answer, you may use up to 200 words. Only mention Neubofy if contextually needed. Never mention any other brand. Always provide direct links to Neubofy pages using <a> tags with class 'neubofy-link'. Pages: Home(/), About(/about), Creations(/creations), Blog(/blog), Contact(/contact).`;
 
 // Neubofy knowledge base for updates, onboarding, and services
 const NEUBOFY_KB = [
   {
-    keywords: ["onboard", "get started", "register", "sign up"],
-    answer: "To onboard with Neubofy, visit our <a href='/contact' class='neubofy-link'>Contact</a> page. Our team will guide you through every step."
+    keywords: ["Our services", "How we can help", "register", "sign up"],
+    answer: "To onboard with Neubofy, visit our <a href='/creation' class='neubofy-link'>Our Creations</a> page. here you can deeply analyse how we can help you."
   },
   {
     keywords: ["make tool", "custom tool", "build tool", "create tool"],
-    answer: "To request your own AI tool, go to <a href='/creations' class='neubofy-link'>Our Creations</a> and fill out the request form. Neubofy specializes in custom AI solutions."
+    answer: "To request your own AI tool, go to <a href='/contact' class='neubofy-link'>Contact</a> and fill out the request form. Neubofy specializes in custom AI solutions."
   },
   {
     keywords: ["services", "solutions", "business", "automation"],
@@ -34,7 +34,7 @@ const NEUBOFY_KB = [
   },
   {
     keywords: ["contact", "support", "help"],
-    answer: "Need help? Reach out via our <a href='/contact' class='neubofy-link'>Contact</a> page."
+    answer: "Need help? Reach out via our <a href='/contact' class='neubofy-link'>Contact</a> page. You can also use provided button to connect to our team."
   }
 ];
 
@@ -48,6 +48,17 @@ function getKbAnswer(query) {
   return null;
 }
 
+// Extracts facts like name, company, email, etc. (expand as needed)
+function extractContext(text: string, prevContext: any) {
+  let context = { ...prevContext };
+  const nameMatch = text.match(/(?:my name is|i am|i'm)\s+([a-zA-Z ]{2,30})/i);
+  if (nameMatch) context.name = nameMatch[1].trim();
+  const companyMatch = text.match(/(?:my company is|we are|our company is)\s+([a-zA-Z0-9 ]{2,50})/i);
+  if (companyMatch) context.company = companyMatch[1].trim();
+  // Add more extraction rules as needed
+  return context;
+}
+
 const GeminiChatbot = () => {
   const location = useLocation();
   const [open, setOpen] = useState(false);
@@ -56,14 +67,21 @@ const GeminiChatbot = () => {
   ]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
+  const [sessionContext, setSessionContext] = useState<{ name?: string; company?: string }>({});
   const chatEndRef = useRef<HTMLDivElement>(null);
 
   const sendMessage = async () => {
     if (!input.trim()) return;
-    // Add context about current page and Neubofy info
-    const pageContext = `Current page route: ${location.pathname}\nAbout Neubofy: Neubofy is an AI automation platform for productivity, innovation, and secure business solutions. Always answer as Neubofy AI, referencing Neubofy features and values.`;
+
+    // Extract and update session context
+    setSessionContext(ctx => extractContext(input, ctx));
+    const contextString =
+      `Current page route: ${location.pathname}\nAbout Neubofy: Neubofy is an AI automation platform for productivity, innovation, and secure business solutions.` +
+      (sessionContext.name ? ` The user's name is ${sessionContext.name}.` : "") +
+      (sessionContext.company ? ` The user's company is ${sessionContext.company}.` : "");
+
     const kbAnswer = getKbAnswer(input);
-    const userMessage = `${pageContext}${kbAnswer ? `\nNeubofy info: ${kbAnswer}` : ""}\nUser: ${input}`;
+    const userMessage = `${contextString}${kbAnswer ? `\nNeubofy info: ${kbAnswer}` : ""}\nUser: ${input}`;
     // Place new question at the top, keep previous Q&A
     const newMessages = [messages[0], { role: "user", content: input }, ...messages.slice(1)];
     setMessages(newMessages);
@@ -79,7 +97,7 @@ const GeminiChatbot = () => {
             { role: "user", content: userMessage }
           ],
           stream: false,
-          max_tokens: 80,
+          max_tokens: 300, // Increased token limit for longer answers
           temperature: 0.2
         },
         {

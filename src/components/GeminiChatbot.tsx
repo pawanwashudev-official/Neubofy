@@ -4,26 +4,37 @@ import { useLocation } from "react-router-dom";
 
 const GROQ_API_KEY = "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";
 const GROQ_API_URL = "https://api.groq.com/openai/v1/chat/completions";
-const SYSTEM_PROMPT = "You are Neubofy AI, an assistant for Neubofy. Reply with concise, direct, and user-specific answers. Do not repeat that you are Neubofy AI in every response. Only mention Neubofy if contextually needed. Never mention any other brand. Always keep answers short, clear, and to the point.";
+const SYSTEM_PROMPT = `You are Neubofy AI, an assistant for Neubofy. Reply with concise, direct, and user-specific answers. Do not repeat that you are Neubofy AI in every response. Only mention Neubofy if contextually needed. Never mention any other brand. Always keep answers short, clear, and to the point. If a user asks about a Neubofy page or feature, always provide a direct link to the relevant page using an <a> tag with class 'neubofy-link'. Pages: Home(/), About(/about), Creations(/creations), Blog(/blog), Contact(/contact).`;
 
 // Neubofy knowledge base for updates, onboarding, and services
 const NEUBOFY_KB = [
   {
     keywords: ["onboard", "get started", "register", "sign up"],
-    answer: "To onboard with Neubofy, simply visit our Contact page and request access. Our team will guide you through every step. <a href='/contact'>Contact Us</a>"
+    answer: "To onboard with Neubofy, visit our <a href='/contact' class='neubofy-link'>Contact</a> page. Our team will guide you through every step."
   },
   {
     keywords: ["make tool", "custom tool", "build tool", "create tool"],
-    answer: "To request your own AI tool, go to the Our Creations page and fill out the request form. Neubofy specializes in custom AI solutions. <a href='/creations'>Our Creations</a>"
+    answer: "To request your own AI tool, go to <a href='/creations' class='neubofy-link'>Our Creations</a> and fill out the request form. Neubofy specializes in custom AI solutions."
   },
   {
     keywords: ["services", "solutions", "business", "automation"],
-    answer: "Neubofy offers AI automation, workflow integration, and secure business solutions. Learn more on our About page. <a href='/about'>About Neubofy</a>"
+    answer: "Neubofy offers AI automation, workflow integration, and secure business solutions. Learn more on our <a href='/about' class='neubofy-link'>About</a> page."
   },
-  // Add more updates or FAQs here
   {
-    keywords: ["update", "news", "latest", "new feature"],
-    answer: "Latest Neubofy Update: We have launched a new AI-powered dashboard for business analytics! <a href='/creations'>Learn More</a>"
+    keywords: ["blog", "news", "article", "insight"],
+    answer: "Explore the latest insights and articles on our <a href='/blog' class='neubofy-link'>Blog</a> page."
+  },
+  {
+    keywords: ["update", "latest", "new feature"],
+    answer: "Latest Neubofy Update: We have launched a new AI-powered dashboard for business analytics! <a href='/creations' class='neubofy-link'>Learn More</a>"
+  },
+  {
+    keywords: ["home", "main page", "landing"],
+    answer: "Return to the <a href='/' class='neubofy-link'>Neubofy Home</a> page for an overview of our platform."
+  },
+  {
+    keywords: ["contact", "support", "help"],
+    answer: "Need help? Reach out via our <a href='/contact' class='neubofy-link'>Contact</a> page."
   }
 ];
 
@@ -122,9 +133,22 @@ const GeminiChatbot = () => {
           </div>
           <div
             className="flex-1 overflow-y-auto p-3 bg-gray-50 flex flex-col"
-            style={{ fontSize: 15 }}
+            style={{ fontSize: 15, scrollBehavior: 'smooth' }}
             ref={chatEndRef}
             onWheel={e => { e.stopPropagation(); e.currentTarget.scrollTop += e.deltaY; }}
+            onClick={e => {
+              // Intercept clicks on .neubofy-link and use React Router navigation
+              const target = e.target as HTMLElement;
+              if (target && target.classList && target.classList.contains('neubofy-link')) {
+                e.preventDefault();
+                const href = target.getAttribute('href');
+                if (href) {
+                  window.history.pushState({}, '', href);
+                  const navEvent = new PopStateEvent('popstate');
+                  window.dispatchEvent(navEvent);
+                }
+              }
+            }}
           >
             {messages.filter(m => m.role !== "system").reduce((acc, msg, i, arr) => {
               if (msg.role === "user") {

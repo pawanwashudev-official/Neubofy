@@ -34,8 +34,12 @@ const NEUBOFY_KB = [
     answer: "Return to the <a href='/' class='neubofy-link'>Neubofy Home</a> page for an overview of our platform."
   },
   {
-    keywords: ["contact", "support", "help"],
-    answer: "Need help? Reach out via our <a href='/contact' class='neubofy-link'>Contact</a> page. You can also use provided button to connect to our team."
+    keywords: ["home", "main page", "landing"],
+    answer: "Return to the <a href='/' class='neubofy-link'>Neubofy Home</a> page for an overview of our platform."
+  },
+  {
+    keywords: ["Founder", "entrepreneur", "brand maker"],
+    answer: "Pawan Washudev is founder of Neubofy. He is a one many army and full tech hunter , he has profound knowledge in AI and tech."
   }
 ];
 
@@ -123,7 +127,7 @@ const GeminiChatbot = () => {
       reply = reply.replace(/\n{2,}/g, "\n").split("\n").map(p => `<p>${p.trim().replace(/<a /g, "<a class='neubofy-link' ")}</p>`).join("");
       setMessages([messages[0], { role: "user", content: input }, { role: "assistant", content: reply }, ...messages.slice(1)]);
     } catch (e) {
-      let errorMsg = "Error: Unable to reach Groq API.";
+      let errorMsg = "Error: Unable to connect to Neubofy AI.";
       if (e.response) {
         errorMsg += `\nStatus: ${e.response.status} - ${e.response.statusText}`;
         if (e.response.data && e.response.data.error && e.response.data.error.message) {

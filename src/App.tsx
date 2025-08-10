@@ -4,12 +4,13 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { useEffect } from "react";
-import Index from "./pages/Index";
-import Creations from "./pages/Creations";
-import Contact from "./pages/Contact";
-import About from "./pages/About";
-import Blog from "./pages/Blog";
-import NotFound from "./pages/NotFound";
+import { lazy, Suspense } from "react";
+const Index = lazy(() => import("./pages/Index"));
+const Creations = lazy(() => import("./pages/Creations"));
+const Contact = lazy(() => import("./pages/Contact"));
+const About = lazy(() => import("./pages/About"));
+const Blog = lazy(() => import("./pages/Blog"));
+const NotFound = lazy(() => import("./pages/NotFound"));
 // ...existing code...
 import ScrollProgress from "./components/ScrollProgress";
 import GoToTop from "./components/GoToTop";
@@ -21,14 +22,15 @@ const queryClient = new QueryClient();
 const ScrollToTopOnRouteChange = () => {
   const location = useLocation();
   useEffect(() => {
-    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
   }, [location.pathname]);
   return null;
 };
 
 function App() {
   useEffect(() => {
-    document.documentElement.style.scrollBehavior = 'smooth';
+    // Allow native scrolling behavior for normal feel
+    document.documentElement.style.scrollBehavior = 'auto';
     const preloadImages = () => {
       const images = [
         '/src/assets/founder-avatar.jpg',
@@ -48,17 +50,17 @@ function App() {
         <BrowserRouter>
           <ScrollToTopOnRouteChange />
           <ScrollProgress />
-          <Routes>
+          <Suspense fallback={null}>
+            <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/creations" element={<Creations />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/about" element={<About />} />
-
             <Route path="/blog" element={<Blog />} />
-// ...existing code...
-
+            {/* more routes can be added here */}
             <Route path="*" element={<NotFound />} />
-          </Routes>
+            </Routes>
+          </Suspense>
           <GoToTop />
           <GeminiChatbot />
           <Toaster />

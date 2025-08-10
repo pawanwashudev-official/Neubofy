@@ -73,6 +73,14 @@ const GeminiChatbot = () => {
   const [greeted, setGreeted] = useState(false);
   const [notification, setNotification] = useState<string | null>(null);
 
+  // Dismiss notification on any document click when visible
+  useEffect(() => {
+    if (!notification) return;
+    const handleDocumentClick = () => setNotification(null);
+    document.addEventListener("click", handleDocumentClick, { capture: true });
+    return () => document.removeEventListener("click", handleDocumentClick, { capture: true } as any);
+  }, [notification]);
+
   const sendMessage = async () => {
     if (!input.trim()) return;
 

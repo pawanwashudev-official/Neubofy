@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Star, ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import Reveal from "@/components/Reveal";
 
 const TestimonialsSection = () => {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
@@ -61,17 +62,20 @@ const TestimonialsSection = () => {
     <section className="py-24 relative">
       <div className="container mx-auto px-4">
         {/* Section Header */}
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-6xl font-display font-bold mb-6">
-            <span className="gradient-text">What Our Users Say</span>
-          </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Real stories from students, professionals, and businesses who've transformed their productivity
-          </p>
-        </div>
+        <Reveal>
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-6xl font-display font-bold mb-6">
+              <span className="gradient-text">What Our Users Say</span>
+            </h2>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+              Real stories from students, professionals, and businesses who've transformed their productivity
+            </p>
+          </div>
+        </Reveal>
 
         {/* Testimonial Carousel */}
         <div className="relative max-w-4xl mx-auto">
+          <Reveal>
           <div className="glass-card p-8 md:p-12 rounded-3xl shadow-elevated overflow-hidden">
             <div className="relative">
               {testimonials.map((testimonial, index) => (
@@ -149,6 +153,7 @@ const TestimonialsSection = () => {
               </Button>
             </div>
           </div>
+          </Reveal>
         </div>
       </div>
     </section>

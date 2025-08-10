@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import Reveal from "@/components/Reveal";
 import GoToTop from "@/components/GoToTop";
 
 const Blog = () => {
@@ -88,18 +89,21 @@ const Blog = () => {
       
       <div className="container mx-auto px-4 py-32">
         {/* Header */}
-        <div className="text-center mb-16">
-          <h1 className="text-5xl md:text-7xl font-display font-bold mb-6 gradient-text">
-            Innovation Insights
-          </h1>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Latest thoughts on AI automation, innovation, and the future of technology 
-            from our young founder's perspective.
-          </p>
-        </div>
+        <Reveal>
+          <div className="text-center mb-16">
+            <h1 className="text-5xl md:text-7xl font-display font-bold mb-6 gradient-text">
+              Innovation Insights
+            </h1>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+              Latest thoughts on AI automation, innovation, and the future of technology 
+              from our young founder's perspective.
+            </p>
+          </div>
+        </Reveal>
 
         {/* Featured Post */}
         {featuredPost && (
+          <Reveal>
           <div className="glass-card rounded-3xl overflow-hidden mb-16 shadow-elevated">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-0">
               <div className="relative">
@@ -149,9 +153,11 @@ const Blog = () => {
               </div>
             </div>
           </div>
+          </Reveal>
         )}
 
         {/* Category Filter */}
+        <Reveal>
         <div className="flex flex-wrap justify-center gap-4 mb-12">
           {categories.map((category) => (
             <Button
@@ -167,14 +173,14 @@ const Blog = () => {
             </Button>
           ))}
         </div>
+        </Reveal>
 
         {/* Blog Posts Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
           {filteredPosts.map((post, index) => (
+            <Reveal key={post.id} delay={index * 0.05}>
             <article
-              key={post.id}
-              className="glass-card rounded-2xl overflow-hidden hover:shadow-elevated transition-all duration-500 group animate-fade-in"
-              style={{ animationDelay: `${index * 0.1}s` }}
+              className="glass-card rounded-2xl overflow-hidden hover:shadow-elevated transition-all duration-500 group"
             >
               <div className="relative">
                 <img 
@@ -228,10 +234,12 @@ const Blog = () => {
                 </Button>
               </div>
             </article>
+            </Reveal>
           ))}
         </div>
 
         {/* Add New Post Section (for content management) */}
+        <Reveal>
         <div className="glass-card p-8 rounded-2xl text-center">
           <Plus className="w-12 h-12 mx-auto mb-4 text-muted-foreground" />
           <h3 className="text-xl font-bold mb-4">Want to Contribute?</h3>
@@ -249,6 +257,7 @@ const Blog = () => {
             </Button>
           </div>
         </div>
+        </Reveal>
       </div>
 
       <Footer />

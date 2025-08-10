@@ -1,17 +1,21 @@
 import { ArrowRight, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import Reveal from "@/components/Reveal";
 
 const CTASection = () => {
   return (
     <section className="py-24 relative">
       <div className="container mx-auto px-4">
-        <div className="relative">
+          <Reveal>
+          <div className="relative">
           {/* Background Elements */}
           <div className="absolute inset-0 overflow-hidden rounded-3xl">
             <div className="absolute top-0 left-1/4 w-32 h-32 bg-primary/20 rounded-full blur-2xl"></div>
             <div className="absolute bottom-0 right-1/4 w-40 h-40 bg-secondary/20 rounded-full blur-2xl"></div>
           </div>
+          </div>
+          </Reveal>
 
           <div className="glass-card p-12 md:p-16 rounded-3xl shadow-elevated text-center relative z-10">
             <h2 className="text-4xl md:text-6xl font-display font-bold mb-6">
@@ -62,7 +66,6 @@ const CTASection = () => {
             </div>
           </div>
         </div>
-      </div>
     </section>
   );
 };

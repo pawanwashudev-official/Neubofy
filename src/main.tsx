@@ -2,26 +2,38 @@ import { createRoot } from 'react-dom/client'
 import App from './App.tsx'
 import './index.css'
 
-// Import Lenis for smooth scrolling
 import Lenis from 'lenis';
 
 createRoot(document.getElementById("root")!).render(<App />);
 
-
-// Initialize Lenis for ultra-smooth scrolling (valid options only)
+// High refresh-rate friendly Lenis setup
 const lenis = new Lenis({
-	duration: 2.0, // Higher duration for more smoothness
-	easing: (t) => 1 - Math.pow(1 - t, 4), // Ultra-smooth cubic easing
-	gestureOrientation: 'vertical',
-	touchMultiplier: 1.5, // More responsive on touch
-	wheelMultiplier: 1.2, // Smoother on wheel
+  // Keep programmatic scrolls smooth, but leave wheel/touch native for a normal feel
+  duration: 0.7,
+  easing: (t: number) => t,
+  gestureOrientation: 'vertical',
+  smoothWheel: false,
+  smoothTouch: false,
+  normalizeWheel: false,
+  syncTouch: false,
+  wheelMultiplier: 1.0,
+  touchMultiplier: 1.0,
 });
 
 function raf(time: number) {
-	lenis.raf(time);
-	requestAnimationFrame(raf);
+  lenis.raf(time);
+  requestAnimationFrame(raf);
 }
 requestAnimationFrame(raf);
+
+// Global API: allow components to request Lenis scrolls
+window.addEventListener('lenis:scrollTo', (e: Event) => {
+  const ce = e as CustomEvent<{ target: number | string | Element; options?: Record<string, unknown> }>;
+  const target = ce.detail?.target ?? 0;
+  const options = ce.detail?.options ?? { immediate: false };
+  // @ts-ignore - lenis types accept Element | number | string
+  lenis.scrollTo(target, options);
+});
 
 // Register service worker for PWA
 if ('serviceWorker' in navigator) {

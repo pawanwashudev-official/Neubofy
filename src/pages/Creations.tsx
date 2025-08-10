@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import Reveal from "@/components/Reveal";
 import studentMentor from "@/assets/student-mentor-mockup.jpg";
 import inventoryAI from "@/assets/inventory-ai-mockup.jpg";
 import contentCreator from "@/assets/content-creator-mockup.jpg";
@@ -128,6 +129,7 @@ const Creations = () => {
       
       <div className="container mx-auto px-4 py-32">
         {/* Header */}
+        <Reveal>
         <div className="text-center mb-16">
           <h1 className="text-5xl md:text-7xl font-display font-bold mb-6 gradient-text">
             Our Creations
@@ -137,8 +139,10 @@ const Creations = () => {
             innovation, and your success in mind.
           </p>
         </div>
+        </Reveal>
 
         {/* Category Filter */}
+        <Reveal>
         <div className="flex flex-wrap justify-center gap-4 mb-12">
           {uniqueCategories.map((category) => (
             <Button
@@ -154,21 +158,23 @@ const Creations = () => {
             </Button>
           ))}
         </div>
+        </Reveal>
 
         {/* Results Count */}
+        <Reveal>
         <div className="text-center mb-8">
           <p className="text-muted-foreground">
             Showing {filteredCreations.length} of {creations.length} creations
           </p>
         </div>
+        </Reveal>
 
         {/* Creations Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
           {filteredCreations.map((creation, index) => (
+            <Reveal key={creation.id} delay={index * 0.05}>
             <div
-              key={creation.id}
-              className="glass-card rounded-2xl overflow-hidden hover:shadow-elevated transition-all duration-500 group animate-fade-in"
-              style={{ animationDelay: `${index * 0.1}s` }}
+              className="glass-card rounded-2xl overflow-hidden hover:shadow-elevated transition-all duration-500 group"
             >
               {/* Image */}
               <div className="relative overflow-hidden">
@@ -230,10 +236,12 @@ const Creations = () => {
                 </div>
               </div>
             </div>
+            </Reveal>
           ))}
         </div>
 
         {/* Add New Tool Section (for easy content management) */}
+        <Reveal>
         <div className="glass-card p-8 rounded-2xl text-center">
           <Plus className="w-12 h-12 mx-auto mb-4 text-muted-foreground" />
           <h3 className="text-xl font-bold mb-4">Have a Custom Project in Mind?</h3>
@@ -252,6 +260,7 @@ const Creations = () => {
             </Button>
           </div>
         </div>
+        </Reveal>
       </div>
 
       <Footer />

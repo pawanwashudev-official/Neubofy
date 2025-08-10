@@ -7,6 +7,7 @@ import CaseStudiesSection from "@/components/CaseStudiesSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
 import CTASection from "@/components/CTASection";
 import Footer from "@/components/Footer";
+import Reveal from "@/components/Reveal";
 import GoToTop from "@/components/GoToTop";
 import ParallaxBackground from "@/components/ParallaxBackground";
 
@@ -19,12 +20,12 @@ const Index = () => {
       </ParallaxBackground>
       <div className="relative z-10">
         <Navbar />
-        <HeroSection />
-        <WhyChooseUsSection />
-        <FeaturesSection />
-        <CaseStudiesSection />
-        <TestimonialsSection />
-        <CTASection />
+        <Reveal y={32}><HeroSection /></Reveal>
+        <Reveal y={24} delay={0.05}><WhyChooseUsSection /></Reveal>
+        <Reveal y={24} delay={0.1}><FeaturesSection /></Reveal>
+        <Reveal y={24} delay={0.15}><CaseStudiesSection /></Reveal>
+        <Reveal y={24} delay={0.2}><TestimonialsSection /></Reveal>
+        <Reveal y={24} delay={0.25}><CTASection /></Reveal>
         <Footer />
         <GoToTop />
       </div>

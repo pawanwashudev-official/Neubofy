@@ -1,4 +1,5 @@
 import { Star, TrendingUp, Users, Award } from "lucide-react";
+import Reveal from "@/components/Reveal";
 
 const CaseStudiesSection = () => {
   const caseStudies = [
@@ -50,24 +51,25 @@ const CaseStudiesSection = () => {
     <section className="py-24 relative">
       <div className="container mx-auto px-4">
         {/* Section Header */}
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-6xl font-display font-bold mb-6">
-            <span className="gradient-text">Success Stories</span>
-          </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Real results from organizations that trusted Neubofy to transform their operations
-          </p>
-        </div>
+        <Reveal>
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-6xl font-display font-bold mb-6">
+              <span className="gradient-text">Success Stories</span>
+            </h2>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+              Real results from organizations that trusted Neubofy to transform their operations
+            </p>
+          </div>
+        </Reveal>
 
         {/* Case Studies Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {caseStudies.map((study, index) => {
             const IconComponent = study.icon;
             return (
+              <Reveal key={index} delay={index * 0.05}>
               <div
-                key={index}
-                className="glass-card p-8 rounded-2xl hover:shadow-elevated transition-all duration-500 group animate-fade-in"
-                style={{ animationDelay: `${index * 0.2}s` }}
+                className="glass-card p-8 rounded-2xl hover:shadow-elevated transition-all duration-500 group"
               >
                 {/* Company Header */}
                 <div className="flex items-center gap-4 mb-6">
@@ -108,20 +110,23 @@ const CaseStudiesSection = () => {
                   </ul>
                 </div>
               </div>
+              </Reveal>
             );
           })}
         </div>
 
         {/* CTA */}
-        <div className="text-center mt-16">
-          <p className="text-lg text-muted-foreground mb-6">
-            Ready to become our next success story?
-          </p>
-          <div className="inline-flex items-center gap-2 glass-card px-6 py-3 rounded-full text-sm font-medium">
-            <Star className="w-4 h-4 text-primary" />
-            Trusted by forward-thinking organizations worldwide
+        <Reveal>
+          <div className="text-center mt-16">
+            <p className="text-lg text-muted-foreground mb-6">
+              Ready to become our next success story?
+            </p>
+            <div className="inline-flex items-center gap-2 glass-card px-6 py-3 rounded-full text-sm font-medium">
+              <Star className="w-4 h-4 text-primary" />
+              Trusted by forward-thinking organizations worldwide
+            </div>
           </div>
-        </div>
+        </Reveal>
       </div>
     </section>
   );

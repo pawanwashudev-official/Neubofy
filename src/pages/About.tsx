@@ -1,6 +1,7 @@
 import { Heart, Shield, Zap, Users, Award, Calendar, Instagram, Twitter, Facebook, ExternalLink, MessageCircle, Mail } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import Reveal from "@/components/Reveal";
 import founderAvatar from "@/assets/founder-avatar.jpg";
 import GoToTop from "@/components/GoToTop";
 
@@ -106,16 +107,19 @@ const About = () => {
       
       <div className="container mx-auto px-4 py-32">
         {/* Hero Section */}
-        <div className="text-center mb-20">
-          <h1 className="text-5xl md:text-7xl font-display font-bold mb-6 gradient-text">
-            The Story Behind Neubofy
-          </h1>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Founded by an ambitious 11th-grade student who believes that age is not a limitation—it's an advantage.
-          </p>
-        </div>
+        <Reveal>
+          <div className="text-center mb-20">
+            <h1 className="text-5xl md:text-7xl font-display font-bold mb-6 gradient-text">
+              The Story Behind Neubofy
+            </h1>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+              Founded by an ambitious 11th-grade student who believes that age is not a limitation—it's an advantage.
+            </p>
+          </div>
+        </Reveal>
 
         {/* Founder Story */}
+        <Reveal>
         <div className="glass-card p-12 rounded-3xl shadow-elevated mb-20">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
@@ -170,49 +174,55 @@ const About = () => {
             </div>
           </div>
         </div>
+        </Reveal>
 
         {/* Timeline */}
         <div className="mb-20">
-          <h2 className="text-4xl font-display font-bold text-center mb-12 gradient-text">Our Journey</h2>
+          <Reveal>
+            <h2 className="text-4xl font-display font-bold text-center mb-12 gradient-text">Our Journey</h2>
+          </Reveal>
           <div className="relative">
             <div className="absolute left-1/2 transform -translate-x-px h-full w-0.5 bg-gradient-button"></div>
-            
             {timeline.map((item, index) => (
-              <div key={index} className="relative flex items-center mb-12">
-                <div className={`w-1/2 ${index % 2 === 0 ? 'pr-8 text-right' : 'pl-8 text-left order-2'}`}>
-                  <div className="glass-card p-6 rounded-2xl">
-                    <div className="flex items-center gap-3 mb-3">
-                      <Calendar className="w-5 h-5 text-primary" />
-                      <span className="font-bold text-primary">{item.year}</span>
+              <Reveal key={index} delay={index * 0.05}>
+                <div className="relative flex items-center mb-12">
+                  <div className={`w-1/2 ${index % 2 === 0 ? 'pr-8 text-right' : 'pl-8 text-left order-2'}`}>
+                    <div className="glass-card p-6 rounded-2xl">
+                      <div className="flex items-center gap-3 mb-3">
+                        <Calendar className="w-5 h-5 text-primary" />
+                        <span className="font-bold text-primary">{item.year}</span>
+                      </div>
+                      <h3 className="text-xl font-bold mb-2">{item.title}</h3>
+                      <p className="text-muted-foreground text-sm">{item.description}</p>
                     </div>
-                    <h3 className="text-xl font-bold mb-2">{item.title}</h3>
-                    <p className="text-muted-foreground text-sm">{item.description}</p>
                   </div>
+                  <div className="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-gradient-button rounded-full border-4 border-background"></div>
                 </div>
-                
-                <div className="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-gradient-button rounded-full border-4 border-background"></div>
-              </div>
+              </Reveal>
             ))}
           </div>
         </div>
 
         {/* Values */}
         <div className="mb-20">
-          <h2 className="text-4xl font-display font-bold text-center mb-12 gradient-text">Our Core Values</h2>
+          <Reveal>
+            <h2 className="text-4xl font-display font-bold text-center mb-12 gradient-text">Our Core Values</h2>
+          </Reveal>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {values.map((value, index) => {
               const IconComponent = value.icon;
               return (
-                <div 
-                  key={index}
-                  className="glass-card p-8 rounded-2xl hover:shadow-elevated transition-all duration-500 group"
-                >
-                  <div className="w-16 h-16 bg-gradient-button rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                    <IconComponent className="w-8 h-8 text-primary-foreground" />
+                <Reveal key={index} delay={index * 0.05}>
+                  <div 
+                    className="glass-card p-8 rounded-2xl hover:shadow-elevated transition-all duration-500 group"
+                  >
+                    <div className="w-16 h-16 bg-gradient-button rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                      <IconComponent className="w-8 h-8 text-primary-foreground" />
+                    </div>
+                    <h3 className="text-xl font-bold mb-4">{value.title}</h3>
+                    <p className="text-muted-foreground leading-relaxed">{value.description}</p>
                   </div>
-                  <h3 className="text-xl font-bold mb-4">{value.title}</h3>
-                  <p className="text-muted-foreground leading-relaxed">{value.description}</p>
-                </div>
+                </Reveal>
               );
             })}
           </div>
@@ -220,74 +230,73 @@ const About = () => {
 
         {/* Social Media Section */}
         <div className="mb-20">
-          <h2 className="text-4xl font-display font-bold text-center mb-12 gradient-text">Connect With Us</h2>
-          <p className="text-xl text-muted-foreground text-center mb-12 max-w-3xl mx-auto">
-            Follow our journey, get insights, and stay updated with the latest in AI automation and innovation.
-          </p>
-          
+          <Reveal>
+            <h2 className="text-4xl font-display font-bold text-center mb-12 gradient-text">Connect With Us</h2>
+            <p className="text-xl text-muted-foreground text-center mb-12 max-w-3xl mx-auto">
+              Follow our journey, get insights, and stay updated with the latest in AI automation and innovation.
+            </p>
+          </Reveal>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
             {socialMedia.map((social, index) => {
               const IconComponent = social.icon;
               return (
-                <a
-                  key={index}
-                  href={social.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group relative overflow-hidden"
-                >
-                  <div className="glass-card p-6 rounded-2xl hover:shadow-elevated transition-all duration-500 group-hover:scale-105">
-                    {/* Animated Background */}
-                    <div className={`absolute inset-0 bg-gradient-to-br ${social.color} opacity-0 group-hover:opacity-10 transition-opacity duration-500`}></div>
-                    
-                    {/* Icon with Animation */}
-                    <div className="relative z-10">
-                      <div className={`w-12 h-12 bg-gradient-to-br ${social.color} rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 group-hover:rotate-3`}>
-                        <IconComponent className="w-6 h-6 text-white" />
+                <Reveal key={index} delay={index * 0.05}>
+                  <a
+                    href={social.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group relative overflow-hidden"
+                  >
+                    <div className="glass-card p-6 rounded-2xl hover:shadow-elevated transition-all duration-500 group-hover:scale-105">
+                      {/* Animated Background */}
+                      <div className={`absolute inset-0 bg-gradient-to-br ${social.color} opacity-0 group-hover:opacity-10 transition-opacity duration-500`}></div>
+                      {/* Icon with Animation */}
+                      <div className="relative z-10">
+                        <div className={`w-12 h-12 bg-gradient-to-br ${social.color} rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 group-hover:rotate-3`}>
+                          <IconComponent className="w-6 h-6 text-white" />
+                        </div>
+                        <h3 className="text-lg font-bold mb-2 group-hover:text-primary transition-colors">
+                          {social.name}
+                        </h3>
+                        <p className="text-muted-foreground text-xs mb-3">
+                          {social.description}
+                        </p>
+                        {/* Animated Arrow */}
+                        <div className="flex items-center gap-1 text-primary opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:translate-x-1">
+                          <span className="text-xs font-semibold">Follow</span>
+                          <ExternalLink className="w-3 h-3" />
+                        </div>
                       </div>
-                      
-                      <h3 className="text-lg font-bold mb-2 group-hover:text-primary transition-colors">
-                        {social.name}
-                      </h3>
-                      
-                      <p className="text-muted-foreground text-xs mb-3">
-                        {social.description}
-                      </p>
-                      
-                      {/* Animated Arrow */}
-                      <div className="flex items-center gap-1 text-primary opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:translate-x-1">
-                        <span className="text-xs font-semibold">Follow</span>
-                        <ExternalLink className="w-3 h-3" />
-                      </div>
+                      {/* Floating Particles Effect */}
+                      <div className="absolute top-3 right-3 w-1.5 h-1.5 bg-primary rounded-full opacity-0 group-hover:opacity-100 group-hover:animate-ping transition-all duration-500"></div>
+                      <div className="absolute bottom-3 left-3 w-1 h-1 bg-primary rounded-full opacity-0 group-hover:opacity-100 group-hover:animate-pulse transition-all duration-700 delay-100"></div>
                     </div>
-                    
-                    {/* Floating Particles Effect */}
-                    <div className="absolute top-3 right-3 w-1.5 h-1.5 bg-primary rounded-full opacity-0 group-hover:opacity-100 group-hover:animate-ping transition-all duration-500"></div>
-                    <div className="absolute bottom-3 left-3 w-1 h-1 bg-primary rounded-full opacity-0 group-hover:opacity-100 group-hover:animate-pulse transition-all duration-700 delay-100"></div>
-                  </div>
-                </a>
+                  </a>
+                </Reveal>
               );
             })}
           </div>
         </div>
 
         {/* Partnership CTA */}
-        <div className="glass-card p-12 rounded-3xl shadow-elevated text-center">
-          <Award className="w-16 h-16 mx-auto mb-6 text-primary" />
-          <h2 className="text-3xl font-bold gradient-text mb-4">Partner With Us</h2>
-          <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-            We're always open to collaborating with like-minded individuals and organizations 
-            who share our vision of democratizing AI automation.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a href="/contact" className="btn-hero px-8 py-3 inline-block">
-              Start a Partnership
-            </a>
-            <a href="mailto:pawanwashudev.business@gmail.com" className="btn-outline-glow px-8 py-3 inline-block">
-              Email Us
-            </a>
+        <Reveal>
+          <div className="glass-card p-12 rounded-3xl shadow-elevated text-center">
+            <Award className="w-16 h-16 mx-auto mb-6 text-primary" />
+            <h2 className="text-3xl font-bold gradient-text mb-4">Partner With Us</h2>
+            <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
+              We're always open to collaborating with like-minded individuals and organizations 
+              who share our vision of democratizing AI automation.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <a href="/contact" className="btn-hero px-8 py-3 inline-block">
+                Start a Partnership
+              </a>
+              <a href="mailto:pawanwashudev.business@gmail.com" className="btn-outline-glow px-8 py-3 inline-block">
+                Email Us
+              </a>
+            </div>
           </div>
-        </div>
+        </Reveal>
       </div>
 
       <Footer />

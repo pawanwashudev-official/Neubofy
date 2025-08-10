@@ -6,6 +6,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import Reveal from "@/components/Reveal";
 import { useToast } from "@/hooks/use-toast";
 import GoToTop from "@/components/GoToTop";
 
@@ -90,6 +91,7 @@ const Contact = () => {
       <Navbar />
       
       <div className="container mx-auto px-4 py-32">
+        <Reveal>
         <div className="text-center mb-16">
           <h1 className="text-5xl md:text-7xl font-display font-bold mb-6 gradient-text">
             Let's Build Something Amazing
@@ -99,9 +101,11 @@ const Contact = () => {
             Let's discuss how Neubofy can help you achieve your goals.
           </p>
         </div>
+        </Reveal>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 max-w-6xl mx-auto">
           {/* Contact Form */}
+          <Reveal>
           <div className="glass-card p-8 rounded-3xl shadow-elevated">
             {!isSubmitted ? (
               <form onSubmit={handleSubmit} className="space-y-6">
@@ -204,8 +208,10 @@ const Contact = () => {
               </div>
             )}
           </div>
+          </Reveal>
 
           {/* Contact Information */}
+          <Reveal>
           <div className="space-y-8">
             <div className="glass-card p-8 rounded-2xl">
               <h3 className="text-2xl font-bold gradient-text mb-6">Get In Touch Directly</h3>
@@ -293,6 +299,7 @@ const Contact = () => {
               </div>
             </div>
           </div>
+          </Reveal>
         </div>
       </div>
 

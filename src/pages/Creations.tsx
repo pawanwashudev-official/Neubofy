@@ -38,8 +38,8 @@ const Creations = () => {
     let isMounted = true;
     const load = async () => {
       try {
-        const res = await fetch('/product/index.json', { cache: 'no-cache' });
-        if (!res.ok) throw new Error(`Failed to load product/index.json: ${res.status}`);
+        const res = await fetch('/product_index.json', { cache: 'no-cache' });
+        if (!res.ok) throw new Error(`Failed to load product_index.json: ${res.status}`);
         const data = await res.json();
         const files = (data?.files as string[] | undefined) || [];
         if (!Array.isArray(files)) throw new Error('Invalid manifest format. Expected { files: [...] }');

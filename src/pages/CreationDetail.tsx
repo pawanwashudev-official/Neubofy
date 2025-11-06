@@ -38,20 +38,14 @@ const CreationDetail = () => {
     let isMounted = true;
     const load = async () => {
       try {
-        // Prefer per-product file
-        const resDetail = await fetch(`/creations/${slug}.json`, { cache: 'no-cache' });
+        // Load per-product file from /product
+        const resDetail = await fetch(`/product/${slug}.json`, { cache: 'no-cache' });
         if (resDetail.ok) {
           const detail = await resDetail.json();
           if (isMounted) setItem(detail as CreationItem);
           return;
         }
-        // Fallback to legacy bundled file
-        const resLegacy = await fetch('/creations.json', { cache: 'no-cache' });
-        if (!resLegacy.ok) throw new Error(`Failed to load legacy creations.json: ${resLegacy.status}`);
-        const data = await resLegacy.json();
-        const found = (data?.creations as CreationItem[] | undefined)?.find((c) => c.slug === slug);
-        if (!found) throw new Error('Not found');
-        if (isMounted) setItem(found);
+        throw new Error('Not found');
       } catch (e: unknown) {
         const message = e instanceof Error ? e.message : 'Unknown error';
         if (isMounted) setError(message);

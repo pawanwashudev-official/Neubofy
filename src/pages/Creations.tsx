@@ -38,23 +38,43 @@ const Creations = () => {
     let isMounted = true;
     const load = async () => {
       try {
+        console.log('Loading product index...');
         const res = await fetch('/product_index.json', { cache: 'no-cache' });
         if (!res.ok) throw new Error(`Failed to load product_index.json: ${res.status}`);
         const data = await res.json();
+        console.log('Product index loaded:', data);
+        
         const files = (data?.files as string[] | undefined) || [];
         if (!Array.isArray(files)) throw new Error('Invalid manifest format. Expected { files: [...] }');
+        console.log('Files to load:', files);
+        
         const detailPromises = files.map(async (entry) => {
-          const fileName = entry.endsWith('.json') ? entry : `${entry}.json`;
-          const slug = fileName.replace(/\.json$/i, '');
-          const r = await fetch(`/product/${fileName}`, { cache: 'no-cache' });
-          if (!r.ok) throw new Error(`Failed to load ${fileName}`);
-          const product = await r.json();
-          return product as CreationItem;
+          const fileName = entry;
+          console.log(`Loading product file: ${fileName}`);
+          try {
+            const r = await fetch(`/product/${fileName}`, { cache: 'no-cache' });
+            if (!r.ok) throw new Error(`Failed to load ${fileName}: ${r.status}`);
+            const text = await r.text(); // First get the raw text
+            console.log(`Raw content for ${fileName}:`, text.slice(0, 100) + '...'); // Log the first 100 chars
+            try {
+              const product = JSON.parse(text);
+              console.log(`Successfully loaded ${fileName}:`, product);
+              return product as CreationItem;
+            } catch (parseError) {
+              throw new Error(`Invalid JSON in ${fileName}: ${parseError.message}`);
+            }
+          } catch (fetchError) {
+            console.error(`Error with ${fileName}:`, fetchError);
+            throw fetchError;
+          }
         });
+        
         const detailed = await Promise.all(detailPromises);
+        console.log('All products loaded:', detailed);
         if (isMounted) setCreations(detailed);
       } catch (e: unknown) {
         const message = e instanceof Error ? e.message : 'Unknown error';
+        console.error('Error loading products:', message);
         if (isMounted) setError(message);
       } finally {
         if (isMounted) setLoading(false);

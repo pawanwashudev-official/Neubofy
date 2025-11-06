@@ -64,11 +64,11 @@ const HeroSection = () => {
             animate={isVisible ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.3 }}
           >
-            <span className="gradient-text">Custom AI Automations</span>
+            <span className="gradient-text">Find AI SaaS & Automation</span>
             <br />
-            <span className="text-foreground">That Actually</span>
+            <span className="text-foreground">Tailored</span>
             <br />
-            <span className="gradient-text">Adapt to You</span>
+            <span className="gradient-text">to Your Needs</span>
           </motion.h1>
 
           {/* Enhanced Value Proposition */}
@@ -79,10 +79,10 @@ const HeroSection = () => {
             transition={{ duration: 0.8, delay: 0.4 }}
           >
             <p className="text-2xl md:text-3xl font-semibold text-foreground mb-4">
-              We build custom AI automations and secure tools for students, professionals, and businesses—<span className="gradient-text font-bold">no code needed.</span>
+              Find SaaS products like AI tools and automation according to your need.
             </p>
             <p className="text-xl text-muted-foreground">
-              AI that actually adapts to your life, all with <strong className="text-primary">100% privacy</strong> guaranteed.
+              Our goal is to let you choose AI-based SaaS products and automation tools—like a Play Store for AI.
             </p>
           </motion.div>
 

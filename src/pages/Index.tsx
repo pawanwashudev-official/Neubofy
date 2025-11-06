@@ -1,11 +1,7 @@
 
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
-import WhyChooseUsSection from "@/components/WhyChooseUsSection";
-import FeaturesSection from "@/components/FeaturesSection";
-import CaseStudiesSection from "@/components/CaseStudiesSection";
-import TestimonialsSection from "@/components/TestimonialsSection";
-import CTASection from "@/components/CTASection";
+import PlatformIntroSection from "@/components/PlatformIntroSection";
 import Footer from "@/components/Footer";
 import Reveal from "@/components/Reveal";
 import GoToTop from "@/components/GoToTop";
@@ -21,11 +17,7 @@ const Index = () => {
       <div className="relative z-10">
         <Navbar />
         <Reveal y={32}><HeroSection /></Reveal>
-        <Reveal y={24} delay={0.05}><WhyChooseUsSection /></Reveal>
-        <Reveal y={24} delay={0.1}><FeaturesSection /></Reveal>
-        <Reveal y={24} delay={0.15}><CaseStudiesSection /></Reveal>
-        <Reveal y={24} delay={0.2}><TestimonialsSection /></Reveal>
-        <Reveal y={24} delay={0.25}><CTASection /></Reveal>
+        <Reveal y={24} delay={0.1}><PlatformIntroSection /></Reveal>
         <Footer />
         <GoToTop />
       </div>

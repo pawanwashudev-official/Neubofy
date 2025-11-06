@@ -38,8 +38,8 @@ const Creations = () => {
     let isMounted = true;
     const load = async () => {
       try {
-        const res = await fetch('/creations.json', { cache: 'no-cache' });
-        if (!res.ok) throw new Error(`Failed to load creations.json: ${res.status}`);
+        const res = await fetch('/creations/index.json', { cache: 'no-cache' });
+        if (!res.ok) throw new Error(`Failed to load creations/index.json: ${res.status}`);
         const data = await res.json();
         if (!data?.creations || !Array.isArray(data.creations)) {
           throw new Error('Invalid manifest format. Expected { creations: [...] }');

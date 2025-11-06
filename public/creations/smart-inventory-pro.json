@@ -1,0 +1,22 @@
+{
+  "slug": "smart-inventory-pro",
+  "name": "SmartInventory Pro",
+  "shortDescription": "AI-powered inventory management with forecasting and automated reordering.",
+  "detailDescription": "SmartInventory Pro uses predictive analytics to forecast demand, optimize stock levels, and automate reorders, helping businesses reduce waste and avoid stockouts.",
+  "thumbnailUrl": "https://picsum.photos/seed/inventory-thumb/800/1000",
+  "imageUrls": [
+    "https://picsum.photos/seed/inventory-1/800/1000",
+    "https://picsum.photos/seed/inventory-2/800/1000",
+    "https://picsum.photos/seed/inventory-3/800/1000",
+    "https://picsum.photos/seed/inventory-4/800/1000",
+    "https://picsum.photos/seed/inventory-5/800/1000"
+  ],
+  "mainUrl": "https://example.com/smart-inventory-pro",
+  "publishedAt": "2024-11-01",
+  "status": "Live",
+  "category": "Business Solutions",
+  "tags": ["Business", "Inventory", "Analytics"],
+  "features": ["Demand forecasting", "Automated reordering", "Real-time analytics", "Multi-location support"]
+}
+
+

@@ -1,0 +1,22 @@
+{
+  "slug": "ai-study-mentor",
+  "name": "AI Study Mentor",
+  "shortDescription": "Personalized AI-powered study companion that adapts to your learning style.",
+  "detailDescription": "AI Study Mentor is a personalized learning assistant that creates adaptive study plans, tracks progress, and provides actionable insights. It helps students stay organized and motivated while optimizing their study time.",
+  "thumbnailUrl": "https://picsum.photos/seed/mentor-thumb/800/1000",
+  "imageUrls": [
+    "https://picsum.photos/seed/mentor-1/800/1000",
+    "https://picsum.photos/seed/mentor-2/800/1000",
+    "https://picsum.photos/seed/mentor-3/800/1000",
+    "https://picsum.photos/seed/mentor-4/800/1000",
+    "https://picsum.photos/seed/mentor-5/800/1000"
+  ],
+  "mainUrl": "https://example.com/ai-study-mentor",
+  "publishedAt": "2024-10-15",
+  "status": "Live",
+  "category": "Student Tools",
+  "tags": ["Education", "AI Mentor", "Study Assistant"],
+  "features": ["Personalized study plans", "Progress tracking", "AI-powered recommendations", "Performance analytics"]
+}
+
+

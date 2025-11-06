@@ -41,10 +41,18 @@ const Creations = () => {
         const res = await fetch('/creations/index.json', { cache: 'no-cache' });
         if (!res.ok) throw new Error(`Failed to load creations/index.json: ${res.status}`);
         const data = await res.json();
-        if (!data?.creations || !Array.isArray(data.creations)) {
-          throw new Error('Invalid manifest format. Expected { creations: [...] }');
-        }
-        if (isMounted) setCreations(data.creations as CreationItem[]);
+        const files = (data?.files as string[] | undefined) || [];
+        if (!Array.isArray(files)) throw new Error('Invalid manifest format. Expected { files: [...] }');
+        const detailPromises = files.map(async (entry) => {
+          const fileName = entry.endsWith('.json') ? entry : `${entry}.json`;
+          const slug = fileName.replace(/\.json$/i, '');
+          const r = await fetch(`/creations/${fileName}`, { cache: 'no-cache' });
+          if (!r.ok) throw new Error(`Failed to load ${fileName}`);
+          const product = await r.json();
+          return product as CreationItem;
+        });
+        const detailed = await Promise.all(detailPromises);
+        if (isMounted) setCreations(detailed);
       } catch (e: unknown) {
         const message = e instanceof Error ? e.message : 'Unknown error';
         if (isMounted) setError(message);

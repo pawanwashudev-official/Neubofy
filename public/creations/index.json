@@ -1,29 +1,8 @@
 {
-  "creations": [
-    {
-      "slug": "ai-study-mentor",
-      "name": "AI Study Mentor",
-      "shortDescription": "Personalized AI-powered study companion that adapts to your learning style.",
-      "thumbnailUrl": "https://picsum.photos/seed/mentor-thumb/800/1000",
-      "status": "Live",
-      "category": "Student Tools"
-    },
-    {
-      "slug": "smart-inventory-pro",
-      "name": "SmartInventory Pro",
-      "shortDescription": "AI-powered inventory management with forecasting and automated reordering.",
-      "thumbnailUrl": "https://picsum.photos/seed/inventory-thumb/800/1000",
-      "status": "Live",
-      "category": "Business Solutions"
-    },
-    {
-      "slug": "contentcraft-ai",
-      "name": "ContentCraft AI",
-      "shortDescription": "Generate, edit, and optimize content while preserving your brand voice.",
-      "thumbnailUrl": "https://picsum.photos/seed/content-thumb/800/1000",
-      "status": "Live",
-      "category": "Content Tools"
-    }
+  "files": [
+    "ai-study-mentor.json",
+    "smart-inventory-pro.json",
+    "contentcraft-ai.json"
   ]
 }
 

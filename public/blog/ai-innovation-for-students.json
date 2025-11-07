@@ -1,0 +1,36 @@
+{
+  "id": 2,
+  "slug": "ai-innovation-for-students",
+  "name": "AI Innovation: A Student's Guide to Getting Started",
+  "shortDescription": "A comprehensive guide for students looking to innovate in the AI space, with practical tips and real-world examples.",
+  "author": "Neubofy Team",
+  "publishedAt": "2025-11-06",
+  "readTime": "7 min read",
+  "tags": ["AI", "Students", "Innovation", "Getting Started"],
+  "category": "Student Resources",
+  "featured": false,
+  "thumbnailUrl": "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4",
+  "content": [
+    {
+      "type": "paragraph",
+      "text": "As a student stepping into the world of AI innovation, you might feel overwhelmed by the vast landscape of technologies and possibilities. This guide will help you navigate your journey and turn your ideas into reality."
+    },
+    {
+      "type": "image",
+      "src": "https://images.unsplash.com/photo-1523240795612-9a054b0db644",
+      "caption": "Students collaborating on AI projects"
+    },
+    {
+      "type": "paragraph",
+      "text": "First, focus on building a strong foundation. Understanding the basics of machine learning, data structures, and algorithms is crucial. But don't get stuck in tutorial hell – start building real projects as soon as you can."
+    },
+    {
+      "type": "paragraph",
+      "text": "Your unique perspective as a student is actually an advantage. You're not constrained by industry conventions, which means you can think outside the box and come up with innovative solutions that experienced professionals might overlook."
+    },
+    {
+      "type": "paragraph",
+      "text": "Join AI communities and participate in hackathons. These experiences will not only enhance your skills but also help you build a network of like-minded innovators. Remember, some of the most revolutionary tech companies started in dorm rooms!"
+    }
+  ]
+}

@@ -43,15 +43,18 @@ const Blog = () => {
 
     const loadBlogPosts = async () => {
       try {
-        // Get list of blog posts from index
-        const indexResponse = await fetch('/blog_index.json');
-        if (!indexResponse.ok) {
-          throw new Error('Failed to load blog index');
-        }
-        const { blogPosts: blogFiles } = await indexResponse.json();
+        // Get list of all blog JSON files
+        const res = await fetch('/blog/');
+        const text = await res.text();
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(text, 'text/html');
+        const links = Array.from(doc.querySelectorAll('a'))
+          .map(a => a.getAttribute('href'))
+          .filter(href => href?.endsWith('.json'));
 
+        // Load each blog file
         const posts = await Promise.all(
-          blogFiles.map(async (fileName) => {
+          links.map(async (fileName) => {
             if (!fileName) return null;
             try {
               const response = await fetch(`/blog/${fileName}`);
@@ -80,6 +83,7 @@ const Blog = () => {
 
         if (!mounted) return;
 
+        // Filter out failed loads and sort by date
         const validPosts = posts
           .filter((post): post is NonNullable<typeof post> => post !== null)
           .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());

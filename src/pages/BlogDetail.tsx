@@ -28,11 +28,39 @@ type BlogItem = {
 const BlogDetail = () => {
   const { slug } = useParams();
 
+  const assetModules = useMemo(() => {
+    return import.meta.glob('../assets/*.{png,jpg,jpeg,gif,svg,webp}', { eager: true, as: 'url' });
+  }, []);
+
+  const resolveAssetUrl = (url: string) => {
+    if (url.startsWith('/src/assets/')) {
+      const assetPath = url.replace('/src/assets/', '../assets/');
+      return assetModules[assetPath] || url;
+    }
+    return url;
+  };
+
   const item = useMemo(() => {
     const modules = import.meta.glob('../content/blog/*.json', { eager: true }) as Record<string, any>;
     const values = Object.values(modules).map((m: any) => (m && m.default) || m) as BlogItem[];
-    return values.find((b) => b.slug === slug) ?? null;
-  }, [slug]);
+    const foundItem = values.find((b) => b.slug === slug) ?? null;
+
+    if (foundItem) {
+      // Resolve thumbnail and image URLs
+      foundItem.thumbnailUrl = resolveAssetUrl(foundItem.thumbnailUrl ?? '');
+      foundItem.imageUrls = (foundItem.imageUrls || []).map(resolveAssetUrl);
+      // Resolve content block image URLs
+      if (Array.isArray(foundItem.content)) {
+        foundItem.content = foundItem.content.map(block => {
+          if (block.type === "image") {
+            return { ...block, src: resolveAssetUrl(block.src) };
+          }
+          return block;
+        });
+      }
+    }
+    return foundItem;
+  }, [slug, assetModules]);
 
   if (!item) {
     return (

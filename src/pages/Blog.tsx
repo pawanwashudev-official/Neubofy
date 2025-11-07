@@ -13,6 +13,19 @@ const Blog = () => {
   // Load blog JSON files from src/content/blog/*.json (add new files here)
   // Vite's import.meta.glob with eager:true will bundle these at build time.
   const navigate = useNavigate();
+  const assetModules = useMemo(() => {
+    // Dynamically import all assets from src/assets to get their resolved public URLs
+    return import.meta.glob('../assets/*.{png,jpg,jpeg,gif,svg,webp}', { eager: true, as: 'url' });
+  }, []);
+
+  const resolveAssetUrl = (url: string) => {
+    if (url.startsWith('/src/assets/')) {
+      const assetPath = url.replace('/src/assets/', '../assets/');
+      return assetModules[assetPath] || url;
+    }
+    return url;
+  };
+
   const blogPosts = useMemo(() => {
     const modules = import.meta.glob('../content/blog/*.json', { eager: true }) as Record<string, any>;
     const values = Object.values(modules).map((m: any) => (m && m.default) || m);
@@ -27,13 +40,13 @@ const Blog = () => {
         date: p.publishedAt ?? p.date ?? new Date().toISOString(),
         readTime: p.readTime ?? '5 min read',
         tags: p.tags ?? [],
-        thumbnail: p.thumbnailUrl ?? p.thumbnail ?? '/placeholder.svg',
+        thumbnail: resolveAssetUrl(p.thumbnailUrl ?? p.thumbnail ?? '/placeholder.svg'),
         featured: !!p.featured,
         category: p.category ?? 'Uncategorized',
         raw: p
       }))
       .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-  }, []);
+  }, [assetModules]);
 
   const [selectedCategory, setSelectedCategory] = useState("All");
   

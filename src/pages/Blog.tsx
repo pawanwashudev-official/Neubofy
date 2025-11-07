@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import { Calendar, User, ArrowRight, Tag, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -13,40 +13,84 @@ const Blog = () => {
   // Load blog JSON files from src/content/blog/*.json (add new files here)
   // Vite's import.meta.glob with eager:true will bundle these at build time.
   const navigate = useNavigate();
-  const assetModules = useMemo(() => {
-    // Dynamically import all assets from src/assets to get their resolved public URLs
-    return import.meta.glob('../assets/*.{png,jpg,jpeg,gif,svg,webp}', { eager: true, as: 'url' });
+  // Try to load posts from public/blog/index.json so new JSON files added to public/ go live without rebuild.
+  // If public index is not present, fall back to the bundled src/content/blog JSONs (developer workflow).
+  const [blogPosts, setBlogPosts] = useState<any[]>([]);
+
+  useEffect(() => {
+    let mounted = true;
+
+    const resolveBundledAssets = (p: any, assetModules: Record<string, string>) => {
+      const resolve = (url: string) => {
+        if (!url) return url;
+        if (url.startsWith('/src/assets/')) {
+          const assetPath = url.replace('/src/assets/', '../assets/');
+          return assetModules[assetPath] || url;
+        }
+        return url;
+      };
+      return {
+        ...p,
+        thumbnail: resolve(p.thumbnailUrl ?? p.thumbnail ?? '/placeholder.svg'),
+        imageUrls: (p.imageUrls || []).map(resolve),
+        content: Array.isArray(p.content) ? p.content.map((b: any) => b.type === 'image' ? { ...b, src: resolve(b.src) } : b) : p.content
+      };
+    };
+
+    const load = async () => {
+      // 1) Try public index
+      try {
+        const res = await fetch('/blog/index.json', { cache: 'no-cache' });
+        if (res.ok) {
+          const data = await res.json();
+          if (!mounted) return;
+          const normalized = (Array.isArray(data) ? data : []).map((p: any, i: number) => ({
+            id: p.id ?? i + 1,
+            slug: p.slug ?? p.name?.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
+            title: p.name ?? p.title ?? 'Untitled',
+            excerpt: p.shortDescription ?? p.excerpt ?? '',
+            author: p.author ?? 'Neubofy Team',
+            date: p.publishedAt ?? p.date ?? new Date().toISOString(),
+            readTime: p.readTime ?? '5 min read',
+            tags: p.tags ?? [],
+            thumbnail: p.thumbnailUrl ?? p.thumbnail ?? '/placeholder.svg',
+            featured: !!p.featured,
+            category: p.category ?? 'Uncategorized',
+            raw: p
+          })).sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+          setBlogPosts(normalized);
+          return;
+        }
+      } catch (e) {
+        // ignore and fallback
+      }
+
+      // 2) Fallback: bundled JSON with asset resolution for src assets
+      const assetModules = import.meta.glob('../assets/*.{png,jpg,jpeg,gif,svg,webp}', { eager: true, as: 'url' }) as Record<string, string>;
+      const modules = import.meta.glob('../content/blog/*.json', { eager: true }) as Record<string, any>;
+      const values = Object.values(modules).map((m: any) => (m && m.default) || m);
+      const normalized = values
+        .map((p: any, i: number) => ({
+          id: p.id ?? i + 1,
+          slug: p.slug ?? p.name?.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
+          title: p.name ?? p.title ?? 'Untitled',
+          excerpt: p.shortDescription ?? p.excerpt ?? '',
+          author: p.author ?? 'Neubofy Team',
+          date: p.publishedAt ?? p.date ?? new Date().toISOString(),
+          readTime: p.readTime ?? '5 min read',
+          tags: p.tags ?? [],
+          featured: !!p.featured,
+          category: p.category ?? 'Uncategorized',
+          raw: p
+        }))
+        .map((p: any) => resolveBundledAssets(p.raw || p, assetModules))
+        .sort((a: any, b: any) => new Date(b.date).getTime() - new Date(a.date).getTime());
+      if (mounted) setBlogPosts(normalized as any[]);
+    };
+
+    load();
+    return () => { mounted = false; };
   }, []);
-
-  const resolveAssetUrl = (url: string) => {
-    if (url.startsWith('/src/assets/')) {
-      const assetPath = url.replace('/src/assets/', '../assets/');
-      return assetModules[assetPath] || url;
-    }
-    return url;
-  };
-
-  const blogPosts = useMemo(() => {
-    const modules = import.meta.glob('../content/blog/*.json', { eager: true }) as Record<string, any>;
-    const values = Object.values(modules).map((m: any) => (m && m.default) || m);
-    // normalize some fields and sort by publishedAt desc
-    return values
-      .map((p: any, i: number) => ({
-        id: p.id ?? i + 1,
-        slug: p.slug ?? p.name?.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
-        title: p.name ?? p.title ?? 'Untitled',
-        excerpt: p.shortDescription ?? p.excerpt ?? '',
-        author: p.author ?? 'Neubofy Team',
-        date: p.publishedAt ?? p.date ?? new Date().toISOString(),
-        readTime: p.readTime ?? '5 min read',
-        tags: p.tags ?? [],
-        thumbnail: resolveAssetUrl(p.thumbnailUrl ?? p.thumbnail ?? '/placeholder.svg'),
-        featured: !!p.featured,
-        category: p.category ?? 'Uncategorized',
-        raw: p
-      }))
-      .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-  }, [assetModules]);
 
   const [selectedCategory, setSelectedCategory] = useState("All");
   

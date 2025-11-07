@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo, useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -28,39 +28,58 @@ type BlogItem = {
 const BlogDetail = () => {
   const { slug } = useParams();
 
-  const assetModules = useMemo(() => {
-    return import.meta.glob('../assets/*.{png,jpg,jpeg,gif,svg,webp}', { eager: true, as: 'url' });
-  }, []);
+  const [item, setItem] = useState<BlogItem | null>(null);
 
-  const resolveAssetUrl = (url: string) => {
-    if (url.startsWith('/src/assets/')) {
-      const assetPath = url.replace('/src/assets/', '../assets/');
-      return assetModules[assetPath] || url;
-    }
-    return url;
-  };
+  useEffect(() => {
+    let mounted = true;
 
-  const item = useMemo(() => {
-    const modules = import.meta.glob('../content/blog/*.json', { eager: true }) as Record<string, any>;
-    const values = Object.values(modules).map((m: any) => (m && m.default) || m) as BlogItem[];
-    const foundItem = values.find((b) => b.slug === slug) ?? null;
+    const resolveBundledAssets = (p: any, assetModules: Record<string, string>) => {
+      const resolve = (url: string) => {
+        if (!url) return url;
+        if (url.startsWith('/src/assets/')) {
+          const assetPath = url.replace('/src/assets/', '../assets/');
+          return assetModules[assetPath] || url;
+        }
+        return url;
+      };
+      return {
+        ...p,
+        thumbnailUrl: resolve(p.thumbnailUrl ?? p.thumbnail ?? ''),
+        imageUrls: (p.imageUrls || []).map(resolve),
+        content: Array.isArray(p.content) ? p.content.map((b: any) => b.type === 'image' ? { ...b, src: resolve(b.src) } : b) : p.content
+      } as BlogItem;
+    };
 
-    if (foundItem) {
-      // Resolve thumbnail and image URLs
-      foundItem.thumbnailUrl = resolveAssetUrl(foundItem.thumbnailUrl ?? '');
-      foundItem.imageUrls = (foundItem.imageUrls || []).map(resolveAssetUrl);
-      // Resolve content block image URLs
-      if (Array.isArray(foundItem.content)) {
-        foundItem.content = foundItem.content.map(block => {
-          if (block.type === "image") {
-            return { ...block, src: resolveAssetUrl(block.src) };
-          }
-          return block;
-        });
+    const load = async () => {
+      if (!slug) return;
+      // 1) Try public file
+      try {
+        const res = await fetch(`/blog/${slug}.json`, { cache: 'no-cache' });
+        if (res.ok) {
+          const data = await res.json();
+          if (!mounted) return;
+          setItem(data as BlogItem);
+          return;
+        }
+      } catch (e) {
+        // ignore and fallback
       }
-    }
-    return foundItem;
-  }, [slug, assetModules]);
+
+      // 2) Fallback to bundled JSON
+      const assetModules = import.meta.glob('../assets/*.{png,jpg,jpeg,gif,svg,webp}', { eager: true, as: 'url' }) as Record<string, string>;
+      const modules = import.meta.glob('../content/blog/*.json', { eager: true }) as Record<string, any>;
+      const values = Object.values(modules).map((m: any) => (m && m.default) || m) as BlogItem[];
+      const found = values.find(b => b.slug === slug) ?? null;
+      if (found && mounted) {
+        setItem(resolveBundledAssets(found, assetModules));
+      } else if (mounted) {
+        setItem(null);
+      }
+    };
+
+    load();
+    return () => { mounted = false; };
+  }, [slug]);
 
   if (!item) {
     return (

@@ -19,7 +19,7 @@ const Navbar = () => {
 
   const navItems = [
     { name: "Home", path: "/" },
-    { name: "Our Creations", path: "/creations" },
+    { name: "Neubofy Orbit", path: "/orbit" },
     { name: "About Us", path: "/about" },
     { name: "Blog", path: "/blog" },
     { name: "Contact", path: "/contact" },

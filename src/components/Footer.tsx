@@ -71,8 +71,8 @@ const Footer = () => {
               <Link to="/about" className="block text-muted-foreground hover:text-primary transition-colors">
                 About Us
               </Link>
-              <Link to="/creations" className="block text-muted-foreground hover:text-primary transition-colors">
-                Our Creations
+              <Link to="/orbit" className="block text-muted-foreground hover:text-primary transition-colors">
+                Neubofy Orbit
               </Link>
               <Link to="/contact" className="block text-muted-foreground hover:text-primary transition-colors">
                 Contact

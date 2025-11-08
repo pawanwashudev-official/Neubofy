@@ -6,8 +6,8 @@ import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import { lazy, Suspense } from "react";
 const Index = lazy(() => import("./pages/Index"));
-const Creations = lazy(() => import("./pages/Creations"));
-const CreationDetail = lazy(() => import("./pages/CreationDetail"));
+const NeubofyOrbit = lazy(() => import("./pages/Creations"));
+const NeubofyOrbitDetail = lazy(() => import("./pages/CreationDetail"));
 const Contact = lazy(() => import("./pages/Contact"));
 const About = lazy(() => import("./pages/About"));
 const Blog = lazy(() => import("./pages/Blog"));
@@ -54,8 +54,8 @@ function App() {
           <Suspense fallback={null}>
             <Routes>
             <Route path="/" element={<Index />} />
-            <Route path="/creations" element={<Creations />} />
-            <Route path="/creations/:slug" element={<CreationDetail />} />
+            <Route path="/orbit" element={<NeubofyOrbit />} />
+            <Route path="/orbit/:slug" element={<NeubofyOrbitDetail />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/about" element={<About />} />
             <Route path="/blog" element={<Blog />} />

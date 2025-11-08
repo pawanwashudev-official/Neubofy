@@ -122,7 +122,7 @@ const Creations = () => {
         <Reveal>
         <div className="text-center mb-10 md:mb-12">
           <h1 className="text-5xl md:text-7xl font-display font-bold mb-4 md:mb-6 gradient-text">
-            Our Creations
+            Neubofy Orbit
           </h1>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
             See what Neubofy can build for you. Each solution is custom-crafted with privacy, 
@@ -154,7 +154,7 @@ const Creations = () => {
         <Reveal>
         <div className="text-center mb-6">
           <p className="text-muted-foreground">
-            Showing {filteredCreations.length} of {creations.length} creations
+            Showing {filteredCreations.length} of {creations.length} solutions
           </p>
         </div>
         </Reveal>

@@ -1,47 +1,109 @@
-import React, { useState, useRef } from "react";
-import { useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
 
 const GROQ_API_KEY = "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";
 const GROQ_API_URL = "https://api.groq.com/openai/v1/chat/completions";
-const SYSTEM_PROMPT = `You are Neubofy AI, an assistant for Neubofy. Reply concisely and directly to user queries, but if a question requires a detailed answer, you may use up to 200 words. Only mention Neubofy if contextually needed. Never mention any other brand. Always provide direct links to Neubofy pages using <a> tags with class 'neubofy-link'. Pages: Home(/), About(/about), Creations(/creations), Blog(/blog), Contact(/contact).`;
+const SYSTEM_PROMPT = `You are Neubofy Assistant, the official AI assistant of Neubofy - The Premier Marketplace for AI SaaS Solutions. You represent a platform that connects AI developers with users and helps distribute innovative AI tools. Your personality is professional, supportive, and enthusiastic about the AI ecosystem.
+
+Key traits:
+- Always identify as "Neubofy Assistant"
+- Emphasize our role as an AI SaaS marketplace and ecosystem
+- Highlight both developer and user opportunities
+- Be welcoming to both creators and users
+- Maintain professionalism while being approachable
+- Focus on our community-driven approach
+- Emphasize privacy and security
+
+Core capabilities:
+- Guide developers on listing their AI tools
+- Help users find suitable AI solutions
+- Explain our verification process for developers
+- Assist with custom solution requests
+- Connect users with verified developers
+- Provide marketplace navigation help
+
+Important links (use with class='neubofy-link'):
+- Home: /
+- Neubofy Orbit (Solutions): /orbit
+- About Us: /about
+- Blog: /blog
+- Contact: /contact
+
+Format responses professionally with paragraphs and bullet points when appropriate. Max length 200 words unless detailed explanation needed.`;
 
 // Neubofy knowledge base for updates, onboarding, and services
 const NEUBOFY_KB = [
+  // Core Information
   {
-    keywords: ["Our services", "How we can help", "register", "sign up"],
-    answer: "To onboard with Neubofy, visit our <a href='/creation' class='neubofy-link'>Our Creations</a> page. here you can deeply analyse how we can help you."
+    keywords: ["what is neubofy", "about neubofy", "company info", "tell me about"],
+    answer: "Neubofy is a premier AI SaaS marketplace and ecosystem that connects developers, creators, and users. We help developers distribute their AI-based tools and enable users to access top-quality AI solutions at affordable prices. Think of us as the 'Play Store for AI Tools' where you can discover, request, or list innovative AI solutions. Visit our <a href='/orbit' class='neubofy-link'>Neubofy Orbit</a> to explore our ecosystem."
   },
   {
-    keywords: ["make tool", "custom tool", "build tool", "create tool"],
-    answer: "To request your own AI tool, go to <a href='/contact' class='neubofy-link'>Contact</a> and fill out the request form. Neubofy specializes in custom AI solutions."
+    keywords: ["who made you", "who created you", "your creator", "who built you", "who developed you"],
+    answer: "I was created by the Neubofy team as your dedicated AI assistant. I'm here to help you with any questions about our services and solutions."
   },
   {
-    keywords: ["services", "solutions", "business", "automation"],
-    answer: "Neubofy offers AI automation, workflow integration, and secure business solutions. Learn more on our <a href='/about' class='neubofy-link'>About</a> page."
+    keywords: ["what can you do", "your capabilities", "how can you help", "features", "abilities"],
+    answer: "As Neubofy Assistant, I can help you with:<br>• Finding the right AI solutions for your needs<br>• Understanding our services and products<br>• Technical guidance and support<br>• Custom solution inquiries<br>• Latest AI trends and insights<br>• Account and service information"
+  },
+
+  // Products and Services
+  {
+    keywords: ["services", "solutions", "products", "offerings", "what do you offer"],
+    answer: "Neubofy offers a dynamic AI SaaS ecosystem with:<br>• AI Tool Marketplace - Discover and use verified AI solutions<br>• Developer Platform - List and distribute your AI tools<br>• Custom Development - Request tailored AI solutions<br>• Verified Developer Network - Connect with trusted AI creators<br>• Distribution Support - Help reaching the right audience<br>• Privacy-First Platform - Ensuring data security<br><br>Visit our <a href='/orbit' class='neubofy-link'>Neubofy Orbit</a> to explore the marketplace."
   },
   {
-    keywords: ["blog", "news", "article", "insight"],
-    answer: "Explore the latest insights and articles on our <a href='/blog' class='neubofy-link'>Blog</a> page."
+    keywords: ["how to start", "get started", "begin", "first steps", "onboarding"],
+    answer: "Getting started with Neubofy is easy:<br><br>For Users:<br>1. Browse AI tools in <a href='/orbit' class='neubofy-link'>Neubofy Orbit</a><br>2. Find tools that match your needs<br>3. Get affordable access to premium AI solutions<br>4. Request custom tools if needed<br><br>For Developers:<br>1. <a href='/contact' class='neubofy-link'>Contact us</a> to become a verified developer<br>2. List your AI tools on our marketplace<br>3. Reach a wider audience<br>4. Get distribution support"
   },
   {
-    keywords: ["update", "latest", "new feature"],
-    answer: "Latest Neubofy Update: We have launched a new AI-powered dashboard for business analytics! <a href='/creations' class='neubofy-link'>Learn More</a>"
+    keywords: ["custom solution", "custom development", "tailored", "bespoke", "specific needs"],
+    answer: "Need a custom AI solution? Our team specializes in developing tailored solutions for unique business requirements. <a href='/contact' class='neubofy-link'>Contact us</a> to discuss your specific needs and let us create the perfect solution for you."
+  },
+
+  // Company Information
+  {
+    keywords: ["company values", "mission", "vision", "principles"],
+    answer: "Neubofy's mission is to create a thriving ecosystem where AI innovation meets accessibility. We aim to:<br>• Connect AI developers with users who need their solutions<br>• Make premium AI tools accessible at affordable prices<br>• Support local developers in reaching global markets<br>• Ensure privacy and security in AI solutions<br>• Foster innovation through our developer community<br>• Enable custom AI development for specific needs<br>Learn more on our <a href='/about' class='neubofy-link'>About page</a>."
   },
   {
-    keywords: ["home", "main page", "landing"],
-    answer: "Return to the <a href='/' class='neubofy-link'>Neubofy Home</a> page for an overview of our platform."
+    keywords: ["security", "privacy", "data protection", "safe", "secure"],
+    answer: "Security is our top priority. Neubofy implements:<br>• Enterprise-grade encryption<br>• Secure data handling protocols<br>• Regular security audits<br>• Compliance with privacy regulations<br>• Transparent data practices"
   },
   {
-    keywords: ["home", "main page", "landing"],
-    answer: "Return to the <a href='/' class='neubofy-link'>Neubofy Home</a> page for an overview of our platform."
+    keywords: ["pricing", "cost", "packages", "plans", "subscription"],
+    answer: "Neubofy offers flexible pricing tailored to your specific needs. Each solution is customized to provide maximum value. <a href='/contact' class='neubofy-link'>Contact us</a> for a personalized quote."
+  },
+
+  // Support and Resources
+  {
+    keywords: ["support", "help", "assistance", "contact", "reach"],
+    answer: "We're here to help! You can:<br>• <a href='/contact' class='neubofy-link'>Contact our team</a><br>• Chat with me anytime<br>• Visit our <a href='/blog' class='neubofy-link'>Blog</a> for guides<br>• Request technical support<br>• Schedule a consultation"
   },
   {
-    keywords: [
-      "founder", "creator", "who made", "who founded", "who created", "who is behind", "who built", "owner", "developed by", "origin", "about the founder", "neubofy founder", "neubofy creator", "pawan washudev"
-    ],
-    answer: "Neubofy was founded by Pawan Washudev, an AI generalist and technology innovator."
+    keywords: ["documentation", "guides", "tutorials", "learn", "how to"],
+    answer: "Access comprehensive resources on our <a href='/blog' class='neubofy-link'>Blog</a>, including:<br>• Implementation guides<br>• Best practices<br>• Case studies<br>• Technical documentation<br>• Video tutorials"
+  },
+  {
+    keywords: ["news", "updates", "latest", "new features", "recent"],
+    answer: "Stay updated with Neubofy's latest innovations and features on our <a href='/blog' class='neubofy-link'>Blog</a>. We regularly share new developments, success stories, and industry insights."
+  },
+
+  // Integration and Technical
+  {
+    keywords: ["integration", "implement", "setup", "install", "deploy"],
+    answer: "Neubofy solutions are designed for seamless integration. Our team provides:<br>• Technical consultation<br>• Implementation support<br>• Custom integration options<br>• Ongoing maintenance<br><a href='/contact' class='neubofy-link'>Contact us</a> for integration details."
+  },
+  {
+    keywords: ["api", "technical", "development", "developer", "code"],
+    answer: "For developers, we provide a comprehensive platform:<br>• Developer verification program<br>• Marketplace listing tools<br>• Distribution support services<br>• Technical documentation<br>• Marketing assistance<br>• Customer feedback system<br>• Revenue sharing model<br><a href='/contact' class='neubofy-link'>Contact us</a> to join our developer community."
+  },
+
+  // Success Stories
+  {
+    keywords: ["case studies", "success stories", "examples", "portfolio"],
+    answer: "Explore our success stories in <a href='/orbit' class='neubofy-link'>Neubofy Orbit</a>. See how businesses across industries have transformed their operations using our AI solutions."
   }
 ];
 
@@ -235,7 +297,7 @@ const GeminiChatbot = () => {
         <div className="fixed bottom-28 right-8 z-[60] bg-white/80 border backdrop-blur-md border-cyan-200 shadow-2xl rounded-xl px-5 py-4 max-w-xs animate-fade-in-up" style={{ minWidth: 220 }}>
           <div className="flex items-center gap-2 mb-1">
             <span className="inline-block w-8 h-8 rounded-full bg-gradient-to-br from-cyan-400 to-purple-500 text-white flex items-center justify-center text-lg">{BOT_AVATAR}</span>
-            <span className="font-semibold text-cyan-700">Neubofy AI</span>
+            <span className="font-semibold text-cyan-700">Neubofy Assistant</span>
           </div>
           <div className="text-gray-800 text-sm" dangerouslySetInnerHTML={{ __html: notification }} />
         </div>
@@ -261,7 +323,7 @@ const GeminiChatbot = () => {
           <div className="p-4 bg-gradient-to-br from-cyan-400/80 to-purple-500/80 text-white rounded-t-3xl font-bold flex justify-between items-center shadow-md">
             <div className="flex items-center gap-2">
               <span className="text-2xl">{BOT_AVATAR}</span>
-              <span>Neubofy AI Chatbot</span>
+              <span>Neubofy Assistant</span>
             </div>
             <button onClick={() => setOpen(false)} className="text-white text-xl font-bold hover:scale-125 transition">&times;</button>
           </div>
@@ -330,7 +392,7 @@ const GeminiChatbot = () => {
           >
             <input
               className="flex-1 p-4 border-none outline-none rounded-bl-3xl text-gray-900 placeholder:text-gray-400 bg-white/90 focus:bg-cyan-50 transition-colors duration-300 shadow-inner text-base sm:text-lg"
-              placeholder="Ask anything about Neubofy…"
+              placeholder="Ask me anything..."
               value={input}
               onChange={e => setInput(e.target.value)}
               disabled={loading}

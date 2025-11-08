@@ -1,16 +1,44 @@
-# Neubofy – AI & Automation Marketplace
+# Neubofy - The Premier AI SaaS Marketplace
 
-Neubofy is a **developer‑first platform** that lets you build, showcase, and distribute AI‑powered and automation projects.  
-Think of it as a **Play Store for AI tools** – you develop locally, push your code, and the project appears in a searchable catalog for anyone to discover and install.
+![Neubofy Banner](https://images.unsplash.com/photo-1677442135703-1787cease674?q=80&w=1932&auto=format&fit=crop)
 
----
+Neubofy is revolutionizing the AI industry by creating a dynamic marketplace that connects innovative AI developers with users seeking powerful, affordable solutions. Think of us as the **"Play Store for AI Tools"** - a platform where developers can showcase their innovations and users can discover cutting-edge AI solutions.
 
-## 📖 About the Project
+## 🌟 Our Vision
 
-- **Local‑dev focus** – simple `npm install` / `npm run dev` workflow so you can iterate quickly.  
-- **One‑click publishing** – after a push, the project is automatically listed in the Neubofy storefront.  
-- **AI & automation hub** – projects are indexed by category, tags, and screenshots, making it easy for users to find the right tool for their workflow.  
-- **Open source** – the entire codebase is available for you to fork, extend, and contribute.
+We're building an ecosystem where:
+- Local developers can reach global audiences
+- Users get affordable access to premium AI tools
+- Innovation is driven by real-world needs
+- Privacy and security are paramount
+- AI technology becomes truly accessible
+
+## 🚀 For Developers
+
+Join our platform to:
+- **Showcase** your AI innovations
+- **Distribute** your tools globally
+- **Connect** with your target audience
+- **Monetize** through flexible revenue sharing
+- **Grow** with marketing and technical support
+
+## 👥 For Users
+
+Discover a world of AI possibilities:
+- **Access** premium AI tools at affordable prices
+- **Request** custom solutions for specific needs
+- **Connect** directly with developers
+- **Ensure** data privacy and security
+- **Transform** your workflow with cutting-edge AI
+
+## 🛠️ Technology Stack
+
+- **Frontend**: React + TypeScript
+- **Styling**: Tailwind CSS
+- **Build Tool**: Vite
+- **API**: REST with JSON
+- **Authentication**: Secure OAuth
+- **Deployment**: Vercel
 
 ---
 

@@ -94,7 +94,7 @@ const CreationDetail = () => {
           <h1 className="text-2xl font-bold mb-4">Creation not found</h1>
           <p className="text-muted-foreground mb-6">The requested item does not exist or failed to load.</p>
           <Button asChild>
-            <Link to="/creations">Back to Creations</Link>
+            <Link to="/orbit">Back to Neubofy Orbit</Link>
           </Button>
         </div>
         <Footer />
@@ -108,7 +108,7 @@ const CreationDetail = () => {
       <div className="container mx-auto px-4 py-32">
         <Reveal>
           <div className="max-w-4xl mx-auto mb-10">
-            <Link to="/creations" className="text-sm text-primary hover:underline">← Back to Creations</Link>
+            <Link to="/orbit" className="text-sm text-primary hover:underline">← Back to Neubofy Orbit</Link>
           </div>
         </Reveal>
 

@@ -16,12 +16,12 @@ const Footer = () => {
   return (
     <footer className="glass-card mt-20">
       <div className="container mx-auto px-4 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
           {/* Company Info */}
           <div>
             <h3 className="text-2xl font-bold gradient-text mb-4">Neubofy</h3>
             <p className="text-muted-foreground mb-4">
-              AI automation for every ambition. Transforming productivity through secure, innovative solutions.
+              India's premier AI marketplace. Empowering developers and transforming businesses through innovative AI solutions.
             </p>
             <div className="flex space-x-4">
               <a 
@@ -61,9 +61,9 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Quick Links */}
+          {/* Pages */}
           <div>
-            <h3 className="text-lg font-bold mb-4">Quick Links</h3>
+            <h3 className="text-lg font-bold mb-4">Pages</h3>
             <div className="space-y-3">
               <Link to="/" className="block text-muted-foreground hover:text-primary transition-colors">
                 Home
@@ -74,28 +74,12 @@ const Footer = () => {
               <Link to="/orbit" className="block text-muted-foreground hover:text-primary transition-colors">
                 Neubofy Orbit
               </Link>
+              <Link to="/blog" className="block text-muted-foreground hover:text-primary transition-colors">
+                Blog
+              </Link>
               <Link to="/contact" className="block text-muted-foreground hover:text-primary transition-colors">
                 Contact
               </Link>
-            </div>
-          </div>
-
-          {/* Services */}
-          <div>
-            <h3 className="text-lg font-bold mb-4">Services</h3>
-            <div className="space-y-3">
-              <a href="#" className="block text-muted-foreground hover:text-primary transition-colors">
-                Custom AI Solutions
-              </a>
-              <a href="#" className="block text-muted-foreground hover:text-primary transition-colors">
-                Automation Tools
-              </a>
-              <a href="#" className="block text-muted-foreground hover:text-primary transition-colors">
-                Student Tools
-              </a>
-              <a href="#" className="block text-muted-foreground hover:text-primary transition-colors">
-                Business Solutions
-              </a>
             </div>
           </div>
 

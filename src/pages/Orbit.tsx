@@ -11,7 +11,7 @@ import { Link, useNavigate } from "react-router-dom";
 import ProductCard from "@/components/ProductCard";
 import NewProductForm from "@/components/NewProductForm";
 
-const Creations = () => {
+const Orbit = () => {
   const navigate = useNavigate();
   const [isProductFormOpen, setIsProductFormOpen] = useState(false);
 
@@ -57,8 +57,7 @@ const Creations = () => {
           try {
             const r = await fetch(`/product/${fileName}`, { cache: 'no-cache' });
             if (!r.ok) throw new Error(`Failed to load ${fileName}: ${r.status}`);
-            const text = await r.text(); // First get the raw text
-            console.log(`Raw content for ${fileName}:`, text.slice(0, 100) + '...'); // Log the first 100 chars
+            const text = await r.text();
             try {
               const product = JSON.parse(text);
               console.log(`Successfully loaded ${fileName}:`, product);
@@ -102,17 +101,6 @@ const Creations = () => {
       : creations.filter(creation => creation.category === selectedCategory);
   }, [creations, selectedCategory]);
 
-  //
-
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case "Live": return "bg-green-500/20 text-green-400 border-green-500/30";
-      case "In Development": return "bg-yellow-500/20 text-yellow-400 border-yellow-500/30";
-      case "Coming Soon": return "bg-blue-500/20 text-blue-400 border-blue-500/30";
-      default: return "bg-gray-500/20 text-gray-400 border-gray-500/30";
-    }
-  };
-
   return (
     <div className="min-h-screen animated-gradient">
       <Navbar />
@@ -125,8 +113,8 @@ const Creations = () => {
             Neubofy Orbit
           </h1>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            See what Neubofy can build for you. Each solution is custom-crafted with privacy, 
-            innovation, and your success in mind.
+            Explore our curated collection of AI solutions and automation tools. Each solution is 
+            custom-crafted with privacy, innovation, and your success in mind.
           </p>
         </div>
         </Reveal>
@@ -159,12 +147,12 @@ const Creations = () => {
         </div>
         </Reveal>
 
-        {/* Creations Grid */}
+        {/* Solutions Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mb-16">
           {filteredCreations.map((creation, index) => (
             <Reveal key={creation.slug} delay={index * 0.05}>
               <button
-                onClick={() => navigate(`/creations/${creation.slug}`)}
+                onClick={() => navigate(`/orbit/${creation.slug}`)}
                 className="text-left w-full glass-card rounded-2xl overflow-hidden hover:shadow-elevated transition-all duration-500 group"
               >
                 <div className="relative">
@@ -214,19 +202,19 @@ const Creations = () => {
           ))}
         </div>
 
-        {/* Add New Project Section */}
+        {/* Add New Solution Section */}
         <Reveal>
         <div className="glass-card p-8 rounded-2xl text-center">
           <Plus className="w-12 h-12 mx-auto mb-4 text-muted-foreground" />
-          <h3 className="text-2xl font-bold mb-4 gradient-text">Have an AI Project to Share?</h3>
+          <h3 className="text-2xl font-bold mb-4 gradient-text">Have an AI Solution to Share?</h3>
           <p className="text-muted-foreground mb-6 text-lg">
-            Submit your AI or automation project to be featured in our marketplace.
+            Submit your AI tool or automation solution to be featured in our marketplace.
             Join our growing community of innovators and developers.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button className="btn-hero" onClick={() => setIsProductFormOpen(true)}>
               <Plus className="w-4 h-4 mr-2" />
-              List Your Project
+              List Your Solution
             </Button>
             <Button variant="outline" className="btn-outline-glow" asChild>
               <Link to="/contact">
@@ -239,7 +227,7 @@ const Creations = () => {
         </Reveal>
       </div>
 
-      {/* Project Submission Form Modal */}
+      {/* Solution Submission Form Modal */}
       {isProductFormOpen && (
         <NewProductForm onClose={() => setIsProductFormOpen(false)} />
       )}
@@ -250,4 +238,4 @@ const Creations = () => {
   );
 };
 
-export default Creations;
+export default Orbit;

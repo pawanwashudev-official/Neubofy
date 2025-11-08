@@ -93,7 +93,7 @@ const HeroSection = () => {
             animate={isVisible ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.5 }}
           >
-            <Link to="/creations">
+            <Link to="/orbit">
               <motion.button
                 className="btn-hero text-xl px-10 py-5 group hover:scale-105 pulse-glow focus:outline-none focus:ring-2 focus:ring-primary/50"
                 whileHover={{ scale: 1.07 }}
@@ -101,7 +101,7 @@ const HeroSection = () => {
                 type="button"
               >
                 <Sparkles className="w-6 h-6 mr-3 group-hover:rotate-12 transition-transform" />
-                See Our Creations
+                Explore Neubofy Orbit
                 <ArrowRight className="w-6 h-6 ml-3 group-hover:translate-x-2 transition-transform" />
               </motion.button>
             </Link>

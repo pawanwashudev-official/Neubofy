@@ -22,11 +22,11 @@ type CreationItem = {
   tags?: string[];
   features?: string[];
   mainUrl?: string;
-  demoUrl?: string; // backward-compat
-  caseStudyUrl?: string; // backward-compat
+  demoUrl?: string;
+  caseStudyUrl?: string;
 };
 
-const CreationDetail = () => {
+const OrbitDetail = () => {
   const { slug } = useParams();
   const [item, setItem] = useState<CreationItem | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
@@ -38,7 +38,6 @@ const CreationDetail = () => {
     let isMounted = true;
     const load = async () => {
       try {
-        // Load per-product file from /product
         const resDetail = await fetch(`/product/${slug}.json`, { cache: 'no-cache' });
         if (resDetail.ok) {
           const detail = await resDetail.json();
@@ -91,8 +90,8 @@ const CreationDetail = () => {
       <div className="min-h-screen animated-gradient">
         <Navbar />
         <div className="container mx-auto px-4 py-32 text-center">
-          <h1 className="text-2xl font-bold mb-4">Creation not found</h1>
-          <p className="text-muted-foreground mb-6">The requested item does not exist or failed to load.</p>
+          <h1 className="text-2xl font-bold mb-4">Solution not found</h1>
+          <p className="text-muted-foreground mb-6">The requested solution does not exist or failed to load.</p>
           <Button asChild>
             <Link to="/orbit">Back to Neubofy Orbit</Link>
           </Button>
@@ -124,7 +123,7 @@ const CreationDetail = () => {
             {(item.mainUrl || item.demoUrl || item.caseStudyUrl) && (
               <div className="mt-6">
                 <Button asChild className="btn-hero">
-                  <a href={(item.mainUrl || item.demoUrl || item.caseStudyUrl) as string} target="_blank" rel="noopener noreferrer">Visit Website</a>
+                  <a href={(item.mainUrl || item.demoUrl || item.caseStudyUrl) as string} target="_blank" rel="noopener noreferrer">Visit Solution</a>
                 </Button>
               </div>
             )}
@@ -166,7 +165,7 @@ const CreationDetail = () => {
         {/* Detail description */}
         <Reveal>
           <div className="max-w-3xl mx-auto glass-card p-8 rounded-2xl">
-            <h2 className="text-2xl font-semibold mb-3">About this product</h2>
+            <h2 className="text-2xl font-semibold mb-3">About this solution</h2>
             <p className="text-muted-foreground leading-relaxed">{item.detailDescription}</p>
           </div>
         </Reveal>
@@ -176,6 +175,4 @@ const CreationDetail = () => {
   );
 };
 
-export default CreationDetail;
-
-
+export default OrbitDetail;

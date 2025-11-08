@@ -1,7 +1,9 @@
 {
   "files": [
-    "ai-study-mentor.json",
-    "smart-inventory-pro.json",
-    "contentcraft-ai.json"
+    "zapier-automation.json",
+    "make-integromat.json",
+    "power-automate.json",
+    "uipath.json",
+    "tray-io.json"
   ]
 }

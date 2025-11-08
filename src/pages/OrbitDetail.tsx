@@ -140,20 +140,21 @@ const OrbitDetail = () => {
                   .slice(0, 10)
                   .map((url, idx) => (
                     <CarouselItem key={idx} className="basis-11/12 md:basis-1/2 lg:basis-1/3">
-                      <div className="rounded-xl overflow-hidden glass-card cursor-pointer" onClick={() => carouselApi?.scrollTo(idx)}>
-                        <AspectRatio ratio={4/5}>
+                      <div className="rounded-xl overflow-hidden glass-card cursor-pointer h-[400px]" onClick={() => carouselApi?.scrollTo(idx)}>
                           <img
-                            src={url}
+                            src={url || "/placeholder.svg"}
                             alt={`${item.name} image ${idx+1}`}
-                            className="w-full h-full object-cover"
+                            className="w-full h-full object-contain bg-black/5"
                             loading="lazy"
+                            style={{ objectPosition: 'center center' }}
                             onError={(e) => {
-                              const t = e.currentTarget as HTMLImageElement;
-                              if (t.src.includes('/placeholder.svg')) return;
-                              t.src = '/placeholder.svg';
+                              const img = e.currentTarget as HTMLImageElement;
+                              if (!img.src.includes('/placeholder.svg')) {
+                                img.src = '/placeholder.svg';
+                                console.log('Image error, switched to placeholder:', url);
+                              }
                             }}
                           />
-                        </AspectRatio>
                       </div>
                     </CarouselItem>
                 ))}

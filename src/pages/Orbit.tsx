@@ -156,13 +156,21 @@ const Orbit = () => {
                 className="text-left w-full glass-card rounded-2xl overflow-hidden hover:shadow-elevated transition-all duration-500 group"
               >
                 <div className="relative">
-                  <AspectRatio ratio={16/9}>
+                  <div className="h-[300px] bg-black/5 rounded-t-2xl">
                     <img
-                      src={creation.thumbnailUrl}
+                      src={creation.thumbnailUrl || "/placeholder.svg"}
                       alt={creation.name}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
+                      style={{ objectPosition: 'center center' }}
+                      onError={(e) => {
+                        const img = e.currentTarget as HTMLImageElement;
+                        if (!img.src.includes('/placeholder.svg')) {
+                          img.src = '/placeholder.svg';
+                        }
+                      }}
                     />
-                  </AspectRatio>
+                  </div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent rounded-t-2xl"></div>
                   
                   {creation.category && (
                     <div className="absolute bottom-3 left-3">

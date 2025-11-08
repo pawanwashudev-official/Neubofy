@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { ExternalLink, Play, Code, Star, Plus } from "lucide-react";
+import { ExternalLink, Play, Code, Star, Plus, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import Navbar from "@/components/Navbar";
@@ -8,9 +8,12 @@ import Reveal from "@/components/Reveal";
 import GoToTop from "@/components/GoToTop";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Link, useNavigate } from "react-router-dom";
+import ProductCard from "@/components/ProductCard";
+import NewProductForm from "@/components/NewProductForm";
 
 const Creations = () => {
   const navigate = useNavigate();
+  const [isProductFormOpen, setIsProductFormOpen] = useState(false);
 
   type CreationItem = {
     slug: string;
@@ -162,63 +165,47 @@ const Creations = () => {
             <Reveal key={creation.slug} delay={index * 0.05}>
               <button
                 onClick={() => navigate(`/creations/${creation.slug}`)}
-                className="text-left glass-card rounded-2xl overflow-hidden border border-white/10 hover:shadow-elevated transition-all duration-300 group focus:outline-none focus:ring-2 focus:ring-primary"
+                className="text-left w-full glass-card rounded-2xl overflow-hidden hover:shadow-elevated transition-all duration-500 group"
               >
-                {/* Image */}
-                <div className="relative overflow-hidden">
-                  <AspectRatio ratio={4/5}>
+                <div className="relative">
+                  <AspectRatio ratio={16/9}>
                     <img
                       src={creation.thumbnailUrl}
-                      alt={`${creation.name} - ${creation.shortDescription}`}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                      onError={(e) => {
-                        const t = e.currentTarget as HTMLImageElement;
-                        if (t.src.includes('/placeholder.svg')) return;
-                        t.src = '/placeholder.svg';
-                      }}
-                      loading="lazy"
+                      alt={creation.name}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                   </AspectRatio>
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
-                  {creation.status && (
-                    <div className={`absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-medium border ${getStatusColor(creation.status)}`}>
-                      {creation.status}
+                  
+                  {creation.category && (
+                    <div className="absolute bottom-3 left-3">
+                      <Badge variant="secondary">{creation.category}</Badge>
                     </div>
                   )}
                 </div>
 
-                {/* Content */}
-                <div className="p-5 md:p-6">
-                  <div className="flex items-start justify-between mb-4">
-                    <h3 className="text-xl font-bold group-hover:text-primary transition-colors">
-                      {creation.name}
-                    </h3>
-                    <Star className="w-5 h-5 text-yellow-400 flex-shrink-0" />
-                  </div>
-
-                  <p className="text-muted-foreground text-sm mb-4 line-clamp-3">
+                <div className="p-5">
+                  <h3 className="text-lg font-bold mb-2 group-hover:text-primary transition-colors">
+                    {creation.name}
+                  </h3>
+                  
+                  <p className="text-muted-foreground text-sm mb-4 line-clamp-2">
                     {creation.shortDescription}
                   </p>
 
-                  {/* Tags */}
                   {creation.tags && creation.tags.length > 0 && (
-                    <div className="flex flex-wrap gap-2 mb-4">
+                    <div className="flex flex-wrap gap-1 mb-4">
                       {creation.tags.map((tag) => (
-                        <Badge key={tag} variant="secondary" className="text-xs">
+                        <Badge key={tag} variant="outline" className="text-xs">
                           {tag}
                         </Badge>
                       ))}
                     </div>
                   )}
 
-                  {/* Actions */}
-                  <div className="flex gap-3">
-                    <Button size="sm" className="btn-hero flex-1 text-xs">
-                      <Play className="w-3 h-3 mr-2" />
+                  <div className="flex justify-between items-center mt-auto">
+                    <Button variant="outline" className="group">
                       View Details
-                    </Button>
-                    <Button size="sm" variant="outline" className="btn-outline-glow text-xs">
-                      <ExternalLink className="w-3 h-3" />
+                      <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
                     </Button>
                   </div>
                 </div>
@@ -227,30 +214,35 @@ const Creations = () => {
           ))}
         </div>
 
-        {/* Add New Tool Section (for easy content management) */}
+        {/* Add New Project Section */}
         <Reveal>
         <div className="glass-card p-8 rounded-2xl text-center">
           <Plus className="w-12 h-12 mx-auto mb-4 text-muted-foreground" />
-          <h3 className="text-xl font-bold mb-4">Have a Custom Project in Mind?</h3>
-          <p className="text-muted-foreground mb-6">
-            We specialize in building custom AI automation solutions tailored to your needs.
-            This isn't an ordinary contact form — you'll connect with us instantly.
+          <h3 className="text-2xl font-bold mb-4 gradient-text">Have an AI Project to Share?</h3>
+          <p className="text-muted-foreground mb-6 text-lg">
+            Submit your AI or automation project to be featured in our marketplace.
+            Join our growing community of innovators and developers.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button className="btn-hero" asChild>
-              <Link to="/contact">
-                <Plus className="w-4 h-4 mr-2" />
-                Request Custom Solution
-              </Link>
+            <Button className="btn-hero" onClick={() => setIsProductFormOpen(true)}>
+              <Plus className="w-4 h-4 mr-2" />
+              List Your Project
             </Button>
-            <Button variant="outline" className="btn-outline-glow">
-              <Code className="w-4 h-4 mr-2" />
-              View Source Code
+            <Button variant="outline" className="btn-outline-glow" asChild>
+              <Link to="/contact">
+                <Code className="w-4 h-4 mr-2" />
+                Contact Us
+              </Link>
             </Button>
           </div>
         </div>
         </Reveal>
       </div>
+
+      {/* Project Submission Form Modal */}
+      {isProductFormOpen && (
+        <NewProductForm onClose={() => setIsProductFormOpen(false)} />
+      )}
 
       <Footer />
       <GoToTop />

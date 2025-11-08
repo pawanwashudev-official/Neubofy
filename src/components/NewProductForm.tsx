@@ -29,7 +29,7 @@ const productSchema = z.object({
 });
 
 // Google Apps Script deployment URL
-const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyWtUZrPPpPGtxzMPQJA_w8n0jIqOe_TrhpW4RLRj19/dev";
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby9_yq0GRGbPcz3YbSZhh8WBpMsw0SUlX0VWDzIU56HKaxnGNqhJmvLFM7Ty0PfFSM/exec";
 
 export default function NewProductForm({
   onClose,
@@ -62,68 +62,52 @@ export default function NewProductForm({
       // Show loading toast
       const loadingToast = toast.loading("Submitting your project...");
 
-      // Create a hidden form and submit it
-      const form = document.createElement('form');
-      form.method = 'POST';
-      form.action = GOOGLE_SCRIPT_URL;
-      form.target = 'submit-frame'; // Target the hidden iframe
-
-      // Create hidden iframe to handle the response
-      const iframe = document.createElement('iframe');
-      iframe.name = 'submit-frame';
-      iframe.style.display = 'none';
-      document.body.appendChild(iframe);
+      // Create and submit form
+      const submitForm = document.createElement('form');
+      submitForm.method = 'POST';
+      submitForm.action = GOOGLE_SCRIPT_URL;
+      submitForm.target = '_blank';
+      submitForm.style.display = 'none';
 
       // Add the data as a hidden field
       const hiddenField = document.createElement('input');
       hiddenField.type = 'hidden';
       hiddenField.name = 'data';
       hiddenField.value = JSON.stringify(formData);
-      form.appendChild(hiddenField);
+      submitForm.appendChild(hiddenField);
 
-      // Add form to body
-      document.body.appendChild(form);
+      // Add form to body and submit
+      document.body.appendChild(submitForm);
+      submitForm.submit();
 
-      // Create a promise that resolves when the iframe loads
-      const submissionPromise = new Promise((resolve, reject) => {
-        iframe.onload = () => {
-          try {
-            // Clean up
-            document.body.removeChild(form);
-            document.body.removeChild(iframe);
-            resolve(true);
-          } catch (e) {
-            reject(e);
-          }
-        };
-        iframe.onerror = () => {
-          // Clean up
-          document.body.removeChild(form);
-          document.body.removeChild(iframe);
-          reject(new Error('Submission failed'));
-        };
-      });
+      // Wait a moment to ensure the form has been submitted
+      await new Promise(resolve => setTimeout(resolve, 1500));
 
-      // Submit the form
-      form.submit();
+      // Cleanup the form
+      if (document.body.contains(submitForm)) {
+        document.body.removeChild(submitForm);
+      }
 
-      // Wait for submission to complete
-      await submissionPromise;
-
-      // Success handling
+      // Show success message
+      toast.dismiss(loadingToast);
       toast.success(
-        "Project submitted successfully! Check your email for confirmation.",
+        "Project submitted successfully! We'll review it shortly.",
         { duration: 5000 }
       );
-      toast.dismiss(loadingToast);
+
+      // Reset form and close modal
+      form.reset();
       onClose();
-    } catch (error) {
+    } catch (error: any) {
       console.error("Error submitting project:", error);
       toast.dismiss();
       toast.error(
-        error instanceof Error ? error.message : "Failed to submit project. Please try again later.",
+        error.message || "Failed to submit project. Please try again later.",
         { duration: 5000 }
       );
+
+      // Re-enable the submit button by resetting form state
+      form.reset(form.getValues());
     }
   };
 

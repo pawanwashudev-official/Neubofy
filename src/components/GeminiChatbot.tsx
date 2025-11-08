@@ -2,6 +2,10 @@ import { useState, useRef, useEffect } from "react";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
 
+// Content indexes
+const BLOG_INDEX_URL = "/blog_index.json";
+const PRODUCT_INDEX_URL = "/product_index.json";
+
 const GROQ_API_KEY = "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";
 const GROQ_API_URL = "https://api.groq.com/openai/v1/chat/completions";
 const SYSTEM_PROMPT = `You are Neubofy Assistant, the official AI assistant of Neubofy - The Premier Marketplace for AI SaaS Solutions. You represent a platform that connects AI developers with users and helps distribute innovative AI tools. Your personality is professional, supportive, and enthusiastic about the AI ecosystem.
@@ -9,8 +13,9 @@ const SYSTEM_PROMPT = `You are Neubofy Assistant, the official AI assistant of N
 Key traits:
 - Always identify as "Neubofy Assistant"
 - Emphasize our role as an AI SaaS marketplace and ecosystem
-- Highlight both developer and user opportunities
-- Be welcoming to both creators and users
+- Access and summarize website content when asked
+- Provide detailed information about blog posts and products
+- Help users navigate through our content library
 - Maintain professionalism while being approachable
 - Focus on our community-driven approach
 - Emphasize privacy and security
@@ -81,6 +86,11 @@ const NEUBOFY_KB = [
     keywords: ["support", "help", "assistance", "contact", "reach"],
     answer: "We're here to help! You can:<br>• <a href='/contact' class='neubofy-link'>Contact our team</a><br>• Chat with me anytime<br>• Visit our <a href='/blog' class='neubofy-link'>Blog</a> for guides<br>• Request technical support<br>• Schedule a consultation"
   },
+  // Content Navigation
+  {
+    keywords: ["content", "articles", "blogs", "products", "tell me about", "find", "search"],
+    answer: "I can help you discover our content! Just ask me about:<br>• Blog posts and articles<br>• Product information<br>• Feature explanations<br>• Success stories<br>• Technical guides<br><br>Try asking: 'Tell me about [topic]' or 'Summarize [article name]'"
+  },
   {
     keywords: ["documentation", "guides", "tutorials", "learn", "how to"],
     answer: "Access comprehensive resources on our <a href='/blog' class='neubofy-link'>Blog</a>, including:<br>• Implementation guides<br>• Best practices<br>• Case studies<br>• Technical documentation<br>• Video tutorials"
@@ -107,11 +117,70 @@ const NEUBOFY_KB = [
   }
 ];
 
+// Function to fetch and process website content
+async function fetchWebsiteContent(type: 'blog' | 'product', query: string) {
+  try {
+    const indexUrl = type === 'blog' ? BLOG_INDEX_URL : PRODUCT_INDEX_URL;
+    const indexResponse = await axios.get(indexUrl);
+    const index = indexResponse.data;
+
+    // Search through the index for relevant content
+    const relevantItems = index.filter((item: any) => {
+      const searchText = `${item.name} ${item.shortDescription} ${item.category}`.toLowerCase();
+      return query.toLowerCase().split(' ').some(word => searchText.includes(word));
+    });
+
+    if (relevantItems.length === 0) {
+      return null;
+    }
+
+    // Fetch full content for relevant items
+    const contents = await Promise.all(
+      relevantItems.map(async (item: any) => {
+        const contentResponse = await axios.get(`/${type}/${item.slug}.json`);
+        return contentResponse.data;
+      })
+    );
+
+    return { items: relevantItems, fullContents: contents };
+  } catch (error) {
+    console.error('Error fetching website content:', error);
+    return null;
+  }
+}
+
+// Function to summarize content
+function summarizeContent(content: any) {
+  if (!content) return null;
+
+  const { items, fullContents } = content;
+  let summary = '';
+
+  items.forEach((item: any, index: number) => {
+    const fullContent = fullContents[index];
+    summary += `\n\n${item.name}\n`;
+    summary += `${item.shortDescription}\n`;
+    
+    if (fullContent.content) {
+      // Extract main points from content
+      const textContent = fullContent.content
+        .filter((c: any) => c.type === 'paragraph')
+        .map((c: any) => c.text)
+        .slice(0, 2) // First two paragraphs
+        .join('\n');
+      summary += `\nKey points:\n${textContent}`;
+    }
+  });
+
+  return summary;
+}
+
 function normalize(str) {
   return str.toLowerCase().replace(/[^a-z0-9\s]/gi, "");
 }
 
-function getKbAnswer(query) {
+// Enhanced getKbAnswer to include website content
+async function getKbAnswer(query) {
   const lower = normalize(query);
   for (const item of NEUBOFY_KB) {
     if (item.keywords.some(k => lower.includes(normalize(k)))) {
@@ -158,10 +227,37 @@ const GeminiChatbot = () => {
 
     // Extract and update session context
     setSessionContext(ctx => extractContext(input, ctx));
+    
+    // Check if the query is about website content
+    const isContentQuery = input.toLowerCase().includes('tell me about') || 
+                         input.toLowerCase().includes('what is') ||
+                         input.toLowerCase().includes('explain') ||
+                         input.toLowerCase().includes('describe') ||
+                         input.toLowerCase().includes('summarize');
+
+    let websiteContent = null;
+    if (isContentQuery) {
+      // Fetch both blog and product content
+      const [blogContent, productContent] = await Promise.all([
+        fetchWebsiteContent('blog', input),
+        fetchWebsiteContent('product', input)
+      ]);
+
+      // Combine and summarize content
+      if (blogContent || productContent) {
+        websiteContent = {
+          blog: summarizeContent(blogContent),
+          product: summarizeContent(productContent)
+        };
+      }
+    }
+
     const contextString =
       `Current page route: ${location.pathname}\nAbout Neubofy: Neubofy is an AI automation platform for productivity, innovation, and secure business solutions.` +
       (sessionContext.name ? ` The user's name is ${sessionContext.name}.` : "") +
-      (sessionContext.company ? ` The user's company is ${sessionContext.company}.` : "");
+      (sessionContext.company ? ` The user's company is ${sessionContext.company}.` : "") +
+      (websiteContent?.blog ? `\nRelevant blog content: ${websiteContent.blog}` : "") +
+      (websiteContent?.product ? `\nRelevant product information: ${websiteContent.product}` : "");
 
     const kbAnswer = getKbAnswer(input);
     const userMessage = `${contextString}${kbAnswer ? `\nNeubofy info: ${kbAnswer}` : ""}\nUser: ${input}`;

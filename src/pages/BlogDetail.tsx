@@ -52,7 +52,6 @@ const BlogDetail = () => {
 
     const load = async () => {
       if (!slug) return;
-      // 1) Try public file
       try {
         const res = await fetch(`/blog/${slug}.json`, { cache: 'no-cache' });
         if (res.ok) {
@@ -62,11 +61,9 @@ const BlogDetail = () => {
           return;
         }
       } catch (e) {
-        // ignore and fallback
       }
 
-      // 2) Fallback to bundled JSON
-      const assetModules = import.meta.glob('../assets/*.{png,jpg,jpeg,gif,svg,webp}', { eager: true, as: 'url' }) as Record<string, string>;
+      const assetModules = import.meta.glob('../assets/*.{png,jpg,jpeg,gif,svg,webp}', { eager: true, query: '?url', import: 'default' }) as Record<string, string>;
       const modules = import.meta.glob('../content/blog/*.json', { eager: true }) as Record<string, any>;
       const values = Object.values(modules).map((m: any) => (m && m.default) || m) as BlogItem[];
       const found = values.find(b => b.slug === slug) ?? null;
@@ -123,7 +120,6 @@ const BlogDetail = () => {
 
         <Reveal>
           <div className="max-w-4xl mx-auto mb-12">
-              {/* Render ordered content blocks if provided (paragraphs and inline images) */}
               <div className="flex flex-col gap-6">
                 {Array.isArray(item.content) && item.content.length > 0 ? (
                   item.content.map((block, idx) => {
@@ -145,7 +141,6 @@ const BlogDetail = () => {
                     return null;
                   })
                 ) : (
-                  /* fallback: show imageUrls if content blocks not provided */
                   (item.imageUrls || []).map((url, idx) => (
                     <div key={idx} className="rounded-xl overflow-hidden glass-card">
                       <img src={url} alt={`${item.name} ${idx+1}`} className="w-full h-auto object-contain" />

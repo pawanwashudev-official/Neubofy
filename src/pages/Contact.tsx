@@ -218,7 +218,7 @@ const Contact = () => {
               
               <div className="space-y-6">
                 <a 
-                  href="mailto:pawanwashudev.business@gmail.com"
+                  href="mailto:support@neubofy.in"
                   className="flex items-center gap-4 p-4 rounded-xl hover:bg-primary/10 transition-colors group"
                 >
                   <div className="w-12 h-12 bg-gradient-button rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
@@ -226,7 +226,20 @@ const Contact = () => {
                   </div>
                   <div>
                     <div className="font-semibold">Email Us</div>
-                    <div className="text-muted-foreground">Send us an email</div>
+                    <div className="text-muted-foreground">support@neubofy.in</div>
+                  </div>
+                </a>
+
+                <a
+                  href="mailto:founder@neubofy.in"
+                  className="flex items-center gap-4 p-4 rounded-xl hover:bg-primary/10 transition-colors group"
+                >
+                  <div className="w-12 h-12 bg-gradient-button rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <Mail className="w-6 h-6 text-primary-foreground" />
+                  </div>
+                  <div>
+                    <div className="font-semibold">Email the Founder</div>
+                    <div className="text-muted-foreground">founder@neubofy.in</div>
                   </div>
                 </a>
 

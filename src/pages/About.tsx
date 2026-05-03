@@ -1,4 +1,4 @@
-import { Heart, Shield, Zap, Users, Award, Calendar, Instagram, Twitter, Facebook, ExternalLink, MessageCircle, Mail } from "lucide-react";
+import { Heart, Shield, Zap, Users, Award, Calendar, Instagram, Github, Facebook, ExternalLink, MessageCircle, Mail } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Reveal from "@/components/Reveal";
@@ -78,7 +78,7 @@ const About = () => {
     {
       name: "Instagram",
       icon: Instagram,
-      url: "https://instagram.com/neubofy",
+      url: "https://instagram.com/pawan_washudev",
       color: "from-pink-500 to-purple-600",
       hoverColor: "hover:from-pink-600 hover:to-purple-700",
       description: "Follow our journey"
@@ -92,12 +92,12 @@ const About = () => {
       description: "Connect with our community"
     },
     {
-      name: "X (Twitter)",
-      icon: Twitter,
-      url: "https://twitter.com/neubofy",
+      name: "GitHub",
+      icon: Github,
+      url: "https://github.com/pawanwashudev-official",
       color: "from-black to-gray-800",
       hoverColor: "hover:from-gray-800 hover:to-black",
-      description: "Get real-time updates"
+      description: "View our open-source code"
     }
   ];
 
@@ -113,25 +113,25 @@ const About = () => {
               The Story Behind Neubofy
             </h1>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Founded by an ambitious 11th-grade student who believes that age is not a limitation—it's an advantage.
+              Neubofy is a premier software development agency led by solo founder Pawan Washudev. We specialize in building custom AI-driven solutions, high-performance web applications, and system-level Android apps for business founders and entrepreneurs. Our portfolio includes diverse projects like the school management systems and utility apps such as Reality, LCLD (anti-theft security), and NF Watch. We leverage cutting-edge AI to turn complex ideas into scalable software tools. Visit our GitHub to see our open-source contributions and proven track record of delivering quality code for modern businesses.
             </p>
           </div>
         </Reveal>
 
         {/* Founder Story */}
         <Reveal>
-        <div className="glass-card p-12 rounded-3xl shadow-elevated mb-20">
+        <div className="glass-card p-12 rounded-3xl shadow-elevated mb-20 card-3d">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
               <div className="flex items-center gap-4 mb-6">
                 <img 
                   src={founderAvatar} 
-                  alt="Neubofy Founder - Young innovative student entrepreneur"
-                  className="w-20 h-20 rounded-2xl object-cover shadow-card"
+                  alt="Neubofy Founder - Solo founder and entrepreneur"
+                  className="w-20 h-20 rounded-2xl object-cover shadow-card card-3d"
                 />
                 <div>
-                  <h2 className="text-3xl font-bold gradient-text">Young Founder</h2>
-                  <p className="text-muted-foreground">11th Grade Student & CEO</p>
+                  <h2 className="text-3xl font-bold gradient-text">Pawan Washudev</h2>
+                  <p className="text-muted-foreground">Solo Founder & CEO</p>
                 </div>
               </div>
               
@@ -291,7 +291,7 @@ const About = () => {
               <a href="/contact" className="btn-hero px-8 py-3 inline-block">
                 Start a Partnership
               </a>
-              <a href="mailto:pawanwashudev.business@gmail.com" className="btn-outline-glow px-8 py-3 inline-block">
+              <a href="mailto:support@neubofy.in" className="btn-outline-glow px-8 py-3 inline-block">
                 Email Us
               </a>
             </div>

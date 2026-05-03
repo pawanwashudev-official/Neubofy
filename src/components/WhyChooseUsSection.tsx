@@ -5,8 +5,8 @@ const WhyChooseUsSection = () => {
   const reasons = [
     {
       icon: Heart,
-      title: "Student-Built, Student-Focused",
-      description: "Created by an ambitious 11th-grader who understands the unique challenges students face in today's competitive world."
+      title: "Solo Founder Innovation",
+      description: "Created by solo founder Pawan Washudev who understands the unique challenges businesses face in today's competitive world."
     },
     {
       icon: Shield,

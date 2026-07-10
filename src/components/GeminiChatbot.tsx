@@ -21,7 +21,6 @@ Guidelines:
 // Important links (use with class='neubofy-link'):
 - Home: /
 - Creations (Solutions): /creations
-- About Us: /about
 - Blog: /blog
 - Contact: /contact
 
@@ -74,7 +73,7 @@ const NEUBOFY_KB = [
   // Company Information
   {
     keywords: ["company values", "mission", "vision", "principles"],
-    answer: "Neubofy's mission is to create a thriving ecosystem where AI innovation meets accessibility. We aim to:<br>• Connect AI developers with users who need their solutions<br>• Make premium AI tools accessible at affordable prices<br>• Support local developers in reaching global markets<br>• Ensure privacy and security in AI solutions<br>• Foster innovation through our developer community<br>• Enable custom AI development for specific needs<br>Learn more on our <a href='/about' class='neubofy-link'>About page</a>."
+    answer: "Neubofy's mission is to create a thriving ecosystem where AI innovation meets accessibility. We aim to:<br>• Connect AI developers with users who need their solutions<br>• Make premium AI tools accessible at affordable prices<br>• Support local developers in reaching global markets<br>• Ensure privacy and security in AI solutions<br>• Foster innovation through our developer community<br>• Enable custom AI development for specific needs."
   },
   {
     keywords: ["security", "privacy", "data protection", "safe", "secure"],

@@ -22,6 +22,7 @@ const Navbar = () => {
     { name: "Neubofy Orbit", path: "/orbit" },
     { name: "About Us", path: "/about" },
     { name: "Blog", path: "/blog" },
+    { name: "Contact", path: "/contact" },
   ];
 
   return (
@@ -67,6 +68,15 @@ const Navbar = () => {
             ))}
           </div>
 
+          {/* CTA Button */}
+          <div className="hidden lg:block">
+            <Link to="/contact">
+              <Button className="btn-hero glow-effect">
+                Get Started
+              </Button>
+            </Link>
+          </div>
+
           {/* Mobile Menu Button */}
           <button
             className="lg:hidden p-2 rounded-lg glass-card"
@@ -98,6 +108,13 @@ const Navbar = () => {
                   {item.name}
                 </Link>
               ))}
+              <div className="px-4 pt-2">
+                <Link to="/contact" onClick={() => setIsMobileMenuOpen(false)}>
+                  <Button className="btn-hero w-full">
+                    Get Started
+                  </Button>
+                </Link>
+              </div>
             </div>
           </div>
         )}

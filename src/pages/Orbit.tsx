@@ -151,7 +151,7 @@ const Orbit = () => {
           {filteredCreations.map((creation, index) => (
             <Reveal key={creation.slug} delay={index * 0.05}>
               <button
-                onClick={() => window.location.href = `/product/${creation.slug}.html`}
+                onClick={() => window.location.href = creation.htmlPath || `/product/${creation.slug}.html`}
                 className="text-left w-full glass-card rounded-2xl overflow-hidden hover:shadow-elevated transition-all duration-500 group"
               >
                 <div className="relative">

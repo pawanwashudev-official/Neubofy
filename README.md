@@ -1,7 +1,4 @@
 # Neubofy - The Premier AI SaaS Marketplace
-
-![Neubofy Banner](https://images.unsplash.com/photo-1677442135703-1787cease674?q=80&w=1932&auto=format&fit=crop)
-
 Neubofy is revolutionizing the AI industry by creating a dynamic marketplace that connects innovative AI developers with users seeking powerful, affordable solutions. Think of us as the **"Play Store for AI Tools"** - a platform where developers can showcase their innovations and users can discover cutting-edge AI solutions.
 
 ## 🌟 Our Vision
@@ -41,16 +38,3 @@ Discover a world of AI possibilities:
 - **Deployment**: Vercel
 
 ---
-
-## 🚀 Getting Started
-
-```bash
-# Clone the repo
-git clone https://github.com/your‑org/neubofy-ai-studio.git
-cd neubofy-ai-studio
-
-# Install dependencies
-npm i
-
-# Run locally
-npm run dev

@@ -22,645 +22,778 @@
         </div>
 
         <div class="prose prose-invert max-w-none text-gray-300 mb-8 leading-relaxed">
-            <div align="center">
-
-<img src="https://res.cloudinary.com/dnh4fonis/image/upload/v1781091079/ck39669alz53z3vkeiaq.png" width="180" alt="Reality Logo" style="border-radius: 20px; margin-bottom: 20px;">
-
-# Reality
-### The Intelligent Life OS
-
-**Developed by Pawan Washudev | Neubofy**
-
-[![GitHub release (latest by date)](https://img.shields.io/github/v/release/pawanwashudev-official/Reality?style=for-the-badge&color=orange)](https://github.com/pawanwashudev-official/Reality/releases)
-[![GitHub All Releases](https://img.shields.io/github/downloads/pawanwashudev-official/Reality/total?style=for-the-badge&color=success)](https://github.com/pawanwashudev-official/Reality/releases)
-[![License](https://img.shields.io/badge/License-GPLv3-blue.svg?style=for-the-badge)](https://www.gnu.org/licenses/gpl-3.0)
-[![Platform](https://img.shields.io/badge/Platform-Android-green.svg?style=for-the-badge)](https://www.android.com)
-[![Privacy](https://img.shields.io/badge/Data-Local%20%2B%20Your%20G--Drive-lock.svg?style=for-the-badge&color=teal)]()
-[![AI](https://img.shields.io/badge/AI-Bring%20Your%20Own%20Key-purple.svg?style=for-the-badge)]()
-[![Ads](https://img.shields.io/badge/Ads-ZERO-red.svg?style=for-the-badge)]()
-[![Trackers](https://img.shields.io/badge/Trackers-ZERO-red.svg?style=for-the-badge)]()
-
-> **"Stop managing your life. Start commanding it."**
-
-### 🌟 100% Open Source • No Ads • No Trackers • Any AI (BYO Key)
-
-<p>While advanced features (like Neural Protocol, Gamification, and Google Workspace Sync) require a yearly Reality Pro subscription to support ongoing maintenance, the app remains 100% open source. You can always build the APK yourself from the source code.</p>
-
-[**🌐 Official Website**](https://reality.neubofy.in) • [**⬇️ Download Latest APK**](https://github.com/pawanwashudev-official/Reality/releases)
-
-</div>
-
----
-
-## 🎯 EXECUTIVE SUMMARY
-
-**Reality** is a military-grade productivity operating system that combines:
-- **App Blocking Engine** (accessibility service-based protection)
-- **Gamification System** (XP/Streak-based discipline tracking)
-- **AI-Powered Neural Protocol** (daily reflection, planning, & reporting)
-- **Google Workspace Integration** (Tasks, Calendar, Drive, Docs, Sheets)
-- **Health Connect Sync** (steps, calories, sleep tracking)
-- **Intelligent Alarm System** (adaptive wake-up with math challenges)
-
-**Core Philosophy:** *Stop managing your life. Start commanding it.*
-
----
-
-## 🏆 COMPLETE FEATURE MATRIX
-
-### 1. **FOCUS & APP BLOCKING** 🚫
-
-#### Standard Focus Mode
-- **Blocklist Management** (`UnifiedBlocklistActivity`)
-  - Add/remove apps to block list
-  - Category-based blocking (Social, Gaming, Shopping, etc.)
-  - Quick-toggle blocking on/off
-- **Real-Time Blocking**
-  - AccessibilityService monitors active window
-  - O(1) "SettingsBox" lookup for settings app protection
-  - Prevents app launching via multiple bypass methods:
-    - Direct intent hijacking
-    - Overlay attacks
-    - Background process resurrection
-  - Floating timer overlay visible across all apps
-  - Custom block messages with action URLs
-
-#### Armored Strict Mode 🔒
-- **Device Admin Protection**
-  - Prevents uninstall during active focus
-  - Blocks settings access (Settings Protection)
-  - Two-pass accessibility scanning (50ms + 300ms retry)
-- **Time Tampering Detection**
-  - Detects system clock manipulation attempts
-  - Blocks timezone/NTP exploitation
-- **Loop Hole Closers**
-  - Catches intent hijacking from accessibility overlays
-  - Blocks package manager access
-  - Prevents accessibility service disable attempts
-  - Monitors for adb shell bypasses
-
-#### Neural Focus Mode (Ultra-Focus) 🔥
-- Named after Sanskrit for "deep, burning discipline"
-- **Auto-activation** on scheduled focus times
-- **State Persistence** across device reboots (via BootReceiver)
-- **Warning Sounds** when focus period is ending
-- **Aggressive Protection** - the most extreme focus mode
-
----
-
-### 2. **INTELLIGENT SCHEDULING & REMINDERS** ⏰
-
-#### Schedule Management (`ScheduleListActivity`)
-- **Auto-Focus Hours**
-  - Set recurring daily focus blocks
-  - Multiple time slots per day
-  - Syncs with Google Calendar
-- **Bedtime Mode** (`BedtimeActivity`)
-  - Custom bedtime routines
-  - Device restriction during sleep hours
-  - Sleep tracking via Health Connect
-  - Smart wake-up alarm integration
-- **Emergency Mode** (`EmergencyModeActivity`)
-  - Extreme restrictions for critical situations
-  - Override capabilities with emergency unlock codes
-- **Usage Limits** (`UsageLimitActivity`)
-  - Per-app daily time limits
-  - Per-app group limits (social apps limit)
-  - XP penalties for exceeding limits
-  - Grace period before enforcement
-
-#### Reminder System
-- **Multi-Source Reminders**
-  - Local alarms (via AlarmManager)
-  - Google Tasks integration
-  - Google Calendar events
-  - Custom reminders with HTTP actions
-- **Intelligent Alarm Activity** (`AlarmActivity`)
-  - Full-screen interrupt overlay
-  - Snooze functionality with countdown
-  - **Math Challenge Verification** (prevents sleepy tapping)
-  - Custom URL actions (open apps, web links, "reality://" deep links)
-  - Auto-snooze timer for repeated alarms
-  - Action logging for dismissed/snoozed alarms
-
----
-
-### 3. **GAMIFICATION & XP SYSTEM** 🏆
-
-#### Dynamic XP Mechanics
-- **XP Earnings**
-  - Base XP for blocking attempts (users resist temptation)
-  - Screen time bonus for staying under daily limits
-  - Streak bonuses (consecutive days of discipline)
-  - Schedule adherence XP (attending planned focus blocks)
-- **XP Penalties**
-  - Negative XP for exceeding usage limits
-  - Breaking focus mode penalty
-  - Screen time overage penalty
-  - Accessing blocked apps penalty
-- **Leveling System**
-  - User level reflects actual digital discipline
-  - Level-based unlocks for features
-  - Leaderboard readiness (framework in place)
-
-#### Streak Tracking
-- Consecutive days of focus
-- Resets on breaking focus rules
-- Visual motivation cards
-- XP tier system (Bronze → Silver → Gold → Platinum)
-
----
-
-### 4. **🌙 NIGHTLY PROTOCOL** (Reality Pro - AI-Powered Evening Ritual)
-
-The cornerstone of Reality's intelligence. A fully autonomous 4-phase evening workflow:
-
-#### **Phase 1: Data Collection** 📊
-`NightlyPhaseData.kt` - Collects your entire day's digital footprint:
-
-- **Step 1: Fetch Google Tasks**
-  - Syncs all task lists from Google Tasks API
-  - Categorizes: Due Today, Completed, Pending
-  - Task statistics (pending count, completion %)
-
-- **Step 2: Fetch Calendar + Neural Focus Sessions**
-  - Google Calendar events for the day
-  - Neural Focus deep-work session logs
-  - Event duration & completion status
-
-- **Step 3: Calculate Screen Time & Health Metrics**
-  - Total screen time (via UsageStatsManager)
-  - Per-app usage breakdown
-  - Health Connect data:
-    - Steps walked
-    - Calories burned
-    - Sleep quality & duration (if wearing fitness tracker)
-  - Converts to XP (10 min under limit = +XP bonus)
-
-- **Step 4: AI Reflection Questions**
-  - Generates dynamic questions based on your actual day
-  - Example: "You spent 4h on Instagram but 30min studying. Why?"
-  - Uses OpenAI/Gemini/Groq API (bring your own key)
-  - Questions personalized from AI Settings
-
-- **Step 5: Create AI Diary in Google Docs**
-  - Automatic Google Docs creation in Drive
-  - AI-written reflections saved to your document
-  - Timestamps & metrics embedded
-  - Shareable diary (invite friends for accountability)
-
-#### **Phase 2: Analysis & AI Coaching** 🤖
-`NightlyPhaseAnalysis.kt`:
-
-- **Reflection Analysis**
-  - Re-analyzes your responses to AI questions
-  - Identifies patterns (procrastination, peak focus hours, etc.)
-  - Generates personalized coaching advice
-- **XP Finalization**
-  - Calculates screen time bonuses/penalties
-  - Applies streak multipliers
-  - Updates level progression
-
-#### **Phase 3: Planning** 📅
-`NightlyPhasePlanning.kt` - AI generates tomorrow's schedule:
-
-- **Step 8: Create Plan Document**
-  - New Google Docs file in Drive (dated)
-  - Folder structure: Reality > Plans > YYYY > MM > YYYY-MM-DD
-
-- **Step 9: AI Parse Plan to JSON**
-  - AI converts plan narrative to structured JSON:
-    ```json
-    {
-      "tasks": [
-        {"title": "Study Math", "duration": 90, "priority": "high"},
-        {"title": "Gym", "duration": 60, "priority": "medium"}
-      ],
-      "events": [
-        {"title": "Meeting", "time": "14:00", "duration": 60}
-      ],
-      "alarms": [
-        {"title": "Wake Up", "time": "06:30", "challenge": "math"}
-      ]
-    }
-    ```
-
-- **Step 10: Create Google Tasks & Calendar Events**
-  - Auto-creates tasks in Google Tasks (default list)
-  - Auto-creates calendar events in your primary calendar
-  - Links back to plan document
-
-- **Step 11: Generate AI Report**
-  - Daily PDF report with:
-    - Yesterday's achievements & failures
-    - XP gained/lost
-    - Health metrics summary
-    - AI coaching insights
-  - Uploads to Google Drive
-
-- **Step 12: Create PDF Report**
-  - Uses iText7 (`html2pdf:4.0.5`)
-  - Styled markdown → PDF conversion
-  - Multi-page support with charts
-
-- **Step 13: Set Wake-up Alarm**
-  - System alarm created for tomorrow morning
-  - Math challenge configured
-  - Snooze intervals set (3-5 minutes)
-  - Max attempts limit (5 tries before force-open)
-
-#### **Phase 4: Reporting & Notifications** 📈
-- Dashboard updates with today's XP gain
-- Widgets refresh (Neural Report Widget, Plan Widget)
-- Optional email reports (Gemini workspace integration)
-
----
-
-### 5. **HEALTH & WELLNESS INTEGRATION** 💪
-
-#### Health Connect Sync
-- **Steps Tracking**
-  - Daily step count
-  - Weekly/monthly trends
-  - XP bonus for hitting step goals (10k steps = +50 XP)
-
-- **Sleep Monitoring**
-  - Sleep duration tracking
-  - Sleep quality metrics
-  - Bedtime reminders
-  - Wakeup verification (sleep quality check-in)
-
-- **Calorie Burn Tracking**
-  - Daily calorie expenditure
-  - Activity-based metrics
-  - Health dashboard integration
-
-#### Smart Sleep Features (`SmartSleepActivity`)
-- **Sleep Verification Dialog**
-  - Triggered on wake-up alarm
-  - Confirms user slept well
-  - Updates health metrics
-- **Deep Link Support**
-  - `reality://smart_sleep` - direct sleep check-in
-  - Accessible from alarm actions
-
----
-
-### 6. **GOOGLE WORKSPACE INTEGRATION** ☁️
-
-#### Google Tasks API
-`GoogleTasksManager.kt` - Full tasks management:
-- List all task lists
-- Create/update/delete tasks
-- Task list synchronization
-- Today's task statistics
-- Supports multiple task lists (default & custom)
-
-#### Google Calendar API
-`GoogleCalendarManager.kt`:
-- List calendars
-- Create events with automatic scheduling
-- Sync scheduled focus blocks
-- View upcoming events (nightly planning reference)
-
-#### Google Docs Integration
-`GoogleDocsManager.kt`:
-- Create diary documents
-- Create plan documents
-- Auto-formatting with headings/lists/tables
-- Insert images from Drive
-- Batch updates for performance
-
-#### Google Drive Integration
-`GoogleDriveManager.kt`:
-- Automatic folder creation (Reality > Diary, Plans, Reports)
-- PDF report upload
-- Automatic organization by date (YYYY > MM > DD structure)
-- File search & versioning
-- Trash management (archival)
-
-#### Google Sheets Support
-`GoogleSheetsManager.kt`:
-- Daily stats logging (optional)
-- Historical data aggregation
-- CSV export capability
-
----
-
-### 7. **INTELLIGENT ALARM SYSTEM** ⏰
-
-#### Alarm Types
-`AlarmActivity.kt` & `WakeupAlarmRingingActivity.kt`:
-
-- **Standard Reminders**
-  - Simple dismissal
-  - Snooze options (5, 10, 15 min)
-  - Custom URL actions
-
-- **Wakeup Alarms** (with challenges)
-  - Math challenge (arithmetic problems)
-  - Forces mental engagement before dismissal
-  - Progressive difficulty
-  - Max attempts limit
-
-- **Multi-Source Alarms**
-  - Local database alarms (custom created)
-  - Google Tasks deadlines (synced)
-  - Google Calendar notifications (synced)
-  - Neural Protocol alarms (AI-generated)
-
-#### Alarm Features
-- **Full-Screen Interrupt** (notification policy access required)
-- **Vibration & Sound**
-  - Customizable ringtone
-  - Vibration patterns
-  - Audio focus control
-- **Auto-Snooze Timer**
-  - Configurable snooze interval (default 3 min)
-  - Max attempts before force-open app
-  - Sound escalation
-
-#### Alarm Persistence
-- **BootReceiver** reschedules alarms after device reboot
-- **AlarmScheduler** handles both AlarmManager & WorkManager
-- Heartbeat Worker refreshes alarm state every 15 minutes
-
----
-
-### 8. **PERSONALIZATION & APPEARANCE** 🎨
-
-#### Customizable Themes (`AppearanceActivity`)
-- **Color Palettes**
-  - Light mode & dark mode independent colors
-  - Accent colors (Teal, Orange, Purple, Blue, Green, Red)
-  - Custom color picker integration
-
-- **Background Patterns**
-  - Zen (minimalist)
-  - Tech (grid)
-  - Nature (organic)
-  - Urban (modern)
-
-- **Typography Settings**
-  - Font size adjustment
-  - Font family selection
-  - Line spacing control
-
-- **Visual Effects**
-  - Blur intensity
-  - Corner radius
-  - Animations toggle
-  - Floating timer styling
-
-#### Dynamic Localization
-- **16+ Languages Supported**
-  - European: French, German, Spanish, Italian, Portuguese
-  - Asian: Hindi, Tamil, Telugu, Kannada, Marathi, Bengali
-  - Others: Dutch, Polish, Russian, Japanese, Chinese
-- **Per-App Locale** (Android 13+)
-  - Change language without app restart
-  - Instant language switching
-
----
-
-### 9. **DEVICE CONTROL & ADMINISTRATION** 🔐
-
-#### Device Admin Features
-- **Armored Strict Mode Protection**
-  - Prevents app deletion during active focus
-  - Requires security unlock
-
-- **Settings Protection** (Strict Mode)
-  - Blocks access to system settings
-  - Two-pass detection system:
-    - Fast pass (50ms) for unique class detection
-    - Retry pass (300ms) for keyword-based pages
-
-- **Battery Optimization Bypass**
-  - Allows app to survive battery saver mode
-  - Maintains background functionality
-
-#### Accessibility Service Integration (`AppBlockerService`)
-- Monitors window changes in real-time
-- Detects blocked app launches
-- Intercepts and blocks app opens
-- Logs all block attempts
-- Shows penalty overlays
-- Detects settings app access attempts
-
----
-
-### 10. **BACKUP & DATA MANAGEMENT** 💾
-
-#### Cloud Backup System (`BackupManager.kt`)
-- **17 Backup Categories**
-  - Blocklist & Focus Mode
-  - Schedules & Auto-Focus Hours
-  - Bedtime Mode Settings
-  - Emergency Mode Config
-  - Usage Limits
-  - Strict Mode Rules
-  - Gamification (XP/Streak)
-  - Neural Protocol Settings
-  - AI Model Preferences
-  - Theme & Appearance
-  - Block Messages
-  - Reminders
-  - App Groups
-  - Per-App Limits
-  - Neural Focus Sessions
-  - Daily Statistics
-  - App Blocking Configurations
-
-#### Selective Restore
-- Choose which categories to restore
-- Granular control (don't overwrite everything)
-- Restore from any backup point
-- Timestamp tracking
-
-#### Google Drive Integration
-- Backup file: `reality_backup.json`
-- Hidden folder: `.reality_backup`
-- Version tracking
-- Metadata preservation (app version, device model)
-
----
-
-### 11. **ADVANCED FEATURES - HIDDEN GEMS** 🔮
-
-#### Neural Focus Sessions (`TapasyaActivity`)
-- **Deep Work Time-Boxing**
-  - Start focused work session
-  - Customizable duration (30min - 4h)
-  - Auto-starts focus mode
-  - Blocks all non-focus apps
-  - Progress timer
-  - Completion rewards (XP bonus)
-
-#### Floating Action Buttons & Widgets
-- **AI Chat Widget** (Popup overlay)
-  - Quick access AI chat from any app
-  - Lightweight widget
-  - Persistent across activities
-
-- **Neural Report Widget**
-  - Shows yesterday's XP earned
-  - Daily achievements summary
-  - Quick-click to view full report
-
-- **Plan Widget**
-  - Today's scheduled tasks
-  - Upcoming calendar blocks
-  - XP progress bar
-
-- **Neural Focus Widget**
-  - Current session status
-  - Time remaining
-  - One-tap start/stop
-
-#### Quick Settings Tile
-`RealitySleepTileService`:
-- System-level quick tile for sleep mode
-- One-tap bedtime activation
-- Status indicator in notification shade
-
-#### App Groups & Family Controls
-`AppGroupsActivity` & `AppLimitsActivity`:
-- Create app categories (Social, Gaming, Work, etc.)
-- Set group-level time limits
-- Apply rules to entire categories
-- Per-app exceptions
-
-#### Block Messages (`BlockMessagesActivity`)
-- Custom messages when users hit blocks
-- Motivational quotes
-- Action buttons (open calendar, view stats)
-- Message scheduling by time of day
-
-#### Active Blocks Dashboard
-`ActiveBlocksActivity`:
-- Live view of currently blocked apps
-- Active focus session status
-- Manual unblock with confirmation
-- Block history
-
----
-
-### 12. **AI & AUTOMATION SYSTEM** 🤖
-
-#### Hybrid AI Architecture
-- **Bring Your Own Key Model**
-  - Supports: OpenAI (GPT-4), Google Gemini, Anthropic Claude, Groq, Mistral
-  - Any OpenRouter-compatible model
-  - Free fallback: GPT-OSS-120B
-
-- **AI Settings** (`AISettingsActivity`)
-  - Model selection
-  - API key input (encrypted storage)
-  - Temperature & response customization
-  - System prompts for reflection/planning
-
-#### AI-Powered Features
-- **Nightly Reflection** - Dynamic questions based on actual data
-- **Plan Generation** - Tomorrow's schedule auto-created
-- **Coaching** - Personalized motivation & advice
-- **Analytics** - Pattern recognition in behavior
-
-#### Preset Models
-- Comes with "Reality-Optimized" GPT-OSS-120B ready to use
-- One-click model switching
-- Model-specific prompt optimization
-
----
-
-### 13. **NOTIFICATIONS & USER ENGAGEMENT** 📲
-
-#### Notification Channels
-- **High Priority Alarms** (full screen, sound)
-- **Reminders** (heads-up, vibration)
-- **Focus Started/Ended** (silent, persistent)
-- **XP Updates** (silent, dismissible)
-- **Nightly Completion** (high priority)
-
-#### Notification Types
-- Block attempt notifications
-- Focus mode status
-- Alarm & reminder notifications
-- XP milestone celebrations
-- Daily summary notifications
-
----
-
-### 14. **STATISTICS & ANALYTICS** 📊
-
-#### Daily Stats Tracking
-- **Screen Time Analytics**
-  - Total daily screen time
-  - Per-app breakdowns
-  - Trends over time
-  - Comparison to limits
-
-- **Usage Patterns**
-  - Most used apps
-  - Peak usage hours
-  - App usage by category
-  - Time-of-day heatmaps
-
-- **Focus Metrics**
-  - Focus blocks completed
-  - Focus blocks missed
-  - Average focus duration
-  - Consistency score
-
-- **Health Metrics**
-  - Steps
-  - Calories
-  - Sleep hours
-  - XP correlation with health
-
-#### Data Retention
-- Detailed stats: 3 days (local)
-- Summary stats: 30 days (database)
-- Historical data: Synced to Drive monthly
-
----
-
-### 15. **ONBOARDING & PERMISSIONS** 🚀
-
-#### Progressive Onboarding System
-`OnboardingActivity` & `OnboardingPermissionsFragment`:
-
-- **Welcome Screen**
-  - App introduction
-  - Core values explanation
-  - Permission overview
-
-- **Permission Checklist** (5 Required, Optional)
-  - **Required:**
-    1. Accessibility Service (app blocker core)
-    2. Overlay Permission (floating timer)
-    3. Usage Stats Permission (screen time)
-  - **Optional:**
-    1. Notifications (alarms & alerts)
-    2. Battery Optimization Bypass (reliability)
-
-- **Security Intro** (`SecurityIntroActivity`)
-  - Device Admin explanation
-  - Anti-bypass measures overview
-  - Commitment confirmation
-
-- **Pro Feature Setup**
-  - Google Workspace credentials
-  - AI model selection
-  - Initial plan creation
-
----
-
-## 🏗️ DEEP TECHNICAL ARCHITECTURE
-
-### Technology Stack
-```
-Platform:       Android 26+ (API 26 to 35)
+<div align="center"><img src="https://res.cloudinary.com/dnh4fonis/image/upload/v1781091079/ck39669alz53z3vkeiaq.png" width="180" alt="Reality Logo" style="border-radius: 20px; margin-bottom: 20px;"><h1>Reality</h1>
+<h3>The Intelligent Life OS</h3>
+<p><strong>Developed by Pawan Washudev | Neubofy</strong></p>
+<p><a href="https://github.com/pawanwashudev-official/Reality/releases"><img src="https://img.shields.io/github/v/release/pawanwashudev-official/Reality?style=for-the-badge&color=orange" alt="GitHub release (latest by date)"></a>
+<a href="https://github.com/pawanwashudev-official/Reality/releases"><img src="https://img.shields.io/github/downloads/pawanwashudev-official/Reality/total?style=for-the-badge&color=success" alt="GitHub All Releases"></a>
+<a href="https://www.gnu.org/licenses/gpl-3.0"><img src="https://img.shields.io/badge/License-GPLv3-blue.svg?style=for-the-badge" alt="License"></a>
+<a href="https://www.android.com"><img src="https://img.shields.io/badge/Platform-Android-green.svg?style=for-the-badge" alt="Platform"></a>
+<a href=""><img src="https://img.shields.io/badge/Data-Local%20%2B%20Your%20G--Drive-lock.svg?style=for-the-badge&color=teal" alt="Privacy"></a>
+<a href=""><img src="https://img.shields.io/badge/AI-Bring%20Your%20Own%20Key-purple.svg?style=for-the-badge" alt="AI"></a>
+<a href=""><img src="https://img.shields.io/badge/Ads-ZERO-red.svg?style=for-the-badge" alt="Ads"></a>
+<a href=""><img src="https://img.shields.io/badge/Trackers-ZERO-red.svg?style=for-the-badge" alt="Trackers"></a></p>
+<blockquote>
+<p><strong>&quot;Stop managing your life. Start commanding it.&quot;</strong></p>
+</blockquote>
+<h3>🌟 100% Open Source • No Ads • No Trackers • Any AI (BYO Key)</h3>
+<p>While advanced features (like Neural Protocol, Gamification, and Google Workspace Sync) require a yearly Reality Pro subscription to support ongoing maintenance, the app remains 100% open source. You can always build the APK yourself from the source code.</p><p><a href="https://reality.neubofy.in"><strong>🌐 Official Website</strong></a> • <a href="https://github.com/pawanwashudev-official/Reality/releases"><strong>⬇️ Download Latest APK</strong></a></p>
+</div><hr>
+<h2>🎯 EXECUTIVE SUMMARY</h2>
+<p><strong>Reality</strong> is a military-grade productivity operating system that combines:</p>
+<ul>
+<li><strong>App Blocking Engine</strong> (accessibility service-based protection)</li>
+<li><strong>Gamification System</strong> (XP/Streak-based discipline tracking)</li>
+<li><strong>AI-Powered Neural Protocol</strong> (daily reflection, planning, &amp; reporting)</li>
+<li><strong>Google Workspace Integration</strong> (Tasks, Calendar, Drive, Docs, Sheets)</li>
+<li><strong>Health Connect Sync</strong> (steps, calories, sleep tracking)</li>
+<li><strong>Intelligent Alarm System</strong> (adaptive wake-up with math challenges)</li>
+</ul>
+<p><strong>Core Philosophy:</strong> <em>Stop managing your life. Start commanding it.</em></p>
+<hr>
+<h2>🏆 COMPLETE FEATURE MATRIX</h2>
+<h3>1. <strong>FOCUS &amp; APP BLOCKING</strong> 🚫</h3>
+<h4>Standard Focus Mode</h4>
+<ul>
+<li><strong>Blocklist Management</strong> (<code>UnifiedBlocklistActivity</code>)<ul>
+<li>Add/remove apps to block list</li>
+<li>Category-based blocking (Social, Gaming, Shopping, etc.)</li>
+<li>Quick-toggle blocking on/off</li>
+</ul>
+</li>
+<li><strong>Real-Time Blocking</strong><ul>
+<li>AccessibilityService monitors active window</li>
+<li>O(1) &quot;SettingsBox&quot; lookup for settings app protection</li>
+<li>Prevents app launching via multiple bypass methods:<ul>
+<li>Direct intent hijacking</li>
+<li>Overlay attacks</li>
+<li>Background process resurrection</li>
+</ul>
+</li>
+<li>Floating timer overlay visible across all apps</li>
+<li>Custom block messages with action URLs</li>
+</ul>
+</li>
+</ul>
+<h4>Armored Strict Mode 🔒</h4>
+<ul>
+<li><strong>Device Admin Protection</strong><ul>
+<li>Prevents uninstall during active focus</li>
+<li>Blocks settings access (Settings Protection)</li>
+<li>Two-pass accessibility scanning (50ms + 300ms retry)</li>
+</ul>
+</li>
+<li><strong>Time Tampering Detection</strong><ul>
+<li>Detects system clock manipulation attempts</li>
+<li>Blocks timezone/NTP exploitation</li>
+</ul>
+</li>
+<li><strong>Loop Hole Closers</strong><ul>
+<li>Catches intent hijacking from accessibility overlays</li>
+<li>Blocks package manager access</li>
+<li>Prevents accessibility service disable attempts</li>
+<li>Monitors for adb shell bypasses</li>
+</ul>
+</li>
+</ul>
+<h4>Neural Focus Mode (Ultra-Focus) 🔥</h4>
+<ul>
+<li>Named after Sanskrit for &quot;deep, burning discipline&quot;</li>
+<li><strong>Auto-activation</strong> on scheduled focus times</li>
+<li><strong>State Persistence</strong> across device reboots (via BootReceiver)</li>
+<li><strong>Warning Sounds</strong> when focus period is ending</li>
+<li><strong>Aggressive Protection</strong> - the most extreme focus mode</li>
+</ul>
+<hr>
+<h3>2. <strong>INTELLIGENT SCHEDULING &amp; REMINDERS</strong> ⏰</h3>
+<h4>Schedule Management (<code>ScheduleListActivity</code>)</h4>
+<ul>
+<li><strong>Auto-Focus Hours</strong><ul>
+<li>Set recurring daily focus blocks</li>
+<li>Multiple time slots per day</li>
+<li>Syncs with Google Calendar</li>
+</ul>
+</li>
+<li><strong>Bedtime Mode</strong> (<code>BedtimeActivity</code>)<ul>
+<li>Custom bedtime routines</li>
+<li>Device restriction during sleep hours</li>
+<li>Sleep tracking via Health Connect</li>
+<li>Smart wake-up alarm integration</li>
+</ul>
+</li>
+<li><strong>Emergency Mode</strong> (<code>EmergencyModeActivity</code>)<ul>
+<li>Extreme restrictions for critical situations</li>
+<li>Override capabilities with emergency unlock codes</li>
+</ul>
+</li>
+<li><strong>Usage Limits</strong> (<code>UsageLimitActivity</code>)<ul>
+<li>Per-app daily time limits</li>
+<li>Per-app group limits (social apps limit)</li>
+<li>XP penalties for exceeding limits</li>
+<li>Grace period before enforcement</li>
+</ul>
+</li>
+</ul>
+<h4>Reminder System</h4>
+<ul>
+<li><strong>Multi-Source Reminders</strong><ul>
+<li>Local alarms (via AlarmManager)</li>
+<li>Google Tasks integration</li>
+<li>Google Calendar events</li>
+<li>Custom reminders with HTTP actions</li>
+</ul>
+</li>
+<li><strong>Intelligent Alarm Activity</strong> (<code>AlarmActivity</code>)<ul>
+<li>Full-screen interrupt overlay</li>
+<li>Snooze functionality with countdown</li>
+<li><strong>Math Challenge Verification</strong> (prevents sleepy tapping)</li>
+<li>Custom URL actions (open apps, web links, &quot;reality://&quot; deep links)</li>
+<li>Auto-snooze timer for repeated alarms</li>
+<li>Action logging for dismissed/snoozed alarms</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3>3. <strong>GAMIFICATION &amp; XP SYSTEM</strong> 🏆</h3>
+<h4>Dynamic XP Mechanics</h4>
+<ul>
+<li><strong>XP Earnings</strong><ul>
+<li>Base XP for blocking attempts (users resist temptation)</li>
+<li>Screen time bonus for staying under daily limits</li>
+<li>Streak bonuses (consecutive days of discipline)</li>
+<li>Schedule adherence XP (attending planned focus blocks)</li>
+</ul>
+</li>
+<li><strong>XP Penalties</strong><ul>
+<li>Negative XP for exceeding usage limits</li>
+<li>Breaking focus mode penalty</li>
+<li>Screen time overage penalty</li>
+<li>Accessing blocked apps penalty</li>
+</ul>
+</li>
+<li><strong>Leveling System</strong><ul>
+<li>User level reflects actual digital discipline</li>
+<li>Level-based unlocks for features</li>
+<li>Leaderboard readiness (framework in place)</li>
+</ul>
+</li>
+</ul>
+<h4>Streak Tracking</h4>
+<ul>
+<li>Consecutive days of focus</li>
+<li>Resets on breaking focus rules</li>
+<li>Visual motivation cards</li>
+<li>XP tier system (Bronze → Silver → Gold → Platinum)</li>
+</ul>
+<hr>
+<h3>4. <strong>🌙 NIGHTLY PROTOCOL</strong> (Reality Pro - AI-Powered Evening Ritual)</h3>
+<p>The cornerstone of Reality&#39;s intelligence. A fully autonomous 4-phase evening workflow:</p>
+<h4><strong>Phase 1: Data Collection</strong> 📊</h4>
+<p><code>NightlyPhaseData.kt</code> - Collects your entire day&#39;s digital footprint:</p>
+<ul>
+<li><p><strong>Step 1: Fetch Google Tasks</strong></p>
+<ul>
+<li>Syncs all task lists from Google Tasks API</li>
+<li>Categorizes: Due Today, Completed, Pending</li>
+<li>Task statistics (pending count, completion %)</li>
+</ul>
+</li>
+<li><p><strong>Step 2: Fetch Calendar + Neural Focus Sessions</strong></p>
+<ul>
+<li>Google Calendar events for the day</li>
+<li>Neural Focus deep-work session logs</li>
+<li>Event duration &amp; completion status</li>
+</ul>
+</li>
+<li><p><strong>Step 3: Calculate Screen Time &amp; Health Metrics</strong></p>
+<ul>
+<li>Total screen time (via UsageStatsManager)</li>
+<li>Per-app usage breakdown</li>
+<li>Health Connect data:<ul>
+<li>Steps walked</li>
+<li>Calories burned</li>
+<li>Sleep quality &amp; duration (if wearing fitness tracker)</li>
+</ul>
+</li>
+<li>Converts to XP (10 min under limit = +XP bonus)</li>
+</ul>
+</li>
+<li><p><strong>Step 4: AI Reflection Questions</strong></p>
+<ul>
+<li>Generates dynamic questions based on your actual day</li>
+<li>Example: &quot;You spent 4h on Instagram but 30min studying. Why?&quot;</li>
+<li>Uses OpenAI/Gemini/Groq API (bring your own key)</li>
+<li>Questions personalized from AI Settings</li>
+</ul>
+</li>
+<li><p><strong>Step 5: Create AI Diary in Google Docs</strong></p>
+<ul>
+<li>Automatic Google Docs creation in Drive</li>
+<li>AI-written reflections saved to your document</li>
+<li>Timestamps &amp; metrics embedded</li>
+<li>Shareable diary (invite friends for accountability)</li>
+</ul>
+</li>
+</ul>
+<h4><strong>Phase 2: Analysis &amp; AI Coaching</strong> 🤖</h4>
+<p><code>NightlyPhaseAnalysis.kt</code>:</p>
+<ul>
+<li><strong>Reflection Analysis</strong><ul>
+<li>Re-analyzes your responses to AI questions</li>
+<li>Identifies patterns (procrastination, peak focus hours, etc.)</li>
+<li>Generates personalized coaching advice</li>
+</ul>
+</li>
+<li><strong>XP Finalization</strong><ul>
+<li>Calculates screen time bonuses/penalties</li>
+<li>Applies streak multipliers</li>
+<li>Updates level progression</li>
+</ul>
+</li>
+</ul>
+<h4><strong>Phase 3: Planning</strong> 📅</h4>
+<p><code>NightlyPhasePlanning.kt</code> - AI generates tomorrow&#39;s schedule:</p>
+<ul>
+<li><p><strong>Step 8: Create Plan Document</strong></p>
+<ul>
+<li>New Google Docs file in Drive (dated)</li>
+<li>Folder structure: Reality &gt; Plans &gt; YYYY &gt; MM &gt; YYYY-MM-DD</li>
+</ul>
+</li>
+<li><p><strong>Step 9: AI Parse Plan to JSON</strong></p>
+<ul>
+<li>AI converts plan narrative to structured JSON:<pre><code class="language-json">{
+  &quot;tasks&quot;: [
+    {&quot;title&quot;: &quot;Study Math&quot;, &quot;duration&quot;: 90, &quot;priority&quot;: &quot;high&quot;},
+    {&quot;title&quot;: &quot;Gym&quot;, &quot;duration&quot;: 60, &quot;priority&quot;: &quot;medium&quot;}
+  ],
+  &quot;events&quot;: [
+    {&quot;title&quot;: &quot;Meeting&quot;, &quot;time&quot;: &quot;14:00&quot;, &quot;duration&quot;: 60}
+  ],
+  &quot;alarms&quot;: [
+    {&quot;title&quot;: &quot;Wake Up&quot;, &quot;time&quot;: &quot;06:30&quot;, &quot;challenge&quot;: &quot;math&quot;}
+  ]
+}
+</code></pre>
+</li>
+</ul>
+</li>
+<li><p><strong>Step 10: Create Google Tasks &amp; Calendar Events</strong></p>
+<ul>
+<li>Auto-creates tasks in Google Tasks (default list)</li>
+<li>Auto-creates calendar events in your primary calendar</li>
+<li>Links back to plan document</li>
+</ul>
+</li>
+<li><p><strong>Step 11: Generate AI Report</strong></p>
+<ul>
+<li>Daily PDF report with:<ul>
+<li>Yesterday&#39;s achievements &amp; failures</li>
+<li>XP gained/lost</li>
+<li>Health metrics summary</li>
+<li>AI coaching insights</li>
+</ul>
+</li>
+<li>Uploads to Google Drive</li>
+</ul>
+</li>
+<li><p><strong>Step 12: Create PDF Report</strong></p>
+<ul>
+<li>Uses iText7 (<code>html2pdf:4.0.5</code>)</li>
+<li>Styled markdown → PDF conversion</li>
+<li>Multi-page support with charts</li>
+</ul>
+</li>
+<li><p><strong>Step 13: Set Wake-up Alarm</strong></p>
+<ul>
+<li>System alarm created for tomorrow morning</li>
+<li>Math challenge configured</li>
+<li>Snooze intervals set (3-5 minutes)</li>
+<li>Max attempts limit (5 tries before force-open)</li>
+</ul>
+</li>
+</ul>
+<h4><strong>Phase 4: Reporting &amp; Notifications</strong> 📈</h4>
+<ul>
+<li>Dashboard updates with today&#39;s XP gain</li>
+<li>Widgets refresh (Neural Report Widget, Plan Widget)</li>
+<li>Optional email reports (Gemini workspace integration)</li>
+</ul>
+<hr>
+<h3>5. <strong>HEALTH &amp; WELLNESS INTEGRATION</strong> 💪</h3>
+<h4>Health Connect Sync</h4>
+<ul>
+<li><p><strong>Steps Tracking</strong></p>
+<ul>
+<li>Daily step count</li>
+<li>Weekly/monthly trends</li>
+<li>XP bonus for hitting step goals (10k steps = +50 XP)</li>
+</ul>
+</li>
+<li><p><strong>Sleep Monitoring</strong></p>
+<ul>
+<li>Sleep duration tracking</li>
+<li>Sleep quality metrics</li>
+<li>Bedtime reminders</li>
+<li>Wakeup verification (sleep quality check-in)</li>
+</ul>
+</li>
+<li><p><strong>Calorie Burn Tracking</strong></p>
+<ul>
+<li>Daily calorie expenditure</li>
+<li>Activity-based metrics</li>
+<li>Health dashboard integration</li>
+</ul>
+</li>
+</ul>
+<h4>Smart Sleep Features (<code>SmartSleepActivity</code>)</h4>
+<ul>
+<li><strong>Sleep Verification Dialog</strong><ul>
+<li>Triggered on wake-up alarm</li>
+<li>Confirms user slept well</li>
+<li>Updates health metrics</li>
+</ul>
+</li>
+<li><strong>Deep Link Support</strong><ul>
+<li><code>reality://smart_sleep</code> - direct sleep check-in</li>
+<li>Accessible from alarm actions</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3>6. <strong>GOOGLE WORKSPACE INTEGRATION</strong> ☁️</h3>
+<h4>Google Tasks API</h4>
+<p><code>GoogleTasksManager.kt</code> - Full tasks management:</p>
+<ul>
+<li>List all task lists</li>
+<li>Create/update/delete tasks</li>
+<li>Task list synchronization</li>
+<li>Today&#39;s task statistics</li>
+<li>Supports multiple task lists (default &amp; custom)</li>
+</ul>
+<h4>Google Calendar API</h4>
+<p><code>GoogleCalendarManager.kt</code>:</p>
+<ul>
+<li>List calendars</li>
+<li>Create events with automatic scheduling</li>
+<li>Sync scheduled focus blocks</li>
+<li>View upcoming events (nightly planning reference)</li>
+</ul>
+<h4>Google Docs Integration</h4>
+<p><code>GoogleDocsManager.kt</code>:</p>
+<ul>
+<li>Create diary documents</li>
+<li>Create plan documents</li>
+<li>Auto-formatting with headings/lists/tables</li>
+<li>Insert images from Drive</li>
+<li>Batch updates for performance</li>
+</ul>
+<h4>Google Drive Integration</h4>
+<p><code>GoogleDriveManager.kt</code>:</p>
+<ul>
+<li>Automatic folder creation (Reality &gt; Diary, Plans, Reports)</li>
+<li>PDF report upload</li>
+<li>Automatic organization by date (YYYY &gt; MM &gt; DD structure)</li>
+<li>File search &amp; versioning</li>
+<li>Trash management (archival)</li>
+</ul>
+<h4>Google Sheets Support</h4>
+<p><code>GoogleSheetsManager.kt</code>:</p>
+<ul>
+<li>Daily stats logging (optional)</li>
+<li>Historical data aggregation</li>
+<li>CSV export capability</li>
+</ul>
+<hr>
+<h3>7. <strong>INTELLIGENT ALARM SYSTEM</strong> ⏰</h3>
+<h4>Alarm Types</h4>
+<p><code>AlarmActivity.kt</code> &amp; <code>WakeupAlarmRingingActivity.kt</code>:</p>
+<ul>
+<li><p><strong>Standard Reminders</strong></p>
+<ul>
+<li>Simple dismissal</li>
+<li>Snooze options (5, 10, 15 min)</li>
+<li>Custom URL actions</li>
+</ul>
+</li>
+<li><p><strong>Wakeup Alarms</strong> (with challenges)</p>
+<ul>
+<li>Math challenge (arithmetic problems)</li>
+<li>Forces mental engagement before dismissal</li>
+<li>Progressive difficulty</li>
+<li>Max attempts limit</li>
+</ul>
+</li>
+<li><p><strong>Multi-Source Alarms</strong></p>
+<ul>
+<li>Local database alarms (custom created)</li>
+<li>Google Tasks deadlines (synced)</li>
+<li>Google Calendar notifications (synced)</li>
+<li>Neural Protocol alarms (AI-generated)</li>
+</ul>
+</li>
+</ul>
+<h4>Alarm Features</h4>
+<ul>
+<li><strong>Full-Screen Interrupt</strong> (notification policy access required)</li>
+<li><strong>Vibration &amp; Sound</strong><ul>
+<li>Customizable ringtone</li>
+<li>Vibration patterns</li>
+<li>Audio focus control</li>
+</ul>
+</li>
+<li><strong>Auto-Snooze Timer</strong><ul>
+<li>Configurable snooze interval (default 3 min)</li>
+<li>Max attempts before force-open app</li>
+<li>Sound escalation</li>
+</ul>
+</li>
+</ul>
+<h4>Alarm Persistence</h4>
+<ul>
+<li><strong>BootReceiver</strong> reschedules alarms after device reboot</li>
+<li><strong>AlarmScheduler</strong> handles both AlarmManager &amp; WorkManager</li>
+<li>Heartbeat Worker refreshes alarm state every 15 minutes</li>
+</ul>
+<hr>
+<h3>8. <strong>PERSONALIZATION &amp; APPEARANCE</strong> 🎨</h3>
+<h4>Customizable Themes (<code>AppearanceActivity</code>)</h4>
+<ul>
+<li><p><strong>Color Palettes</strong></p>
+<ul>
+<li>Light mode &amp; dark mode independent colors</li>
+<li>Accent colors (Teal, Orange, Purple, Blue, Green, Red)</li>
+<li>Custom color picker integration</li>
+</ul>
+</li>
+<li><p><strong>Background Patterns</strong></p>
+<ul>
+<li>Zen (minimalist)</li>
+<li>Tech (grid)</li>
+<li>Nature (organic)</li>
+<li>Urban (modern)</li>
+</ul>
+</li>
+<li><p><strong>Typography Settings</strong></p>
+<ul>
+<li>Font size adjustment</li>
+<li>Font family selection</li>
+<li>Line spacing control</li>
+</ul>
+</li>
+<li><p><strong>Visual Effects</strong></p>
+<ul>
+<li>Blur intensity</li>
+<li>Corner radius</li>
+<li>Animations toggle</li>
+<li>Floating timer styling</li>
+</ul>
+</li>
+</ul>
+<h4>Dynamic Localization</h4>
+<ul>
+<li><strong>16+ Languages Supported</strong><ul>
+<li>European: French, German, Spanish, Italian, Portuguese</li>
+<li>Asian: Hindi, Tamil, Telugu, Kannada, Marathi, Bengali</li>
+<li>Others: Dutch, Polish, Russian, Japanese, Chinese</li>
+</ul>
+</li>
+<li><strong>Per-App Locale</strong> (Android 13+)<ul>
+<li>Change language without app restart</li>
+<li>Instant language switching</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3>9. <strong>DEVICE CONTROL &amp; ADMINISTRATION</strong> 🔐</h3>
+<h4>Device Admin Features</h4>
+<ul>
+<li><p><strong>Armored Strict Mode Protection</strong></p>
+<ul>
+<li>Prevents app deletion during active focus</li>
+<li>Requires security unlock</li>
+</ul>
+</li>
+<li><p><strong>Settings Protection</strong> (Strict Mode)</p>
+<ul>
+<li>Blocks access to system settings</li>
+<li>Two-pass detection system:<ul>
+<li>Fast pass (50ms) for unique class detection</li>
+<li>Retry pass (300ms) for keyword-based pages</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>Battery Optimization Bypass</strong></p>
+<ul>
+<li>Allows app to survive battery saver mode</li>
+<li>Maintains background functionality</li>
+</ul>
+</li>
+</ul>
+<h4>Accessibility Service Integration (<code>AppBlockerService</code>)</h4>
+<ul>
+<li>Monitors window changes in real-time</li>
+<li>Detects blocked app launches</li>
+<li>Intercepts and blocks app opens</li>
+<li>Logs all block attempts</li>
+<li>Shows penalty overlays</li>
+<li>Detects settings app access attempts</li>
+</ul>
+<hr>
+<h3>10. <strong>BACKUP &amp; DATA MANAGEMENT</strong> 💾</h3>
+<h4>Cloud Backup System (<code>BackupManager.kt</code>)</h4>
+<ul>
+<li><strong>17 Backup Categories</strong><ul>
+<li>Blocklist &amp; Focus Mode</li>
+<li>Schedules &amp; Auto-Focus Hours</li>
+<li>Bedtime Mode Settings</li>
+<li>Emergency Mode Config</li>
+<li>Usage Limits</li>
+<li>Strict Mode Rules</li>
+<li>Gamification (XP/Streak)</li>
+<li>Neural Protocol Settings</li>
+<li>AI Model Preferences</li>
+<li>Theme &amp; Appearance</li>
+<li>Block Messages</li>
+<li>Reminders</li>
+<li>App Groups</li>
+<li>Per-App Limits</li>
+<li>Neural Focus Sessions</li>
+<li>Daily Statistics</li>
+<li>App Blocking Configurations</li>
+</ul>
+</li>
+</ul>
+<h4>Selective Restore</h4>
+<ul>
+<li>Choose which categories to restore</li>
+<li>Granular control (don&#39;t overwrite everything)</li>
+<li>Restore from any backup point</li>
+<li>Timestamp tracking</li>
+</ul>
+<h4>Google Drive Integration</h4>
+<ul>
+<li>Backup file: <code>reality_backup.json</code></li>
+<li>Hidden folder: <code>.reality_backup</code></li>
+<li>Version tracking</li>
+<li>Metadata preservation (app version, device model)</li>
+</ul>
+<hr>
+<h3>11. <strong>ADVANCED FEATURES - HIDDEN GEMS</strong> 🔮</h3>
+<h4>Neural Focus Sessions (<code>TapasyaActivity</code>)</h4>
+<ul>
+<li><strong>Deep Work Time-Boxing</strong><ul>
+<li>Start focused work session</li>
+<li>Customizable duration (30min - 4h)</li>
+<li>Auto-starts focus mode</li>
+<li>Blocks all non-focus apps</li>
+<li>Progress timer</li>
+<li>Completion rewards (XP bonus)</li>
+</ul>
+</li>
+</ul>
+<h4>Floating Action Buttons &amp; Widgets</h4>
+<ul>
+<li><p><strong>AI Chat Widget</strong> (Popup overlay)</p>
+<ul>
+<li>Quick access AI chat from any app</li>
+<li>Lightweight widget</li>
+<li>Persistent across activities</li>
+</ul>
+</li>
+<li><p><strong>Neural Report Widget</strong></p>
+<ul>
+<li>Shows yesterday&#39;s XP earned</li>
+<li>Daily achievements summary</li>
+<li>Quick-click to view full report</li>
+</ul>
+</li>
+<li><p><strong>Plan Widget</strong></p>
+<ul>
+<li>Today&#39;s scheduled tasks</li>
+<li>Upcoming calendar blocks</li>
+<li>XP progress bar</li>
+</ul>
+</li>
+<li><p><strong>Neural Focus Widget</strong></p>
+<ul>
+<li>Current session status</li>
+<li>Time remaining</li>
+<li>One-tap start/stop</li>
+</ul>
+</li>
+</ul>
+<h4>Quick Settings Tile</h4>
+<p><code>RealitySleepTileService</code>:</p>
+<ul>
+<li>System-level quick tile for sleep mode</li>
+<li>One-tap bedtime activation</li>
+<li>Status indicator in notification shade</li>
+</ul>
+<h4>App Groups &amp; Family Controls</h4>
+<p><code>AppGroupsActivity</code> &amp; <code>AppLimitsActivity</code>:</p>
+<ul>
+<li>Create app categories (Social, Gaming, Work, etc.)</li>
+<li>Set group-level time limits</li>
+<li>Apply rules to entire categories</li>
+<li>Per-app exceptions</li>
+</ul>
+<h4>Block Messages (<code>BlockMessagesActivity</code>)</h4>
+<ul>
+<li>Custom messages when users hit blocks</li>
+<li>Motivational quotes</li>
+<li>Action buttons (open calendar, view stats)</li>
+<li>Message scheduling by time of day</li>
+</ul>
+<h4>Active Blocks Dashboard</h4>
+<p><code>ActiveBlocksActivity</code>:</p>
+<ul>
+<li>Live view of currently blocked apps</li>
+<li>Active focus session status</li>
+<li>Manual unblock with confirmation</li>
+<li>Block history</li>
+</ul>
+<hr>
+<h3>12. <strong>AI &amp; AUTOMATION SYSTEM</strong> 🤖</h3>
+<h4>Hybrid AI Architecture</h4>
+<ul>
+<li><p><strong>Bring Your Own Key Model</strong></p>
+<ul>
+<li>Supports: OpenAI (GPT-4), Google Gemini, Anthropic Claude, Groq, Mistral</li>
+<li>Any OpenRouter-compatible model</li>
+<li>Free fallback: GPT-OSS-120B</li>
+</ul>
+</li>
+<li><p><strong>AI Settings</strong> (<code>AISettingsActivity</code>)</p>
+<ul>
+<li>Model selection</li>
+<li>API key input (encrypted storage)</li>
+<li>Temperature &amp; response customization</li>
+<li>System prompts for reflection/planning</li>
+</ul>
+</li>
+</ul>
+<h4>AI-Powered Features</h4>
+<ul>
+<li><strong>Nightly Reflection</strong> - Dynamic questions based on actual data</li>
+<li><strong>Plan Generation</strong> - Tomorrow&#39;s schedule auto-created</li>
+<li><strong>Coaching</strong> - Personalized motivation &amp; advice</li>
+<li><strong>Analytics</strong> - Pattern recognition in behavior</li>
+</ul>
+<h4>Preset Models</h4>
+<ul>
+<li>Comes with &quot;Reality-Optimized&quot; GPT-OSS-120B ready to use</li>
+<li>One-click model switching</li>
+<li>Model-specific prompt optimization</li>
+</ul>
+<hr>
+<h3>13. <strong>NOTIFICATIONS &amp; USER ENGAGEMENT</strong> 📲</h3>
+<h4>Notification Channels</h4>
+<ul>
+<li><strong>High Priority Alarms</strong> (full screen, sound)</li>
+<li><strong>Reminders</strong> (heads-up, vibration)</li>
+<li><strong>Focus Started/Ended</strong> (silent, persistent)</li>
+<li><strong>XP Updates</strong> (silent, dismissible)</li>
+<li><strong>Nightly Completion</strong> (high priority)</li>
+</ul>
+<h4>Notification Types</h4>
+<ul>
+<li>Block attempt notifications</li>
+<li>Focus mode status</li>
+<li>Alarm &amp; reminder notifications</li>
+<li>XP milestone celebrations</li>
+<li>Daily summary notifications</li>
+</ul>
+<hr>
+<h3>14. <strong>STATISTICS &amp; ANALYTICS</strong> 📊</h3>
+<h4>Daily Stats Tracking</h4>
+<ul>
+<li><p><strong>Screen Time Analytics</strong></p>
+<ul>
+<li>Total daily screen time</li>
+<li>Per-app breakdowns</li>
+<li>Trends over time</li>
+<li>Comparison to limits</li>
+</ul>
+</li>
+<li><p><strong>Usage Patterns</strong></p>
+<ul>
+<li>Most used apps</li>
+<li>Peak usage hours</li>
+<li>App usage by category</li>
+<li>Time-of-day heatmaps</li>
+</ul>
+</li>
+<li><p><strong>Focus Metrics</strong></p>
+<ul>
+<li>Focus blocks completed</li>
+<li>Focus blocks missed</li>
+<li>Average focus duration</li>
+<li>Consistency score</li>
+</ul>
+</li>
+<li><p><strong>Health Metrics</strong></p>
+<ul>
+<li>Steps</li>
+<li>Calories</li>
+<li>Sleep hours</li>
+<li>XP correlation with health</li>
+</ul>
+</li>
+</ul>
+<h4>Data Retention</h4>
+<ul>
+<li>Detailed stats: 3 days (local)</li>
+<li>Summary stats: 30 days (database)</li>
+<li>Historical data: Synced to Drive monthly</li>
+</ul>
+<hr>
+<h3>15. <strong>ONBOARDING &amp; PERMISSIONS</strong> 🚀</h3>
+<h4>Progressive Onboarding System</h4>
+<p><code>OnboardingActivity</code> &amp; <code>OnboardingPermissionsFragment</code>:</p>
+<ul>
+<li><p><strong>Welcome Screen</strong></p>
+<ul>
+<li>App introduction</li>
+<li>Core values explanation</li>
+<li>Permission overview</li>
+</ul>
+</li>
+<li><p><strong>Permission Checklist</strong> (5 Required, Optional)</p>
+<ul>
+<li><strong>Required:</strong><ol>
+<li>Accessibility Service (app blocker core)</li>
+<li>Overlay Permission (floating timer)</li>
+<li>Usage Stats Permission (screen time)</li>
+</ol>
+</li>
+<li><strong>Optional:</strong><ol>
+<li>Notifications (alarms &amp; alerts)</li>
+<li>Battery Optimization Bypass (reliability)</li>
+</ol>
+</li>
+</ul>
+</li>
+<li><p><strong>Security Intro</strong> (<code>SecurityIntroActivity</code>)</p>
+<ul>
+<li>Device Admin explanation</li>
+<li>Anti-bypass measures overview</li>
+<li>Commitment confirmation</li>
+</ul>
+</li>
+<li><p><strong>Pro Feature Setup</strong></p>
+<ul>
+<li>Google Workspace credentials</li>
+<li>AI model selection</li>
+<li>Initial plan creation</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2>🏗️ DEEP TECHNICAL ARCHITECTURE</h2>
+<h3>Technology Stack</h3>
+<pre><code>Platform:       Android 26+ (API 26 to 35)
 Language:       Kotlin 100% (type-safe)
 UI Framework:   AndroidX + Material3
 Database:       Room ORM + SQLite
@@ -669,115 +802,379 @@ Networking:     OkHttp + Retrofit (Google APIs)
 Background:     WorkManager + AlarmManager
 Logging:        Terminal Logger (custom)
 Parsing:        GSON, JSoup, Markwon
-```
-
-### Key Libraries
-| Category | Library | Version | Purpose |
-|----------|---------|---------|---------|
-| **Google APIs** | google-api-client-android | 2.2.0 | OAuth2 + service calls |
-| | Tasks API | v1-rev20210709 | Task management |
-| | Calendar API | v3-rev20231123 | Event scheduling |
-| | Docs API | v1-rev20230929 | Document creation |
-| | Drive API | v3-rev20230520 | File management |
-| | Sheets API | v4-rev20230815 | Data logging |
-| **Health** | Health Connect Client | 1.1.0-alpha07 | Fitness tracking |
-| **Database** | Room | 2.5.2 | Local persistence |
-| **Background** | WorkManager | 2.8.1 | Scheduled tasks |
-| **UI** | Material3 | Latest | Design system |
-| | Lottie | 6.0.0 | Animations |
-| | Coil | 2.6.0 | Image loading |
-| **Markdown** | Markwon | 4.6.2 | Content rendering |
-| **PDF** | iText7 html2pdf | 4.0.5 | Report generation |
-| **QR Code** | ZXing + ML Kit | 3.5.3, 17.3.0 | QR scan/generate |
-| **Other** | JSoup | 1.17.2 | HTML parsing |
-
-### Database Schema
-- **Focus Mode**: Blocked apps, block history
-- **Schedules**: Auto-focus hours, bedtime times
-- **Usage Limits**: Per-app limits, thresholds
-- **XP & Gamification**: XP history, streaks, levels
-- **Reminders**: Local alarms, dismissed status
-- **Nightly**: Step data, reflection responses, plan JSON
-- **App Groups**: Category definitions, memberships
-- **Settings**: User preferences, theme, language
-
-### Security Model
-| Layer | Implementation |
-|-------|-----------------|
-| **Data at Rest** | Encrypted SharedPreferences |
-| **Google API Auth** | OAuth 2.0 with refresh tokens |
-| **Local Blocking** | Accessibility Service + Device Admin |
-| **Bypass Prevention** | Multi-layer validation (5+ checks) |
-| **Permissions** | Runtime + static manifest declarations |
-
----
-
-## 🌍 COMPETITIVE COMPARISON: Reality vs World-Class Apps
-
-### vs Forest (Popular Productivity App)
-| Aspect | Reality | Forest |
-|--------|---------|--------|
-| **Price** | 🟢 Open Source (Pro Optional) | 🔴 Paid ($3.99) |
-| **Open Source** | 🟢 100% | 🔴 Closed |
-| **Ads/Trackers** | 🟢 Zero | 🔴 Has Ads |
-| **Data Storage** | 🟢 Your Drive | 🔴 Their Servers |
-| **App Blocking** | 🟢 Military-Grade | 🟡 Visual Metaphor Only |
-| **AI Agent** | 🟢 Autonomous (Plans/Alarms/Reports) | 🔴 None |
-| **Google Integration** | 🟢 Full Ecosystem (Tasks, Cal, Drive, Docs) | 🔴 None |
-| **XP System** | 🟢 Dynamic (bonus/penalty) | 🟡 Simple Counter |
-| **Neural Protocol** | 🟢 4-Phase AI Ritual | 🔴 None |
-| **Health Sync** | 🟢 Steps, Calories, Sleep | 🔴 None |
-| **Battery Impact** | 🟢 <1% | 🟡 Standard |
-
-### vs Freedom (Enterprise Blocking)
-| Aspect | Reality | Freedom |
-|--------|---------|---------|
-| **Price** | 🟢 Open Source | 🔴 Subscription ($5-15/mo) |
-| **Blocking Tech** | 🟢 Native Accessibility | 🔴 VPN-Based (high battery) |
-| **Bypass Protection** | 🟢 Loop Hole Closers (5+ checks) | 🟡 Good but VPN-limited |
-| **AI Planning** | 🟢 Yes (Neural Protocol) | 🔴 No |
-| **Google Sync** | 🟢 Full | 🔴 None |
-| **Data Privacy** | 🟢 Yours Alone | 🟡 Via VPN servers |
-| **Open Source** | 🟢 Yes | 🔴 No |
-
-### vs AppBlock (Simple Blocker)
-| Aspect | Reality | AppBlock |
-|--------|---------|----------|
-| **Price** | 🟢 Open Source | 🟡 Freemium + Paid |
-| **Blocking** | 🟢 Advanced (Strict Mode) | 🟡 Standard |
-| **Gamification** | 🟢 Advanced XP/Levels | 🔴 None |
-| **AI Features** | 🟢 Full Neural Protocol | 🔴 None |
-| **Workspace Sync** | 🟢 Full Google Integration | 🔴 None |
-| **Health Integration** | 🟢 Yes | 🔴 No |
-| **Report Generation** | 🟢 PDF + Docs | 🔴 Basic Stats |
-| **Customization** | 🟢 Extensive | 🟡 Limited |
-
-### vs Notion (Productivity Hub)
-| Aspect | Reality | Notion |
-|--------|---------|--------|
-| **Price** | 🟢 Open Source | 🟡 Subscription |
-| **App Blocking** | 🟢 Yes | 🔴 No |
-| **AI Agent** | 🟢 Autonomous Planner | 🟡 AI Assistant Only |
-| **Mobile-First** | 🟢 Yes | 🟡 Web-Focused |
-| **Offline Use** | 🟢 100% | 🟡 Limited |
-| **Daily Automation** | 🟢 Full (Nightly) | 🔴 Manual |
-| **Health Sync** | 🟢 Yes | 🔴 No |
-| **Battery Impact** | 🟢 <1% | 🟡 N/A |
-
----
-
-## 🔐 SECURITY & PRIVACY ARCHITECTURE
-
-### Zero-Trust Security Model
-1. **No Backend Servers** - Reality has zero infrastructure
-2. **Local-First Processing** - All blocking logic runs on-device
-3. **Your Drive Only** - Backups stored in your personal Google Drive
-4. **Open Source Audit** - Every line of code publicly visible
-5. **Encrypted Credentials** - OAuth tokens stored securely
-
-### Bypass Prevention Layer (Reality's Secret Sauce)
-```kotlin
-// Multi-layer validation:
+</code></pre>
+<h3>Key Libraries</h3>
+<table>
+<thead>
+<tr>
+<th>Category</th>
+<th>Library</th>
+<th>Version</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Google APIs</strong></td>
+<td>google-api-client-android</td>
+<td>2.2.0</td>
+<td>OAuth2 + service calls</td>
+</tr>
+<tr>
+<td></td>
+<td>Tasks API</td>
+<td>v1-rev20210709</td>
+<td>Task management</td>
+</tr>
+<tr>
+<td></td>
+<td>Calendar API</td>
+<td>v3-rev20231123</td>
+<td>Event scheduling</td>
+</tr>
+<tr>
+<td></td>
+<td>Docs API</td>
+<td>v1-rev20230929</td>
+<td>Document creation</td>
+</tr>
+<tr>
+<td></td>
+<td>Drive API</td>
+<td>v3-rev20230520</td>
+<td>File management</td>
+</tr>
+<tr>
+<td></td>
+<td>Sheets API</td>
+<td>v4-rev20230815</td>
+<td>Data logging</td>
+</tr>
+<tr>
+<td><strong>Health</strong></td>
+<td>Health Connect Client</td>
+<td>1.1.0-alpha07</td>
+<td>Fitness tracking</td>
+</tr>
+<tr>
+<td><strong>Database</strong></td>
+<td>Room</td>
+<td>2.5.2</td>
+<td>Local persistence</td>
+</tr>
+<tr>
+<td><strong>Background</strong></td>
+<td>WorkManager</td>
+<td>2.8.1</td>
+<td>Scheduled tasks</td>
+</tr>
+<tr>
+<td><strong>UI</strong></td>
+<td>Material3</td>
+<td>Latest</td>
+<td>Design system</td>
+</tr>
+<tr>
+<td></td>
+<td>Lottie</td>
+<td>6.0.0</td>
+<td>Animations</td>
+</tr>
+<tr>
+<td></td>
+<td>Coil</td>
+<td>2.6.0</td>
+<td>Image loading</td>
+</tr>
+<tr>
+<td><strong>Markdown</strong></td>
+<td>Markwon</td>
+<td>4.6.2</td>
+<td>Content rendering</td>
+</tr>
+<tr>
+<td><strong>PDF</strong></td>
+<td>iText7 html2pdf</td>
+<td>4.0.5</td>
+<td>Report generation</td>
+</tr>
+<tr>
+<td><strong>QR Code</strong></td>
+<td>ZXing + ML Kit</td>
+<td>3.5.3, 17.3.0</td>
+<td>QR scan/generate</td>
+</tr>
+<tr>
+<td><strong>Other</strong></td>
+<td>JSoup</td>
+<td>1.17.2</td>
+<td>HTML parsing</td>
+</tr>
+</tbody></table>
+<h3>Database Schema</h3>
+<ul>
+<li><strong>Focus Mode</strong>: Blocked apps, block history</li>
+<li><strong>Schedules</strong>: Auto-focus hours, bedtime times</li>
+<li><strong>Usage Limits</strong>: Per-app limits, thresholds</li>
+<li><strong>XP &amp; Gamification</strong>: XP history, streaks, levels</li>
+<li><strong>Reminders</strong>: Local alarms, dismissed status</li>
+<li><strong>Nightly</strong>: Step data, reflection responses, plan JSON</li>
+<li><strong>App Groups</strong>: Category definitions, memberships</li>
+<li><strong>Settings</strong>: User preferences, theme, language</li>
+</ul>
+<h3>Security Model</h3>
+<table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>Implementation</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Data at Rest</strong></td>
+<td>Encrypted SharedPreferences</td>
+</tr>
+<tr>
+<td><strong>Google API Auth</strong></td>
+<td>OAuth 2.0 with refresh tokens</td>
+</tr>
+<tr>
+<td><strong>Local Blocking</strong></td>
+<td>Accessibility Service + Device Admin</td>
+</tr>
+<tr>
+<td><strong>Bypass Prevention</strong></td>
+<td>Multi-layer validation (5+ checks)</td>
+</tr>
+<tr>
+<td><strong>Permissions</strong></td>
+<td>Runtime + static manifest declarations</td>
+</tr>
+</tbody></table>
+<hr>
+<h2>🌍 COMPETITIVE COMPARISON: Reality vs World-Class Apps</h2>
+<h3>vs Forest (Popular Productivity App)</h3>
+<table>
+<thead>
+<tr>
+<th>Aspect</th>
+<th>Reality</th>
+<th>Forest</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Price</strong></td>
+<td>🟢 Open Source (Pro Optional)</td>
+<td>🔴 Paid (</div>
+        <h2.99)</td>
+</tr>
+<tr>
+<td><strong>Open Source</strong></td>
+<td>🟢 100%</td>
+<td>🔴 Closed</td>
+</tr>
+<tr>
+<td><strong>Ads/Trackers</strong></td>
+<td>🟢 Zero</td>
+<td>🔴 Has Ads</td>
+</tr>
+<tr>
+<td><strong>Data Storage</strong></td>
+<td>🟢 Your Drive</td>
+<td>🔴 Their Servers</td>
+</tr>
+<tr>
+<td><strong>App Blocking</strong></td>
+<td>🟢 Military-Grade</td>
+<td>🟡 Visual Metaphor Only</td>
+</tr>
+<tr>
+<td><strong>AI Agent</strong></td>
+<td>🟢 Autonomous (Plans/Alarms/Reports)</td>
+<td>🔴 None</td>
+</tr>
+<tr>
+<td><strong>Google Integration</strong></td>
+<td>🟢 Full Ecosystem (Tasks, Cal, Drive, Docs)</td>
+<td>🔴 None</td>
+</tr>
+<tr>
+<td><strong>XP System</strong></td>
+<td>🟢 Dynamic (bonus/penalty)</td>
+<td>🟡 Simple Counter</td>
+</tr>
+<tr>
+<td><strong>Neural Protocol</strong></td>
+<td>🟢 4-Phase AI Ritual</td>
+<td>🔴 None</td>
+</tr>
+<tr>
+<td><strong>Health Sync</strong></td>
+<td>🟢 Steps, Calories, Sleep</td>
+<td>🔴 None</td>
+</tr>
+<tr>
+<td><strong>Battery Impact</strong></td>
+<td>🟢 &lt;1%</td>
+<td>🟡 Standard</td>
+</tr>
+</tbody></table>
+<h3>vs Freedom (Enterprise Blocking)</h3>
+<table>
+<thead>
+<tr>
+<th>Aspect</th>
+<th>Reality</th>
+<th>Freedom</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Price</strong></td>
+<td>🟢 Open Source</td>
+<td>🔴 Subscription ($5-15/mo)</td>
+</tr>
+<tr>
+<td><strong>Blocking Tech</strong></td>
+<td>🟢 Native Accessibility</td>
+<td>🔴 VPN-Based (high battery)</td>
+</tr>
+<tr>
+<td><strong>Bypass Protection</strong></td>
+<td>🟢 Loop Hole Closers (5+ checks)</td>
+<td>🟡 Good but VPN-limited</td>
+</tr>
+<tr>
+<td><strong>AI Planning</strong></td>
+<td>🟢 Yes (Neural Protocol)</td>
+<td>🔴 No</td>
+</tr>
+<tr>
+<td><strong>Google Sync</strong></td>
+<td>🟢 Full</td>
+<td>🔴 None</td>
+</tr>
+<tr>
+<td><strong>Data Privacy</strong></td>
+<td>🟢 Yours Alone</td>
+<td>🟡 Via VPN servers</td>
+</tr>
+<tr>
+<td><strong>Open Source</strong></td>
+<td>🟢 Yes</td>
+<td>🔴 No</td>
+</tr>
+</tbody></table>
+<h3>vs AppBlock (Simple Blocker)</h3>
+<table>
+<thead>
+<tr>
+<th>Aspect</th>
+<th>Reality</th>
+<th>AppBlock</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Price</strong></td>
+<td>🟢 Open Source</td>
+<td>🟡 Freemium + Paid</td>
+</tr>
+<tr>
+<td><strong>Blocking</strong></td>
+<td>🟢 Advanced (Strict Mode)</td>
+<td>🟡 Standard</td>
+</tr>
+<tr>
+<td><strong>Gamification</strong></td>
+<td>🟢 Advanced XP/Levels</td>
+<td>🔴 None</td>
+</tr>
+<tr>
+<td><strong>AI Features</strong></td>
+<td>🟢 Full Neural Protocol</td>
+<td>🔴 None</td>
+</tr>
+<tr>
+<td><strong>Workspace Sync</strong></td>
+<td>🟢 Full Google Integration</td>
+<td>🔴 None</td>
+</tr>
+<tr>
+<td><strong>Health Integration</strong></td>
+<td>🟢 Yes</td>
+<td>🔴 No</td>
+</tr>
+<tr>
+<td><strong>Report Generation</strong></td>
+<td>🟢 PDF + Docs</td>
+<td>🔴 Basic Stats</td>
+</tr>
+<tr>
+<td><strong>Customization</strong></td>
+<td>🟢 Extensive</td>
+<td>🟡 Limited</td>
+</tr>
+</tbody></table>
+<h3>vs Notion (Productivity Hub)</h3>
+<table>
+<thead>
+<tr>
+<th>Aspect</th>
+<th>Reality</th>
+<th>Notion</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Price</strong></td>
+<td>🟢 Open Source</td>
+<td>🟡 Subscription</td>
+</tr>
+<tr>
+<td><strong>App Blocking</strong></td>
+<td>🟢 Yes</td>
+<td>🔴 No</td>
+</tr>
+<tr>
+<td><strong>AI Agent</strong></td>
+<td>🟢 Autonomous Planner</td>
+<td>🟡 AI Assistant Only</td>
+</tr>
+<tr>
+<td><strong>Mobile-First</strong></td>
+<td>🟢 Yes</td>
+<td>🟡 Web-Focused</td>
+</tr>
+<tr>
+<td><strong>Offline Use</strong></td>
+<td>🟢 100%</td>
+<td>🟡 Limited</td>
+</tr>
+<tr>
+<td><strong>Daily Automation</strong></td>
+<td>🟢 Full (Nightly)</td>
+<td>🔴 Manual</td>
+</tr>
+<tr>
+<td><strong>Health Sync</strong></td>
+<td>🟢 Yes</td>
+<td>🔴 No</td>
+</tr>
+<tr>
+<td><strong>Battery Impact</strong></td>
+<td>🟢 &lt;1%</td>
+<td>🟡 N/A</td>
+</tr>
+</tbody></table>
+<hr>
+<h2>🔐 SECURITY &amp; PRIVACY ARCHITECTURE</h2>
+<h3>Zero-Trust Security Model</h3>
+<ol>
+<li><strong>No Backend Servers</strong> - Reality has zero infrastructure</li>
+<li><strong>Local-First Processing</strong> - All blocking logic runs on-device</li>
+<li><strong>Your Drive Only</strong> - Backups stored in your personal Google Drive</li>
+<li><strong>Open Source Audit</strong> - Every line of code publicly visible</li>
+<li><strong>Encrypted Credentials</strong> - OAuth tokens stored securely</li>
+</ol>
+<h3>Bypass Prevention Layer (Reality&#39;s Secret Sauce)</h3>
+<pre><code class="language-kotlin">// Multi-layer validation:
 1. AccessibilityService window monitoring (real-time)
 2. SettingsBox O(1) lookup (instant page detection)
 3. Keyword scanning fallback (for ambiguous settings pages)
@@ -785,164 +1182,196 @@ Parsing:        GSON, JSoup, Markwon
 5. Time validation (detects clock tampering)
 6. Intent hijacking detection (catches overlay attacks)
 7. Package manager access blocking (prevents uninstall via ADB)
-```
-
----
-
-## 📱 SYSTEM REQUIREMENTS & PERMISSIONS
-
-### Minimum Requirements
-- **Android Version:** 8.0 (API 26) - Android 15 compatible
-- **RAM:** 256MB minimum (typical 50-100MB usage)
-- **Storage:** 150MB app + database
-- **Connectivity:** Optional (works offline, Google Sync requires internet)
-
-### Required Permissions (3)
-| Permission | Purpose |
-|-----------|---------|
-| `ACCESSIBILITY_SERVICE` | Real-time app blocking |
-| `SYSTEM_ALERT_WINDOW` | Floating timer overlay |
-| `PACKAGE_USAGE_STATS` | Accurate screen time |
-
-### Optional Permissions (2)
-| Permission | Purpose |
-|-----------|---------|
-| `POST_NOTIFICATIONS` | Alarms & alerts |
-| `REQUEST_IGNORE_BATTERY_OPTIMIZATIONS` | Background reliability |
-
-### Full Manifest Permissions
-- Health Connect (steps, calories, sleep)
-- Camera (QR scanner)
-- Record Audio (voice input for AI)
-- Internet (Google APIs)
-- Network State (connectivity check)
-- Device Admin (anti-uninstall)
-- Schedule Exact Alarm (Neural Protocol)
-- Query All Packages (app listing)
-- Usage Stats (screen time)
-- Access Notification Policy (DND mode)
-
----
-
-## 🎮 HIDDEN FEATURES YOU HAVEN'T DISCOVERED
-
-1. **Deep Link Support**
-   - `reality://smart_sleep` - quick sleep mode toggle
-   - `reality://block_<appName>` - block specific app
-   - Accessible from any app via custom URLs
-
-2. **Terminal Logger**
-   - Detailed debug logs for power users
-   - Export logs for troubleshooting
-   - Hidden terminal view
-
-3. **ADB Setup Assistant**
-   - Guides developers through adb commands
-   - One-click permission granting
-   - Device integration setup
-
-4. **QR Code Scanner**
-   - Built-in barcode scanning
-   - Create shareable focus schedules via QR
-   - Scan competitor's settings to compare
-
-5. **Shortcut System**
-   - Android app shortcuts for quick actions
-   - Start focus via home screen icon
-   - Custom automation routines
-
-6. **Health Dashboard**
-   - Advanced health metrics visualization
-   - Correlation with XP & focus
-   - Historical health trends
-
-7. **Reflection Detail View**
-   - Deep dive into nightly reflections
-   - View AI coaching history
-   - Behavior pattern analysis
-
-8. **Planning Pad Activity**
-   - Free-form planning interface
-   - Voice-to-text input
-   - Auto-sync to Google Docs
-
-9. **Math Challenge Difficulty Levels**
-   - Difficulty adjusts based on time of morning
-   - Earlier wake = harder math
-   - Prevents easy dismissal
-
-10. **Penalty Overlay**
-    - Shows when blocked app accessed
-    - Custom penalty duration
-    - Can be extended for repeated violations
-
----
-
-## 🚀 GETTING STARTED
-
-### Installation
-1. Download latest APK from GitHub Releases
-2. Enable installation from unknown sources
-3. Tap APK to install
-4. Open Reality and complete onboarding
-5. Grant required permissions
-
-### Initial Setup (5 minutes)
-1. **Security Intro** - Understand features
-2. **Permissions** - Grant accessibility + overlay + usage stats
-3. **Add Blocklist** - Select apps to block
-4. **Set Focus Hours** - Recurring daily schedule
-5. **Configure AI** - Add OpenAI key (optional, has free default)
-
-### Power User Setup (15 minutes)
-1. Connect Google Account (Tasks, Calendar, Drive)
-2. Configure Neural Protocol settings
-3. Set up Neural Focus sessions
-4. Enable Health Connect sync
-5. Customize appearance theme
-6. Import backup (if migrating from another device)
-
----
-
-## 📞 SUPPORT & COMMUNITY
-
-- **GitHub**: https://github.com/pawanwashudev-official/Reality
-- **Website**: https://reality.neubofy.in
-- **Issues**: Report bugs on GitHub
-- **Contributing**: PRs welcome for features/improvements
-
----
-
-## 📄 LICENSE & TERMS
-
-- **License**: Open Source (Apache 2.0)
-- **Developer**: Pawan Washudev (Neubofy)
-- **Status**: Active Development
-- **Version**: 1.0.5 (Stability)
-
----
-
-<div align="center">
-
-**"Your data. Your focus. Your life. On YOUR terms."**
-
-*Made with ❤️ and Intelligence by Pawan Washudev*
-
-Built by someone who lost control of their own fingers. Designed for those who want it back.
-
-<br><br>
-
-[**🌐 Official Website**](https://reality.neubofy.in) • [**⬇️ Download Latest APK**](https://github.com/pawanwashudev-official/Reality/releases)
-
-<br><br>
-
+</code></pre>
+<hr>
+<h2>📱 SYSTEM REQUIREMENTS &amp; PERMISSIONS</h2>
+<h3>Minimum Requirements</h3>
+<ul>
+<li><strong>Android Version:</strong> 8.0 (API 26) - Android 15 compatible</li>
+<li><strong>RAM:</strong> 256MB minimum (typical 50-100MB usage)</li>
+<li><strong>Storage:</strong> 150MB app + database</li>
+<li><strong>Connectivity:</strong> Optional (works offline, Google Sync requires internet)</li>
+</ul>
+<h3>Required Permissions (3)</h3>
+<table>
+<thead>
+<tr>
+<th>Permission</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>ACCESSIBILITY_SERVICE</code></td>
+<td>Real-time app blocking</td>
+</tr>
+<tr>
+<td><code>SYSTEM_ALERT_WINDOW</code></td>
+<td>Floating timer overlay</td>
+</tr>
+<tr>
+<td><code>PACKAGE_USAGE_STATS</code></td>
+<td>Accurate screen time</td>
+</tr>
+</tbody></table>
+<h3>Optional Permissions (2)</h3>
+<table>
+<thead>
+<tr>
+<th>Permission</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>POST_NOTIFICATIONS</code></td>
+<td>Alarms &amp; alerts</td>
+</tr>
+<tr>
+<td><code>REQUEST_IGNORE_BATTERY_OPTIMIZATIONS</code></td>
+<td>Background reliability</td>
+</tr>
+</tbody></table>
+<h3>Full Manifest Permissions</h3>
+<ul>
+<li>Health Connect (steps, calories, sleep)</li>
+<li>Camera (QR scanner)</li>
+<li>Record Audio (voice input for AI)</li>
+<li>Internet (Google APIs)</li>
+<li>Network State (connectivity check)</li>
+<li>Device Admin (anti-uninstall)</li>
+<li>Schedule Exact Alarm (Neural Protocol)</li>
+<li>Query All Packages (app listing)</li>
+<li>Usage Stats (screen time)</li>
+<li>Access Notification Policy (DND mode)</li>
+</ul>
+<hr>
+<h2>🎮 HIDDEN FEATURES YOU HAVEN&#39;T DISCOVERED</h2>
+<ol>
+<li><p><strong>Deep Link Support</strong></p>
+<ul>
+<li><code>reality://smart_sleep</code> - quick sleep mode toggle</li>
+<li><code>reality://block_&lt;appName&gt;</code> - block specific app</li>
+<li>Accessible from any app via custom URLs</li>
+</ul>
+</li>
+<li><p><strong>Terminal Logger</strong></p>
+<ul>
+<li>Detailed debug logs for power users</li>
+<li>Export logs for troubleshooting</li>
+<li>Hidden terminal view</li>
+</ul>
+</li>
+<li><p><strong>ADB Setup Assistant</strong></p>
+<ul>
+<li>Guides developers through adb commands</li>
+<li>One-click permission granting</li>
+<li>Device integration setup</li>
+</ul>
+</li>
+<li><p><strong>QR Code Scanner</strong></p>
+<ul>
+<li>Built-in barcode scanning</li>
+<li>Create shareable focus schedules via QR</li>
+<li>Scan competitor&#39;s settings to compare</li>
+</ul>
+</li>
+<li><p><strong>Shortcut System</strong></p>
+<ul>
+<li>Android app shortcuts for quick actions</li>
+<li>Start focus via home screen icon</li>
+<li>Custom automation routines</li>
+</ul>
+</li>
+<li><p><strong>Health Dashboard</strong></p>
+<ul>
+<li>Advanced health metrics visualization</li>
+<li>Correlation with XP &amp; focus</li>
+<li>Historical health trends</li>
+</ul>
+</li>
+<li><p><strong>Reflection Detail View</strong></p>
+<ul>
+<li>Deep dive into nightly reflections</li>
+<li>View AI coaching history</li>
+<li>Behavior pattern analysis</li>
+</ul>
+</li>
+<li><p><strong>Planning Pad Activity</strong></p>
+<ul>
+<li>Free-form planning interface</li>
+<li>Voice-to-text input</li>
+<li>Auto-sync to Google Docs</li>
+</ul>
+</li>
+<li><p><strong>Math Challenge Difficulty Levels</strong></p>
+<ul>
+<li>Difficulty adjusts based on time of morning</li>
+<li>Earlier wake = harder math</li>
+<li>Prevents easy dismissal</li>
+</ul>
+</li>
+<li><p><strong>Penalty Overlay</strong></p>
+<ul>
+<li>Shows when blocked app accessed</li>
+<li>Custom penalty duration</li>
+<li>Can be extended for repeated violations</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2>🚀 GETTING STARTED</h2>
+<h3>Installation</h3>
+<ol>
+<li>Download latest APK from GitHub Releases</li>
+<li>Enable installation from unknown sources</li>
+<li>Tap APK to install</li>
+<li>Open Reality and complete onboarding</li>
+<li>Grant required permissions</li>
+</ol>
+<h3>Initial Setup (5 minutes)</h3>
+<ol>
+<li><strong>Security Intro</strong> - Understand features</li>
+<li><strong>Permissions</strong> - Grant accessibility + overlay + usage stats</li>
+<li><strong>Add Blocklist</strong> - Select apps to block</li>
+<li><strong>Set Focus Hours</strong> - Recurring daily schedule</li>
+<li><strong>Configure AI</strong> - Add OpenAI key (optional, has free default)</li>
+</ol>
+<h3>Power User Setup (15 minutes)</h3>
+<ol>
+<li>Connect Google Account (Tasks, Calendar, Drive)</li>
+<li>Configure Neural Protocol settings</li>
+<li>Set up Neural Focus sessions</li>
+<li>Enable Health Connect sync</li>
+<li>Customize appearance theme</li>
+<li>Import backup (if migrating from another device)</li>
+</ol>
+<hr>
+<h2>📞 SUPPORT &amp; COMMUNITY</h2>
+<ul>
+<li><strong>GitHub</strong>: <a href="https://github.com/pawanwashudev-official/Reality">https://github.com/pawanwashudev-official/Reality</a></li>
+<li><strong>Website</strong>: <a href="https://reality.neubofy.in">https://reality.neubofy.in</a></li>
+<li><strong>Issues</strong>: Report bugs on GitHub</li>
+<li><strong>Contributing</strong>: PRs welcome for features/improvements</li>
+</ul>
+<hr>
+<h2>📄 LICENSE &amp; TERMS</h2>
+<ul>
+<li><strong>License</strong>: Open Source (Apache 2.0)</li>
+<li><strong>Developer</strong>: Pawan Washudev (Neubofy)</li>
+<li><strong>Status</strong>: Active Development</li>
+<li><strong>Version</strong>: 1.0.5 (Stability)</li>
+</ul>
+<hr>
+<div align="center"><p><strong>&quot;Your data. Your focus. Your life. On YOUR terms.&quot;</strong></p>
+<p><em>Made with ❤️ and Intelligence by Pawan Washudev</em></p>
+<p>Built by someone who lost control of their own fingers. Designed for those who want it back.</p>
+<p><br><br></p>
+<p><a href="https://reality.neubofy.in"><strong>🌐 Official Website</strong></a> • <a href="https://github.com/pawanwashudev-official/Reality/releases"><strong>⬇️ Download Latest APK</strong></a></p>
+<p><br><br></p>
 <a href='https://reality-digital-wellbeing-and-focus.en.uptodown.com/android' title='Download Reality - The Intelligent Life OS' >
     <img src='https://stc.utdstc.com/img/mediakit/download-aao-big.png' alt='Download Reality - The Intelligent Life OS'>
-</a>
+</a></div>
 
 </div>
-
-        </div>
         <h2 class="text-2xl font-bold mb-4 text-white">Features</h2>
         <ul class="list-disc list-inside text-gray-300 mb-8">
             <li class="mb-2">See GitHub repository for full details and features.</li>

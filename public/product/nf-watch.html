@@ -22,50 +22,50 @@
         </div>
 
         <div class="prose prose-invert max-w-none text-gray-300 mb-8 leading-relaxed">
-            # ⌚ NF Watch — Premium Universal Companion for Da Fit Protocol
+<h1>⌚ NF Watch — Premium Universal Companion for Da Fit Protocol</h1>
+<p>NF Watch is a state-of-the-art, open-source Android companion application designed specifically for devices using the <strong>Moyoung (Da Fit) protocol</strong>. This includes popular brands like <strong>GoBoult</strong>, <strong>Drift</strong>, <strong>Colmi</strong>, <strong>Fire-Boltt</strong>, and many other Da Fit-skinned wearables.</p>
+<p>It prioritizes <strong>Zero-Touch Connectivity</strong>, <strong>Extreme Anti-Theft Security</strong>, and <strong>100% Offline Privacy</strong>.</p>
+<h2>🎯 Compatibility</h2>
+<p>NF Watch is compatible with any smartwatch that traditionally connects via the <strong>Da Fit</strong> app or its localized variants. By using the raw Moyoung protocol, it provides a faster, more reliable, and private alternative to standard companion apps.</p>
+<h2>🚀 Key Features</h2>
+<h3>📡 Zero-Touch Background Connectivity</h3>
+<ul>
+<li><strong>Gatt Auto-Connect</strong>: Uses specialized Bluetooth hardware hooks to reconnect instantly when you walk into range, without waking the phone&#39;s CPU.</li>
+<li><strong>Smart Reconnection</strong>: Unlike standard apps, NF Watch handles Bluetooth toggles gracefully. It intercepts system &quot;Bluetooth ON&quot; signals to force a fresh connection burst, restoring your link in seconds without needing to open the app.</li>
+<li><strong>The Hour Waker</strong>: A WorkManager safety net that runs every hour to guarantee background sync even if the system kills the app.</li>
+</ul>
+<h3>🚨 Aggressive Anti-Theft &quot;Find My Phone&quot; (SOS Mode)</h3>
+<ul>
+<li><strong>SOS Piercing Mode</strong>: Synthesizes a <strong>3.2kHz high-frequency sine wave</strong> (safe for speakers) that is audible from extreme distances.</li>
+<li><strong>Volume Guardian</strong>: Automatically resets volume to <strong>100% Every 3 Seconds</strong> during an alert. It’s impossible to silence.</li>
+<li><strong>Synced SOS Pattern</strong>: The flashlight, vibration, and sound pulse in a synchronized rhythmic SOS pattern (<code>... --- ...</code>).</li>
+<li><strong>Watch-Only Termination</strong>: The alert can <strong>ONLY</strong> be stopped from the watch; the phone becomes a dedicated emergency beacon.</li>
+</ul>
+<h3>🏥 Health &amp; Privacy</h3>
+<ul>
+<li><strong>Health Connect Integration</strong>: Two-way synchronization with Android&#39;s native health storage.</li>
+<li><strong>Real-time Vitals</strong>: Live tracking for Steps, Calories, Heart Rate, SpO2, and Blood Pressure.</li>
+<li><strong>100% Offline</strong>: All data stays on your device. No cloud accounts, no data selling, no tracking.</li>
+<li><strong>Premium Glassmorphism UI</strong>: A dark-themed, immersive interface with buttery smooth micro-animations.</li>
+</ul>
+<h2>🛠️ Technical Stack</h2>
+<ul>
+<li><strong>Language</strong>: 100% Kotlin</li>
+<li><strong>UI Framework</strong>: Jetpack Compose (Material 3)</li>
+<li><strong>Local Storage</strong>: Room DB &amp; DataStore Preferences</li>
+<li><strong>Protocol</strong>: Native implementation of the Moyoung (Da Fit) BLE Protocol.</li>
+<li><strong>Optimization</strong>: R8 enabled with custom ProGuard rules for minimal binary size and code protection.</li>
+</ul>
+<h2>🏗️ Build Instructions</h2>
+<ol>
+<li>Ensure you have the latest <strong>Android SDK</strong> (API 35).</li>
+<li>Add your signing keys to <code>local.properties</code>.</li>
+<li>Run <code>.\gradlew installrelease</code> to build the optimized production APK.</li>
+</ol>
+<hr>
+<p><em>Developed for power users who value security, speed, and privacy.</em></p>
 
-NF Watch is a state-of-the-art, open-source Android companion application designed specifically for devices using the **Moyoung (Da Fit) protocol**. This includes popular brands like **GoBoult**, **Drift**, **Colmi**, **Fire-Boltt**, and many other Da Fit-skinned wearables.
-
-It prioritizes **Zero-Touch Connectivity**, **Extreme Anti-Theft Security**, and **100% Offline Privacy**.
-
-## 🎯 Compatibility
-NF Watch is compatible with any smartwatch that traditionally connects via the **Da Fit** app or its localized variants. By using the raw Moyoung protocol, it provides a faster, more reliable, and private alternative to standard companion apps.
-
-## 🚀 Key Features
-
-### 📡 Zero-Touch Background Connectivity
-*   **Gatt Auto-Connect**: Uses specialized Bluetooth hardware hooks to reconnect instantly when you walk into range, without waking the phone's CPU.
-*   **Smart Reconnection**: Unlike standard apps, NF Watch handles Bluetooth toggles gracefully. It intercepts system "Bluetooth ON" signals to force a fresh connection burst, restoring your link in seconds without needing to open the app.
-*   **The Hour Waker**: A WorkManager safety net that runs every hour to guarantee background sync even if the system kills the app.
-
-### 🚨 Aggressive Anti-Theft "Find My Phone" (SOS Mode)
-*   **SOS Piercing Mode**: Synthesizes a **3.2kHz high-frequency sine wave** (safe for speakers) that is audible from extreme distances.
-*   **Volume Guardian**: Automatically resets volume to **100% Every 3 Seconds** during an alert. It’s impossible to silence.
-*   **Synced SOS Pattern**: The flashlight, vibration, and sound pulse in a synchronized rhythmic SOS pattern (`... --- ...`).
-*   **Watch-Only Termination**: The alert can **ONLY** be stopped from the watch; the phone becomes a dedicated emergency beacon.
-
-### 🏥 Health & Privacy
-*   **Health Connect Integration**: Two-way synchronization with Android's native health storage.
-*   **Real-time Vitals**: Live tracking for Steps, Calories, Heart Rate, SpO2, and Blood Pressure.
-*   **100% Offline**: All data stays on your device. No cloud accounts, no data selling, no tracking.
-*   **Premium Glassmorphism UI**: A dark-themed, immersive interface with buttery smooth micro-animations.
-
-## 🛠️ Technical Stack
-*   **Language**: 100% Kotlin
-*   **UI Framework**: Jetpack Compose (Material 3)
-*   **Local Storage**: Room DB & DataStore Preferences
-*   **Protocol**: Native implementation of the Moyoung (Da Fit) BLE Protocol.
-*   **Optimization**: R8 enabled with custom ProGuard rules for minimal binary size and code protection.
-
-## 🏗️ Build Instructions
-1.  Ensure you have the latest **Android SDK** (API 35).
-2.  Add your signing keys to `local.properties`.
-3.  Run `.\gradlew installrelease` to build the optimized production APK.
-
----
-*Developed for power users who value security, speed, and privacy.*
-
-        </div>
+</div>
         <h2 class="text-2xl font-bold mb-4 text-white">Features</h2>
         <ul class="list-disc list-inside text-gray-300 mb-8">
             <li class="mb-2">See GitHub repository for full details and features.</li>

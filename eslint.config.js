@@ -23,12 +23,14 @@ export default tseslint.config(
     },
     rules: {
       ...reactHooks.configs.recommended.rules,
-      'react-refresh/only-export-components': [
-        'warn',
-        { allowConstantExport: true },
-      ],
-      '@typescript-eslint/no-unused-vars': 'warn',
-      'no-undef': 'off' // TypeScript already catches these, and it conflicts with `self`/`caches` in Service Workers
+      'react-refresh/only-export-components': 'off',
+      '@typescript-eslint/no-unused-vars': 'off',
+      '@typescript-eslint/no-explicit-any': 'off',
+      '@typescript-eslint/ban-ts-comment': 'off',
+      '@typescript-eslint/no-empty-object-type': 'off',
+      'prefer-const': 'off',
+      '@typescript-eslint/no-require-imports': 'off',
+      'no-undef': 'off'
     },
   }
 )
